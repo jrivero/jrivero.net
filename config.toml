@@ -6,7 +6,7 @@ theme = "coder"
 languagecode = "es"
 
 paginate = 30
-canonifyurls = true
+canonifyurls = false
 
 pygmentsstyle = "b2"
 pygmentscodefences = true
