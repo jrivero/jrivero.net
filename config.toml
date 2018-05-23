@@ -12,7 +12,7 @@ pygmentsstyle = "b2"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
-disqusShortname = "jrivero"
+disqusShortname = ""
 
 [params]
     author = "Jordi Rivero"
