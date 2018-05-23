@@ -16,34 +16,31 @@ disqusShortname = ""
 
 [params]
     author = "Jordi Rivero"
+    info = "Director Técnico, Desarrollador, Fotógrafo desde Barcelona"
+
     description = "Director Técnico, Desarrollador, Fotógrafo desde Barcelona"
     keywords = "blog,developer,personal,cto,barcelona"
-    info = "Director Técnico, Desarrollador, Fotógrafo desde Barcelona"
 
     hideCredits = true
     hideCopyright = true
 
     # Custom CSS
-	custom_css = []
+  	custom_css = []
 
 [[params.social]]
-    name = "Github"
-    weight = 1
-    url = "https://github.com/jrivero/"
-[[params.social]]
     name = "Twitter"
-    weight = 2
+    weight = 1
     url = "https://twitter.com/jrivero/"
 [[params.social]]
     name = "LinkedIn"
-    weight = 3
+    weight = 2
     url = "https://www.linkedin.com/in/jordirivero/"
+[[params.social]]
+    name = "Github"
+    weight = 3
+    url = "https://github.com/jrivero/"
 
-[[menu.main]]
-    name = "Blog"
-    weight = 1
-    url  = "/posts/"
 [[menu.main]]
     name = "Conóceme"
     weight = 2
-    url = "/acerca-de/"
+    url = "/jordi-rivero/"
