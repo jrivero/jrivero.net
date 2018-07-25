@@ -1,5 +1,5 @@
-baseurl = "http://battlelands-royale.com/"
-title = "Battlelands Royale"
+baseurl = "https://jrivero.net"
+title = "Jordi Rivero"
 
 theme = "coder"
 
@@ -15,11 +15,11 @@ pygmentscodefencesguesssyntax = true
 disqusShortname = ""
 
 [params]
-    author = "Battlelands Royale"
-    info = "Battle Royale. On Mobile. Done Right."
+    author = "Jordi Rivero"
+    info = "Director Técnico, Desarrollador, Fotógrafo desde Barcelona"
 
-    description = "Battlelands Royale. Battle Royale. On Mobile. Done Right. Battlelands Royale has landed. Download free on iOS and Android below. #LootShootSurvive"
-    keywords = "battlelands,royale,fortnite,juego"
+    description = "Director Técnico, Desarrollador, Fotógrafo desde Barcelona"
+    keywords = "blog,developer,personal,cto,barcelona"
 
     hideCredits = true
     hideCopyright = true
@@ -28,11 +28,19 @@ disqusShortname = ""
   	custom_css = []
 
 [[params.social]]
-    name = "Instagram"
+    name = "Twitter"
     weight = 1
-    url = "https://www.instagram.com/battlelandsroyale/"
+    url = "https://twitter.com/jrivero/"
+[[params.social]]
+    name = "LinkedIn"
+    weight = 2
+    url = "https://www.linkedin.com/in/jordirivero/"
+[[params.social]]
+    name = "Github"
+    weight = 3
+    url = "https://github.com/jrivero/"
 
 [[menu.main]]
-    name = "Descargar"
+    name = "Conóceme"
     weight = 2
-    url = "/descargar/"
+    url = "/jordi-rivero/"
