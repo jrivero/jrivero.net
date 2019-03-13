@@ -11,7 +11,6 @@ categories = [
     "Development",
     "golang",
 ]
-series = ["Getting Started"]
 +++
 
 ## Step 1. Install Hugo
