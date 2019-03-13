@@ -5,16 +5,16 @@ slug: "contactar"
 ---
 
 <form name="contact" method="POST" data-netlify="true">
-  <p>
+  <div>
     <label>Your Name: <input type="text" name="name" /></label>
-  </p>
-  <p>
+  </div>
+  <div>
     <label>Your Email: <input type="email" name="email" /></label>
-  </p>
-  <p>
+  </div>
+  <div>
     <label>Message: <textarea name="message"></textarea></label>
-  </p>
-  <p>
+  </div>
+  <div>
     <button type="submit">Send</button>
-  </p>
+  </div>
 </form>
