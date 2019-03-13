@@ -1,8 +1,11 @@
 +++ 
 draft = true
-date = "2018-01-01T00:00:00-00:00"
+date = {{ .Date }}
 title = ""
+description = ""
 slug = "" 
 tags = []
 categories = []
+externalLink = ""
+series = []
 +++
