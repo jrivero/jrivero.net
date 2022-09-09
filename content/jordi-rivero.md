@@ -20,4 +20,4 @@ Actualmente estoy ocupando el puesto de director técnico para la empresa [Leadt
 
 ### Aficiones
 
-En mi tiempo libre me gusta mucho practicar fotografía. Actualmente estoy utilizando una *Nikon D7200* y una *Olympus OM-D E-M10 Mark II*. También me gusta mucho practicar *calistenia*.
+En mi tiempo libre me gusta mucho practicar fotografía. Actualmente estoy utilizando una *Nikon D7200* y una *Olympus OM-D E-M10 Mark II*. También me gusta mucho practicar *calistenia*, también me gusta jugar al *ajedrez*.
