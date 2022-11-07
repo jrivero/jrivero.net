@@ -1,3 +1,4 @@
 # Redirects from what the browser requests to what we serve
 /home           /
 /jordi-rivero   /
+/placeholder-about.jpg  /jordi-rivero.webp
