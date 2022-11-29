@@ -10,6 +10,7 @@ export interface Props {
 		pubDate?: string;
 		updatedDate?: string;
 		heroImage?: string;
+		playing?: string;
 	};
 }
 
@@ -36,7 +37,7 @@ const {
 	<body>
 		<Header />
 		<main>
-						{heroImage && (
+				{heroImage && (
 					<img
 						width={720}
 						height={360}
@@ -46,8 +47,7 @@ const {
 				)}	
 			<article>			
 				<h1 class="title">{title}</h1>
-				{pubDate && <time>{pubDate}</time>}
-				<!-- {updatedDate && <div>Last updated on <time>{updatedDate}</time></div>} -->
+				{updatedDate && <time>{updatedDate}</time>}
 				<hr/>
 				<slot />
 			</article>
