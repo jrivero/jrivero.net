@@ -1,8 +1,9 @@
 ---
-layout: "../../layouts/Page.astro"
-title: "Esencia de idea"
-description: "Director Técnico, Desarrollador, Fotógrafo desde Barcelona"
-updatedDate: "10 de Septiembre de 2003"
+title: Esencia de idea
+description: Director Técnico, Desarrollador, Fotógrafo desde Barcelona
+layout: ../../layouts/Page.astro
+updatedDate: 10 de Septiembre de 2003
+publishDate: 12 Dec 2022
 ---
 Soy una idea, permanezco etérea, díafana, esperando tomar forma, ser modelada y convertirme en expresión.
 
