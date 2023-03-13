@@ -23,5 +23,3 @@ El mundo del desarrollo de aplicaciones web empezó para mi siendo mi hobby. En 
 ### Aficiones
 
 Aunque la programación continua siendo una de mis mayores aficiones, actualmente en mi tiempo libre me gusta mucho practicar fotografía, suelo utilizar una *Nikon D7200* o una *Olympus OM-D E-M10 Mark II*, aunque quizás el smartphone es lo que más utilizo ahora mismo. También practico regularmente *calistenia* para mantenerme en forma y me gusta jugar de vez en cuando al *ajedrez*.
-
-Hola
