@@ -23,7 +23,7 @@ const {
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			.title {
+			h1 {
 				font-size: 2em;
 				margin: 0.25em 0 0;
 			}
@@ -46,7 +46,7 @@ const {
 					/>
 				)}	
 			<article>			
-				<h1 class="title">{title}</h1>
+				<h1>{title}</h1>
 				{updatedDate && <time>{updatedDate}</time>}
 				<hr/>
 				<slot />
