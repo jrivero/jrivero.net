@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/Page.astro"
-title: "Ejercicios en calistenia para entrenar hombro"
+title: "Ejercicios para entrenar hombro en calistenia"
 ---
 Los ejercicios de calistenia pueden ser altamente efectivos para entrenar los hombros. Aquí tienes algunos de los mejores ejercicios para trabajar los deltoides (músculos del hombro) utilizando tu propio peso corporal:
 

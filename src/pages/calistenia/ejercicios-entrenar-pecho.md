@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/Page.astro"
-title: "Ejercicios en calistenia para entrenar pecho"
+title: "Ejercicios para entrenar pecho en calistenia"
 ---
 La calistenia es un enfoque de entrenamiento que utiliza el peso corporal para ejercitar los músculos. Aquí tienes algunos de los mejores ejercicios de calistenia para entrenar el pecho:
 
