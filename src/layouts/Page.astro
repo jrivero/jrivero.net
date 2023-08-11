@@ -4,54 +4,47 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 export interface Props {
-	content: {
-		title: string;
-		description: string;
-		pubDate?: string;
-		updatedDate?: string;
-		heroImage?: string;
-		playing?: string;
-	};
+  content: {
+    title: string;
+    description: string;
+    pubDate?: string;
+    updatedDate?: string;
+    heroImage?: string;
+    playing?: string;
+  };
 }
 
 const {
-	content: { title, description, pubDate, updatedDate, heroImage },
+  content: { title, description, pubDate, updatedDate, heroImage },
 } = Astro.props;
 ---
 
 <html>
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			h1 {
-				font-size: 2em;
-				margin: 0.25em 0 0;
-			}
-			hr {
-  				border-top: 1px solid #DDD;
-				margin: 1rem 0;
-			}
-		</style>
-	</head>
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      h1 {
+        font-size: 2em;
+        margin: 0.25em 0 0;
+      }
+      hr {
+        border-top: 1px solid #ddd;
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
 
-	<body>
-		<Header />
-		<main>
-				{heroImage && (
-					<img
-						width={720}
-						height={360}
-						src={heroImage}
-						alt=""
-					/>
-				)}	
-			<article>			
-				<h1>{title}</h1>
-				{updatedDate && <time>{updatedDate}</time>}
-				<hr/>
-				<slot />
-			</article>
-		</main>
-		<Footer />
-	</body>
+  <body>
+    <Header />
+    <main>
+      {heroImage && <img width={720} height={360} src={heroImage} alt="" />}
+      <article>
+        <h1>{title}</h1>
+        {updatedDate && <time>{updatedDate}</time>}
+        <hr />
+        <slot />
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>
