@@ -8,7 +8,7 @@ heroImage: "/jordi-rivero.webp"
 
 ## Introducción
 
-Me apasiona el mundo de la tecnología desde que era muy joven. A lo largo de mi carrera, he tenido la oportunidad de trabajar en diversos proyectos relacionados con el desarrollo de aplicaciones web, una de mis mayores aficiones. También me gusta la *fotografía*, la *calistenia* y el *ajedrez*, lo cual me permite desconectar y mantenerme en forma.
+Me apasiona el mundo de la tecnología desde que era muy joven. A lo largo de mi carrera, he tenido la oportunidad de trabajar en diversos proyectos relacionados con el desarrollo de aplicaciones web, una de mis mayores aficiones. También me gusta la *fotografía*, la [calistenia](/calistenia) y el *ajedrez*, lo cual me permite desconectar y mantenerme en forma.
 
 ## Experiencia profesional
 
