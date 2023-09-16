@@ -26,7 +26,11 @@ b {
 	color: #222;
 }
 a {
+	color: #22529e;
+}
+a:hover {
 	color: #3273dc;
+	text-decoration: underline;
 }
 nav a {
 	margin-right: 10px;
