@@ -1,13 +1,29 @@
 ---
-import BaseLayout from '../../layouts/Blog.astro';
-const allPosts = await Astro.glob('./*.md');
+import BaseLayout from "../../layouts/Blog.astro";
+const allPosts = await Astro.glob("./*.md");
 const pageTitle = "Calistenia";
 ---
 
 <BaseLayout title={pageTitle}>
-  <p>La calistenia es una forma de entrenamiento que se basa en el uso del peso corporal para ejercitar y fortalecer los músculos. Se pueden entrenar muchas partes del cuerpo utilizando esta técnica.</p>
+  <p>
+    La calistenia es una forma de entrenamiento que se basa en el uso del peso
+    corporal para ejercitar y fortalecer los músculos. Se pueden entrenar muchas
+    partes del cuerpo utilizando esta técnica.
+  </p>
   <ul>
-    {allPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+    {
+      allPosts.map((post) => (
+        <li>
+          <a href={post.url}>{post.frontmatter.title}</a>
+        </li>
+      ))
+    }
   </ul>
-  <p>Recuerda que la calistenia es versátil y puede adaptarse a diferentes niveles de condición física. También es importante trabajar todas las partes del cuerpo de manera equilibrada para evitar desequilibrios musculares y lesiones. Siempre asegúrate de mantener una técnica adecuada y progresar gradualmente en tu rutina de entrenamiento.</p>
+  <p>
+    Recuerda que la calistenia es versátil y puede adaptarse a diferentes
+    niveles de condición física. También es importante trabajar todas las partes
+    del cuerpo de manera equilibrada para evitar desequilibrios musculares y
+    lesiones. Siempre asegúrate de mantener una técnica adecuada y progresar
+    gradualmente en tu rutina de entrenamiento.
+  </p>
 </BaseLayout>
