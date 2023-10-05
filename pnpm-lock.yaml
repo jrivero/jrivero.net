@@ -20,6 +20,9 @@ dependencies:
   astro:
     specifier: ^3.0.12
     version: 3.1.0
+  astro-robots:
+    specifier: ^1.0.2
+    version: 1.0.2
 
 devDependencies:
   typescript:
@@ -1073,6 +1076,10 @@ packages:
   /astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
+    dev: false
+
+  /astro-robots@1.0.2:
+    resolution: {integrity: sha512-zVwBg8hXot4MlV9SzG75iBk13YM8upi97Ceiu2C1CWQjuRGbuqPjYKSi86b4ZHizTUdJohHOfnlOUV8RBifvSg==}
     dev: false
 
   /astro@3.1.0:
