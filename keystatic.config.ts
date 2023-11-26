@@ -1,14 +1,31 @@
 // keystatic.config.ts
-import { config, fields, collection } from "@keystatic/core";
+import { config, fields, singleton, collection } from "@keystatic/core";
 
 const shouldUseCloudStorage = process.env.NODE_ENV === "production";
+console.log(process.env.NODE_ENV);
+console.log(shouldUseCloudStorage);
 
 export default config({
   storage: shouldUseCloudStorage
-    ? { kind: "github", repo: "jrivero/jrivero.net" }
+    ? { kind: "github", repo: { owner: "jrivero", name: "jrivero.net" } }
     : { kind: "local" },
   ui: {
     brand: { name: "Jordi Blog" },
+  },
+  singletons: {
+    landingPage: singleton({
+      label: "Landing Page",
+      path: "src/content/landing-page/",
+      schema: {
+        heroHeadline: fields.text({ label: "Hero headline" }),
+        heroIntroText: fields.text({
+          label: "Hero intro text",
+          multiline: true,
+        }),
+        footerHeadline: fields.text({ label: "Footer headline" }),
+        footerText: fields.text({ label: "Footer text", multiline: true }),
+      },
+    }),
   },
   collections: {
     posts: collection({
@@ -42,6 +59,22 @@ export default config({
       path: "src/content/author/*",
       schema: {
         name: fields.slug({ name: { label: "Name" } }),
+      },
+    }),
+    testimonials: collection({
+      path: "src/content/testimonials/*/",
+      label: "Testimonials",
+      slugField: "author",
+      schema: {
+        author: fields.slug({ name: { label: "Author" } }),
+        testimonial: fields.text({ label: "Testimonial", multiline: true }),
+        featured: fields.checkbox({ label: "Featured testimonial" }),
+        twitterHandle: fields.text({ label: "Twitter handle" }),
+        avatar: fields.image({
+          label: "Avatar",
+          directory: "public/images/testimonials",
+          validation: { isRequired: true },
+        }),
       },
     }),
   },
