@@ -1,12 +1,10 @@
 // keystatic.config.ts
 import { config, fields, singleton, collection } from "@keystatic/core";
 
-const shouldUseCloudStorage = process.env.NODE_ENV === "production";
-console.log(process.env.NODE_ENV);
-console.log(shouldUseCloudStorage);
+const shouldUseGithub = process.env.NODE_ENV === "production";
 
 export default config({
-  storage: shouldUseCloudStorage
+  storage: shouldUseGithub
     ? { kind: "github", repo: { owner: "jrivero", name: "jrivero.net" } }
     : { kind: "local" },
   ui: {
