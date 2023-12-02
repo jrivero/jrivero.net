@@ -1,7 +1,8 @@
 ---
-layout: "@/layouts/BaseLayout.astro"
-title: "Ejercicios para entrenar biceps en calistenia"
+layout: '@/layouts/BaseLayout.astro'
+title: 'Ejercicios para entrenar biceps en calistenia'
 ---
+
 La calistenia puede ser una excelente manera de entrenar los bíceps utilizando tu propio peso corporal. Aquí tienes algunos ejercicios efectivos:
 
 1. **Flexiones (Push-Ups) con agarre cerrado:** Realizar flexiones con las manos cerca, casi tocándose, colocará más énfasis en los bíceps.

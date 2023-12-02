@@ -1,7 +1,8 @@
 ---
-layout: "@/layouts/BaseLayout.astro"
-title: "Ejercicios para entrenar espalda en calistenia"
+layout: '@/layouts/BaseLayout.astro'
+title: 'Ejercicios para entrenar espalda en calistenia'
 ---
+
 Los ejercicios de calistenia pueden ser muy efectivos para entrenar la espalda y desarrollar músculos como el dorsal ancho y los músculos de la parte superior de la espalda. Aquí tienes algunos de los mejores ejercicios:
 
 1. **Dominadas (Pull-Ups):** Uno de los mejores ejercicios para la espalda. Agarra una barra con las palmas mirando hacia afuera y cuelga. Luego, tira del cuerpo hacia arriba hasta que la barbilla esté por encima de la barra. Este ejercicio trabaja principalmente el dorsal ancho.

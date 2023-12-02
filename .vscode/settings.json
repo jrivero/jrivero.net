@@ -1,6 +1,32 @@
 {
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ]
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"[markdown]": {
+		"editor.wordWrap": "on",
+		"editor.codeActionsOnSave": {
+			"source.fixAll.markdownlint": true
+		}
+	},
+	"prettier.documentSelectors": [
+		"**/*.astro"
+	],
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"astro", // Enable .astro
+		"typescript", // Enable .ts
+		"typescriptreact"
+	],
+	"tailwindCSS.experimental.classRegex": [
+		[
+			"cva\\(([^)]*)\\)",
+			"[\"'`]([^\"'`]*).*?[\"'`]"
+		],
+		[
+			"cn\\(([^)]*)\\)",
+			"[\"'`]([^\"'`]*).*?[\"'`]"
+		]
+	]
 }

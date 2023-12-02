@@ -4,12 +4,22 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "types": ["bun-types"]
+    "types": [
+      "bun-types"
+    ]
   },
-  "include": ["./src/env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["dist"]
+  "include": [
+    "./src/env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "dist"
+  ]
 }

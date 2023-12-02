@@ -1,6 +1,7 @@
 ---
-title: "Ejercicios para entrenar piernas en calistenia"
+title: 'Ejercicios para entrenar piernas en calistenia'
 ---
+
 Entrenar las piernas en calistenia puede ser un desafío, ya que muchos ejercicios se centran en la parte superior del cuerpo. Sin embargo, aquí tienes algunos ejercicios de calistenia que puedes incorporar para trabajar las piernas:
 
 1. **Sentadillas pistol (Pistol Squats):** Realiza una sentadilla en una sola pierna, manteniendo la otra pierna extendida en frente de ti. Esto requiere equilibrio y fuerza en las piernas.

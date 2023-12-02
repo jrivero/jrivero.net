@@ -1,7 +1,8 @@
 ---
-layout: "@/layouts/BaseLayout.astro"
-title: "Plan de entrenamiento en calistenia para tres días a la semana"
+layout: '@/layouts/BaseLayout.astro'
+title: 'Plan de entrenamiento en calistenia para tres días a la semana'
 ---
+
 Aquí tienes un ejemplo de un plan de entrenamiento en calistenia para tres días a la semana. Este plan está diseñado para un nivel intermedio, pero puedes ajustar la dificultad según tu nivel actual de condición física. Recuerda calentar antes de cada sesión y estirar al finalizar. También es importante descansar lo suficiente entre sesiones y mantener una buena alimentación.
 
 **Día 1: Enfoque en la Parte Superior del Cuerpo**
