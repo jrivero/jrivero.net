@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Page.astro"
+layout: "@/layouts/BaseLayout.astro"
 title: "Ejercicios para entrenar abdomen en calistenia"
 ---
 Entrenar el abdomen (core) con calistenia es posible utilizando una variedad de ejercicios que desafíen los músculos abdominales y el core. Aquí tienes algunos ejercicios efectivos:

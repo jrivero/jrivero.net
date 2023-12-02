@@ -1,34 +1,41 @@
 {
-  "name": "jrivero",
-  "version": "0.0.1",
-  "private": true,
+  "name": "jrivero_blog",
+  "version": "1.0",
+  "description": "Blog de Jordi Rivero",
+  "author": {
+    "name": "Jordi Rivero"
+  },
   "scripts": {
-    "dev": "astro dev --host 127.0.0.1",
-    "start": "astro dev --host 127.0.0.1",
     "build": "astro build",
+    "dev": "astro dev --host 127.0.0.1",
+    "format": "prettier -w . --cache",
     "preview": "astro preview",
-    "astro": "astro"
+    "start": "astro dev"
   },
   "dependencies": {
-    "@astrojs/compiler": "^0.29.19",
-    "@astrojs/markdoc": "^0.7.2",
-    "@astrojs/mdx": "^0.11.6",
-    "@astrojs/netlify": "^3.0.4",
     "@astrojs/react": "^3.0.6",
-    "@astrojs/sitemap": "^1.4.0",
+    "@astrojs/sitemap": "^3.0.3",
     "@astrojs/tailwind": "^5.0.2",
-    "@fontsource/poppins": "^5.0.8",
-    "@keystatic/astro": "^2.0.0",
-    "@keystatic/core": "^0.2.4",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
-    "astro": "^3.4.3",
-    "astro-robots": "^1.0.2",
-    "markdoc": "^0.1.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "@radix-ui/react-slot": "^1.0.2",
+    "astro": "^3.6.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.33.0",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss": "^3.3.5",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.39",
+    "@types/react-dom": "^18.2.17",
+    "bun-types": "^1.0.14",
+    "prettier": "^3.1.0",
+    "prettier-plugin-astro": "^0.12.2",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "typescript": "^5.3.2"
   }
 }

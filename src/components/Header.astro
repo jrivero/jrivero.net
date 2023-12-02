@@ -1,25 +1,53 @@
 ---
-import HeaderLink from './HeaderLink.astro'
-import { SITE_TITLE } from '../config'
+import { buttonVariants } from '@/components/ui/button'
+import ThemeToggle from '@/components/ThemeToggle.astro'
 ---
 
-<header>
-	<h2>
-		{SITE_TITLE}
-	</h2>
-	<nav>
-		<HeaderLink href="https://twitter.com/jrivero/">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/jrivero/">GitHub</HeaderLink>
-		<HeaderLink href="https://www.linkedin.com/in/jordirivero/">Linkedin</HeaderLink>
-		<HeaderLink href="https://mastodon.social/@jrivero">Mastodon</HeaderLink>
-	</nav>
+<header class="sticky top-0 z-40 w-full border-b bg-background">
+  <div
+    class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0"
+  >
+    <div class="flex gap-6 md:gap-10">
+      <a href="/" class="flex items-center space-x-2">
+        <span class="inline-block font-bold">Inicio</span>
+      </a>
+    </div>
+    <div class="flex flex-1 items-center justify-end space-x-4">
+      <nav class="flex items-center space-x-1">
+        <a
+          href="https://twitter.com/jrivero/"
+          target="_blank"
+          rel="noreferrer"
+          class={buttonVariants({ variant: 'ghost' })}
+        >
+          Twitter
+        </a>
+        <a
+          href="https://github.com/jrivero/"
+          target="_blank"
+          rel="noreferrer"
+          class={buttonVariants({ variant: 'ghost' })}
+        >
+          GitHub
+        </a>
+        <a
+          href="https://www.linkedin.com/in/jordirivero/"
+          target="_blank"
+          rel="noreferrer"
+          class={buttonVariants({ variant: 'ghost' })}
+        >
+          Linkedin
+        </a>
+        <a
+          href="https://mastodon.social/@jrivero"
+          target="_blank"
+          rel="noreferrer"
+          class={buttonVariants({ variant: 'ghost' })}
+        >
+          Mastodon
+        </a>
+        <ThemeToggle />
+      </nav>
+    </div>
+  </div>
 </header>
-<style>
-	header {
-		margin: 0 0 2em;
-	}
-	h2 {
-		margin: 0.5em 0;
-		font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
-	}
-</style>

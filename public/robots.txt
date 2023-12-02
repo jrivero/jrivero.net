@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# crawling rule(s) for above bots
+Sitemap: https://jrivero.net/sitemap-index.xml

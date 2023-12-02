@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Page.astro"
 title: "Ejercicios para entrenar piernas en calistenia"
 ---
 Entrenar las piernas en calistenia puede ser un desafío, ya que muchos ejercicios se centran en la parte superior del cuerpo. Sin embargo, aquí tienes algunos ejercicios de calistenia que puedes incorporar para trabajar las piernas:

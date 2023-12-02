@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Page.astro"
+layout: "@/layouts/BaseLayout.astro"
 title: "Ejercicios para entrenar gluteos en calistenia"
 ---
 Entrenar los glúteos utilizando calistenia puede ser un desafío, ya que muchos ejercicios se centran en los músculos superiores del cuerpo. Sin embargo, aquí tienes algunos ejercicios de calistenia que puedes incorporar para trabajar los glúteos:

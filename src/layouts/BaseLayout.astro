@@ -1,0 +1,32 @@
+---
+import HeadSEO from '@/components/HeadSEO.astro'
+import Footer from '@/components/Footer.astro'
+import Header from '@/components/Header.astro'
+
+interface Props {
+  title?: string | undefined
+  description?: string | undefined
+  ogImage?: URL | undefined
+}
+
+const { title, description, ogImage } = Astro.props
+---
+
+<html lang="es">
+  <head>
+    <HeadSEO title={title} description={description} ogImage={ogImage} />
+  </head>
+  <body class="min-h-screen bg-background font-sans antialiased">
+    <div class="relative flex min-h-screen flex-col">
+      <Header />
+      <main class="flex-auto">
+        <section class="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+          <div class="flex max-w-[980px] flex-col items-start gap-2">
+            <slot />
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

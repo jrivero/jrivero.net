@@ -1,10 +1,13 @@
 ---
-import BaseLayout from "../../layouts/Blog.astro";
+import BaseLayout from '@/layouts/BaseLayout.astro'
 const allPosts = await Astro.glob("./*.md");
 const pageTitle = "Calistenia";
 ---
 
-<BaseLayout title={pageTitle}>
+<BaseLayout
+  title="Calistenia - Jordi Rivero"
+  description="La calistenia es mi ritual para mantenerme en forma"
+>
   <p>
     La calistenia es una forma de entrenamiento que se basa en el uso del peso
     corporal para ejercitar y fortalecer los músculos. Se pueden entrenar muchas

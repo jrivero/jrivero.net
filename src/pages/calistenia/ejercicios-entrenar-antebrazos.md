@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Page.astro"
+layout: "@/layouts/BaseLayout.astro"
 title: "Ejercicios para entrenar antebrazos en calistenia"
 ---
 Entrenar los antebrazos en calistenia puede ser un desafío, ya que muchos ejercicios se centran en los músculos más grandes del cuerpo. Sin embargo, aquí tienes algunos ejercicios de calistenia que pueden ayudarte a fortalecer los antebrazos:
