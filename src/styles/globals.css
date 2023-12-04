@@ -80,12 +80,13 @@
   }
 
   header a:hover {
-    @apply hover:text-sky-600 hover:dark:text-orange-400
+    @apply text-sky-700 dark:text-orange-400
   }
 
   section a {
-    @apply text-sky-600 dark:text-orange-400 hover:underline;
+    @apply text-sky-700 dark:text-orange-400 hover:underline;
   }
+
   section p {
     @apply pb-2;
   }
