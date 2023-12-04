@@ -75,10 +75,26 @@
     @apply bg-background text-foreground;
   }
 
+  header a {
+    @apply text-slate-700 dark:text-gray-300
+  }
+
+  header a:hover {
+    @apply hover:text-sky-600 hover:dark:text-orange-400
+  }
+
   section a {
     @apply text-sky-600 dark:text-orange-400 hover:underline;
   }
   section p {
     @apply pb-2;
+  }
+
+  section ul {
+    @apply list-disc list-inside;
+  }
+
+  section ul li {
+    @apply mb-2;
   }
 }
