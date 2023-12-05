@@ -3,18 +3,16 @@ import { buttonVariants } from '@/components/ui/button'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 ---
 
-<header class="sticky top-0 z-40 w-full border-b bg-background">
-  <div class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-    <div class="flex gap-2 md:gap-6">
-      <a href="/" class="flex items-center space-x-2">
-        <span class="inline-block font-bold">Jordi Rivero</span>
-      </a>
-    </div>
-    <nav class="flex items-center space-x-1">
-      <a href="https://twitter.com/jrivero/" target="_blank" rel="me" class={buttonVariants({ variant: 'ghost' })}>Twitter</a>
-      <a href="https://github.com/jrivero/" target="_blank" rel="me" class={buttonVariants({ variant: 'ghost' })}>GitHub</a>
-      <a href="https://www.linkedin.com/in/jordirivero/" target="_blank" rel="me" class={buttonVariants({ variant: 'ghost' })}>Linkedin</a>
-      <a href="https://mastodon.social/@jrivero" target="_blank" rel="me" class={buttonVariants({ variant: 'ghost' })}>Mastodon</a>
+<header class="sticky top-0 z-40 border-b bg-background text-gray-600">
+  <div class="container mx-auto flex flex-col flex-wrap items-center p-2 sm:p-6 md:flex-row">
+    <a class="title-font mb-2 flex items-center font-medium text-gray-900 md:mb-0" href="/">
+      <span class="ml-3 text-xl">Jordi Rivero</span>
+    </a>
+    <nav class="flex flex-wrap items-center justify-center text-base md:ml-auto">
+      <a href="https://twitter.com/jrivero/" target="_blank" rel="me" class="mr-5 hover:underline">Twitter</a>
+      <a href="https://github.com/jrivero/" target="_blank" rel="me" class="mr-5 hover:underline">GitHub</a>
+      <a href="https://www.linkedin.com/in/jordirivero/" target="_blank" rel="me" class="mr-5 hover:underline">Linkedin</a>
+      <a href="https://mastodon.social/@jrivero" target="_blank" rel="me" class="mr-5 hover:underline">Mastodon</a>
     </nav>
   </div>
 </header>

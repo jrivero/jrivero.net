@@ -83,31 +83,31 @@
     @apply text-sky-700 dark:text-orange-400;
   }
 
-  section a {
+  main a {
     @apply text-sky-700 hover:underline dark:text-orange-400;
   }
 
-  section p {
-    @apply pb-2;
+  main p {
+    @apply pb-4;
   }
 
-  section ul {
+  main ul {
     @apply list-inside list-disc;
   }
 
-  section ol {
+  main ol {
     @apply list-inside list-decimal;
   }
 
-  section li {
+  main li {
     @apply mb-2;
   }
 
-  section h1 {
+  main h1 {
     @apply my-2 text-2xl font-semibold;
   }
 
-  section h2 {
+  main h2 {
     @apply my-2 text-xl font-semibold;
   }
 }
