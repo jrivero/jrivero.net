@@ -3,6 +3,8 @@ layout: '@/layouts/BaseLayout.astro'
 title: 'Ejercicios para entrenar tríceps en calistenia'
 ---
 
+# Ejercicios para entrenar tríceps
+
 La calistenia ofrece una variedad de ejercicios para entrenar los tríceps. Aquí tienes algunos ejercicios efectivos:
 
 1. **Flexiones (Push-Ups) con agarre cerrado:** Realiza flexiones con las manos colocadas cerca, casi tocándose. Esto enfocará más el trabajo en los tríceps.

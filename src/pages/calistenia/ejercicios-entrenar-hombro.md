@@ -3,6 +3,8 @@ layout: '@/layouts/BaseLayout.astro'
 title: 'Ejercicios para entrenar hombro en calistenia'
 ---
 
+# Ejercicios para entrenar hombro
+
 Los ejercicios de calistenia pueden ser altamente efectivos para entrenar los hombros. Aquí tienes algunos de los mejores ejercicios para trabajar los deltoides (músculos del hombro) utilizando tu propio peso corporal:
 
 1. **Flexiones en Pino (Handstand Push-Ups):** Este ejercicio es muy efectivo para desarrollar los deltoides. Realiza una flexión en posición de pino, con las manos en el suelo y los pies apoyados en una pared. Baja la cabeza hacia el suelo doblando los codos y luego empuja hacia arriba.

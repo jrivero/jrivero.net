@@ -3,6 +3,8 @@ layout: '@/layouts/BaseLayout.astro'
 title: 'Ejercicios para entrenar pecho en calistenia'
 ---
 
+# Ejercicios para entrenar pecho
+
 La calistenia es un enfoque de entrenamiento que utiliza el peso corporal para ejercitar los músculos. Aquí tienes algunos de los mejores ejercicios de calistenia para entrenar el pecho:
 
 1. **Flexiones (Push-Ups):** Las flexiones son un ejercicio básico pero efectivo para trabajar el pecho. Colócate en posición de plancha con las manos a la altura de los hombros y los pies juntos o ligeramente separados. Baja el cuerpo doblando los codos y luego empuja hacia arriba para volver a la posición inicial.

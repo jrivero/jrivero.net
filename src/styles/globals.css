@@ -76,15 +76,15 @@
   }
 
   header a {
-    @apply text-slate-700 dark:text-gray-300
+    @apply text-slate-700 dark:text-gray-300;
   }
 
   header a:hover {
-    @apply text-sky-700 dark:text-orange-400
+    @apply text-sky-700 dark:text-orange-400;
   }
 
   section a {
-    @apply text-sky-700 dark:text-orange-400 hover:underline;
+    @apply text-sky-700 hover:underline dark:text-orange-400;
   }
 
   section p {
@@ -92,10 +92,22 @@
   }
 
   section ul {
-    @apply list-disc list-inside;
+    @apply list-inside list-disc;
   }
 
-  section ul li {
+  section ol {
+    @apply list-inside list-decimal;
+  }
+
+  section li {
     @apply mb-2;
+  }
+
+  section h1 {
+    @apply my-2 text-2xl font-semibold;
+  }
+
+  section h2 {
+    @apply my-2 text-xl font-semibold;
   }
 }
