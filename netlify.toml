@@ -2,7 +2,8 @@
   command = "bun run build"
   publish = "dist"
 
-[headers]
+[[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self' eu.umami.is;"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
