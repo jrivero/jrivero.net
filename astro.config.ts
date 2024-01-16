@@ -6,6 +6,6 @@ import sitemap from '@astrojs/sitemap'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jrivero.net',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   integrations: [react(), tailwind({ applyBaseStyles: false }), sitemap()],
 })
