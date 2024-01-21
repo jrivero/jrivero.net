@@ -3,11 +3,13 @@ layout: '@/layouts/BaseLayout.astro'
 title: 'Plan de entrenamiento en calistenia para tres días a la semana'
 ---
 
-# Plan de entrenamiento en calistenia para tres días a la semana
+# Calistenia
+
+## Plan de entrenamiento en calistenia para tres días a la semana
 
 Aquí tienes un ejemplo de un plan de entrenamiento en calistenia para tres días a la semana. Este plan está diseñado para un nivel intermedio, pero puedes ajustar la dificultad según tu nivel actual de condición física. Recuerda calentar antes de cada sesión y estirar al finalizar. También es importante descansar lo suficiente entre sesiones y mantener una buena alimentación.
 
-## Día 1: Enfoque en la Parte Superior del Cuerpo
+### Día 1: Enfoque en la Parte Superior del Cuerpo
 
 1. Flexiones (Push-Ups) - 3 series de 8-10 repeticiones
 2. Dominadas (Pull-Ups) - 3 series de 6-8 repeticiones
@@ -16,7 +18,7 @@ Aquí tienes un ejemplo de un plan de entrenamiento en calistenia para tres día
 5. Plancha (Plank) - Mantén durante 30-45 segundos
 6. Descanso entre series: 1-2 minutos
 
-## Día 2: Enfoque en Piernas y Core
+### Día 2: Enfoque en Piernas y Core
 
 1. Sentadillas Pistola (Pistol Squats) - 3 series de 6-8 repeticiones por pierna
 2. Elevaciones de Cadera (Hip Raises) - 3 series de 12-15 repeticiones
@@ -24,7 +26,7 @@ Aquí tienes un ejemplo de un plan de entrenamiento en calistenia para tres día
 4. Plancha Lateral (Side Plank) - Mantén durante 30-45 segundos por lado
 5. Descanso entre series: 1-2 minutos
 
-## Día 3: Enfoque en Parte Superior del Cuerpo y Flexibilidad
+### Día 3: Enfoque en Parte Superior del Cuerpo y Flexibilidad
 
 1. Flexiones en Pino (Handstand Push-Ups) - 3 series de 5-8 repeticiones (puedes usar asistencia si es necesario)
 2. Dominadas Neutrales (Neutral Grip Pull-Ups) - 3 series de 6-8 repeticiones

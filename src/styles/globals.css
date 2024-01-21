@@ -46,4 +46,8 @@
   main h2 {
     @apply my-2 text-xl font-semibold;
   }
+
+  main h3 {
+    @apply my-1 text-lg font-semibold;
+  }
 }

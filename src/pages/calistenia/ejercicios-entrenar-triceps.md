@@ -3,7 +3,9 @@ layout: '@/layouts/BaseLayout.astro'
 title: 'Ejercicios para entrenar tríceps en calistenia'
 ---
 
-# Ejercicios para entrenar tríceps
+# Calistenia
+
+## Ejercicios para entrenar tríceps
 
 La calistenia ofrece una variedad de ejercicios para entrenar los tríceps. Aquí tienes algunos ejercicios efectivos:
 
