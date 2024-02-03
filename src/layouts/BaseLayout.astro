@@ -12,6 +12,8 @@ interface Props {
   ogImage?: URL | undefined
 }
 
+
+const showBreadcumbs = Astro.url.pathname !== '/'
 const { title, description, ogImage } = Astro.props
 ---
 
@@ -22,7 +24,7 @@ const { title, description, ogImage } = Astro.props
   <body class="font-sans antialiased">
     <Header />
     <main class="container grid max-w-[960px] items-center gap-4 py-6">
-      <Breadcrumbs indexText="Inicio" className="text-red-500" />
+      {showBreadcumbs && <Breadcrumbs indexText="Inicio" />}
       <slot />
     </main>
     <Footer />
