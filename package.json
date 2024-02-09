@@ -5,7 +5,7 @@
   "author": {
     "name": "Jordi Rivero"
   },
-  "packageManager": "bun@1.0.22",
+  "packageManager": "bun@1.0.26",
   "scripts": {
     "build": "astro build",
     "dev": "astro dev --host 127.0.0.1",
