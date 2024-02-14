@@ -1,9 +1,11 @@
 ---
-layout: '@/layouts/BaseLayout.astro'
+layout: '@/layouts/BaseLayoutMD.astro'
 title: 'Ejercicios para entrenar espalda en calistenia'
+description: 'Los ejercicios de calistenia pueden ser muy efectivos para entrenar la espalda y desarrollar músculos como el dorsal ancho y los músculos de la parte superior de la espalda.'
+author: Jordi Rivero
 ---
 
-# Calistenia
+# [Calistenia](/calistenia/)
 
 ## Ejercicios para entrenar espalda
 

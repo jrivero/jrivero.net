@@ -1,9 +1,11 @@
 ---
-layout: '@/layouts/BaseLayout.astro'
+layout: '@/layouts/BaseLayoutMD.astro'
 title: 'Ejercicios para entrenar tríceps en calistenia'
+description: 'La calistenia ofrece una variedad de ejercicios para entrenar los tríceps. Aquí tienes algunos ejercicios efectivos'
+author: 'Jordi Rivero'
 ---
 
-# Calistenia
+# [Calistenia](/calistenia/)
 
 ## Ejercicios para entrenar tríceps
 

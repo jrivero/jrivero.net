@@ -1,9 +1,11 @@
 ---
-layout: '@/layouts/BaseLayout.astro'
+layout: '@/layouts/BaseLayoutMD.astro'
 title: 'Ejercicios para entrenar abdomen en calistenia'
+description: 'Entrenar el abdomen (core) con calistenia es posible utilizando una variedad de ejercicios que desafíen los músculos abdominales y el core'
+author: Jordi Rivero
 ---
 
-# Calistenia
+# [Calistenia](/calistenia/)
 
 ## Ejercicios para entrenar abdomen
 

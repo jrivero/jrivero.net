@@ -1,9 +1,14 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { buttonVariants } from '@/components/ui/button'
+
+const frontmatter = {
+  title: 'Jordi Rivero',
+  description: 'Director Técnico, Desarrollador, Fotógrafo desde Barcelona',
+}
 ---
 
-<BaseLayout title="Jordi Rivero" description="Director Técnico, Desarrollador, Fotógrafo desde Barcelona">
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
   <div class="mx-auto h-48 items-center">
     <img width="200" height="200" class="w-48 rounded-full" src="/jordi-rivero.webp" alt="Jordi Rivero Avatar" />
   </div>

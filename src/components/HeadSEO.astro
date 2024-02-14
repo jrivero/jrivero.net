@@ -5,44 +5,56 @@ import '@/styles/fonts.css'
 interface Props {
   title?: string | undefined
   description?: string | undefined
+  author?: string | undefined
   ogImage?: URL | undefined
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+// const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const canonicalURL = new URL(Astro.request.url, Astro.site)
+
+function formatCanonicalURL(url: string | URL) {
+  const path = url.toString()
+  const hasQueryParams = path.includes('?')
+  // If there are query params, make sure the URL has no trailing slash
+  if (hasQueryParams) {
+    path.replace(/\/?$/, '')
+  }
+  // otherwise, canonical URL always has a trailing slash
+  return path.replace(/\/?$/, hasQueryParams ? '' : '/')
+}
 
 if (Astro.props.ogImage === undefined) {
   Astro.props.ogImage = new URL('og-image.png', canonicalURL)
 }
 
-const { title, description, ogImage } = Astro.props
+const { title, description, author, ogImage } = Astro.props
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="canonical" href={canonicalURL} />
+<link rel="canonical" href={formatCanonicalURL(canonicalURL)} />
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="author" content={author} />
 
 <meta property="og:type" content="website" />
-<meta property="og:url" content={canonicalURL} />
+<meta property="og:url" content={formatCanonicalURL(canonicalURL)} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
 
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:url" content={formatCanonicalURL(canonicalURL)} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
 
 <link rel="shortcut icon" type="image/svg+xml" href={`${Astro.site}favicon.svg`} />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
-
-
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+<meta name="msapplication-TileColor" content="#da532c" />
+<meta name="theme-color" content="#ffffff" />

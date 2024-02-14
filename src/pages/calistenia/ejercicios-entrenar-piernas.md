@@ -1,9 +1,11 @@
 ---
-layout: '@/layouts/BaseLayout.astro'
+layout: '@/layouts/BaseLayoutMD.astro'
 title: 'Ejercicios para entrenar piernas en calistenia'
+description: 'Entrenar las piernas en calistenia puede ser un desafío, ya que muchos ejercicios se centran en la parte superior del cuerpo.'
+author: 'Jordi Rivero'
 ---
 
-# Calistenia
+# [Calistenia](/calistenia/)
 
 ## Ejercicios para entrenar piernas
 

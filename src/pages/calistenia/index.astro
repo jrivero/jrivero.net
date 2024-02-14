@@ -1,10 +1,14 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 const allPosts = await Astro.glob('./*.md')
-const pageTitle = 'Calistenia'
+
+const frontmatter = {
+  title: 'Calistenia - Jordi Rivero',
+  description: 'La calistenia es mi ritual para mantenerme en forma',
+}
 ---
 
-<BaseLayout title="Calistenia - Jordi Rivero" description="La calistenia es mi ritual para mantenerme en forma">
+<BaseLayout title={frontmatter.title} description={frontmatter.description} author="Jordi Rivero">
   <h1>Calistenia</h1>
   <p>
     La calistenia es una forma de entrenamiento que hace uso del peso corporal para ejercitar y fortalecer los músculos. Se pueden entrenar muchas

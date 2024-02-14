@@ -1,9 +1,11 @@
 ---
-layout: '@/layouts/BaseLayout.astro'
+layout: '@/layouts/BaseLayoutMD.astro'
 title: 'Ejercicios para entrenar hombro en calistenia'
+description: 'Los ejercicios de calistenia pueden ser altamente efectivos para entrenar los hombros.'
+author: 'Jordi Rivero'
 ---
 
-# Calistenia
+# [Calistenia](/calistenia/)
 
 ## Ejercicios para entrenar hombro
 
