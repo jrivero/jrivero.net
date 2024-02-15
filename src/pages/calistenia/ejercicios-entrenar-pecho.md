@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/BaseLayoutMD.astro'
+layout: '@/layouts/BaseLayoutMarkdown.astro'
 title: 'Ejercicios para entrenar pecho en calistenia'
 description: 'La calistenia es un enfoque de entrenamiento que utiliza el peso corporal para ejercitar los músculos.'
 author: 'Jordi Rivero'

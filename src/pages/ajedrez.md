@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/BaseLayoutMD.astro'
+layout: '@/layouts/BaseLayoutMarkdown.astro'
 title: 'Ajedrez'
 description: 'El ajedrez es un juego de mesa para dos jugadores que se disputa sobre un tablero dividido en 64 casillas blancas y negras. Cada jugador controla 16 piezas: un rey, una dama, dos torres, dos alfiles, dos caballos y ocho peones. El objetivo del juego es dar jaque mate al rey del oponente, lo que significa que el rey está en una posición amenazada por una pieza rival y no tiene escapatoria.'
 author: 'Jordi Rivero'

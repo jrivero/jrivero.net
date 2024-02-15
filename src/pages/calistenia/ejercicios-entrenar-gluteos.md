@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/BaseLayoutMD.astro'
+layout: '@/layouts/BaseLayoutMarkdown.astro'
 title: 'Ejercicios para entrenar gluteos en calistenia'
 description: 'Entrenar los glúteos utilizando calistenia puede ser un desafío, ya que muchos ejercicios se centran en los músculos superiores del cuerpo.'
 author: 'Jordi Rivero'
