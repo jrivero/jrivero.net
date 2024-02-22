@@ -4,11 +4,11 @@
 
 @layer base {
   body {
-    @apply bg-stone-100 text-stone-700;
+    @apply bg-stone-100 text-stone-900;
   }
 
   header a {
-    @apply text-stone-700 hover:text-sky-700;
+    @apply text-stone-900 hover:text-sky-700;
   }
 
   header nav a {
