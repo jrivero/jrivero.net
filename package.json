@@ -19,6 +19,7 @@
     "@astrojs/react": "^3.0.10",
     "@astrojs/sitemap": "^3.0.3",
     "@astrojs/tailwind": "^5.0.2",
+    "@fontsource-variable/jost": "^5.0.17",
     "@keystatic/astro": "^3.0.2",
     "@keystatic/core": "^0.3.17",
     "@radix-ui/react-slot": "^1.0.2",
