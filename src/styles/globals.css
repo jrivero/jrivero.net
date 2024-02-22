@@ -3,47 +3,43 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-stone-50 text-stone-900;
-  }
+	header a {
+		@apply text-stone-900 hover:text-sky-800;
+	}
 
-  header a {
-    @apply text-stone-900 hover:text-sky-700;
-  }
+	header nav a {
+		@apply ml-5 hover:underline;
+	}
 
-  header nav a {
-    @apply ml-5 hover:underline;
-  }
+	main a {
+		@apply text-sky-800 underline hover:underline;
+	}
 
-  main a {
-    @apply text-sky-700 hover:underline;
-  }
+	main p {
+		@apply pb-2;
+	}
 
-  main p {
-    @apply pb-2;
-  }
+	main ul {
+		@apply list-inside list-disc;
+	}
 
-  main ul {
-    @apply list-inside list-disc;
-  }
+	main ol {
+		@apply list-inside list-decimal;
+	}
 
-  main ol {
-    @apply list-inside list-decimal;
-  }
+	main li {
+		@apply mb-2;
+	}
 
-  main li {
-    @apply mb-2;
-  }
+	main h1 {
+		@apply my-2 text-2xl font-semibold;
+	}
 
-  main h1 {
-    @apply my-2 text-2xl font-semibold;
-  }
+	main h2 {
+		@apply my-2 text-xl font-semibold;
+	}
 
-  main h2 {
-    @apply my-2 text-xl font-semibold;
-  }
-
-  main h3 {
-    @apply my-1 text-lg font-semibold;
-  }
+	main h3 {
+		@apply my-1 text-lg font-semibold;
+	}
 }
