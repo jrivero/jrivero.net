@@ -3,16 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   body {
-    @apply bg-background text-foreground;
+    @apply bg-stone-100 text-stone-700;
   }
 
   header a {
-    @apply text-slate-700 hover:text-sky-700;
+    @apply text-stone-700 hover:text-sky-700;
   }
 
   header nav a {
