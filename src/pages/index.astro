@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { buttonVariants } from '@/components/ui/button';
+import { Image } from 'astro:assets';
 
 const frontmatter = {
 	title: 'Jordi Rivero',
@@ -11,7 +12,7 @@ const frontmatter = {
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description} author={frontmatter.author}>
 	<div class="mx-auto h-48 items-center">
-		<img width="200" height="200" class="rounded-full" src="/jordi-rivero.webp" alt="Jordi Rivero Avatar" />
+		<Image width="200" height="200" class="rounded-full" src="/jordi-rivero.webp" alt="Jordi Rivero Avatar" />
 	</div>
 	<p>
 		A lo largo de mi trayectoria, he tenido el privilegio de sumergirme en emocionantes proyectos relacionados con el
