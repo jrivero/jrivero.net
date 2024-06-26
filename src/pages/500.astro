@@ -1,0 +1,17 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+interface Props {
+	error: unknown;
+}
+
+const { error } = Astro.props;
+---
+
+<BaseLayout title="500" description="Tenemos problemas con el servidor">
+	<div class="mt-8 flex flex-col items-center justify-center">
+		<h1 class="text-5xl font-extrabold">Página con problemas</h1>
+		<p class="mt-4 leading-7">La página que buscas tiene problemas</p>
+		<div>{error instanceof Error ? error.message : "Unknown error"}</div>
+		<a class="my-8" href="/" rel="noreferrer">Volver</a>
+	</div>
+</BaseLayout>
