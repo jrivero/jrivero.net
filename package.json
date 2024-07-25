@@ -12,16 +12,16 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.3.4",
-    "@astrojs/markdoc": "^0.11.1",
+    "@astrojs/markdoc": "^0.11.3",
     "@astrojs/react": "^3.6.0",
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/jost": "^5.0.19",
     "@keystatic/astro": "^5.0.0",
-    "@keystatic/core": "^0.5.23",
+    "@keystatic/core": "^0.5.29",
     "@radix-ui/react-slot": "^1.1.0",
     "astro": "latest",
-    "caniuse-lite": "^1.0.30001637",
+    "caniuse-lite": "^1.0.30001643",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "keystatic": "latest",
@@ -30,16 +30,16 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.33.4",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss": "^3.4.4",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss": "^3.4.7",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.5",
-    "@types/node": "^20.14.9",
+    "@types/bun": "^1.1.6",
+    "@types/node": "^20.14.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "bun-types": "^1.1.17",
-    "typescript": "^5.5.2"
+    "bun-types": "^1.1.20",
+    "typescript": "^5.5.4"
   }
 }

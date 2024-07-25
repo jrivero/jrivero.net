@@ -9,13 +9,13 @@ const isDev = import.meta.env.DEV;
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://jrivero.net",
-	integrations: [
-		tailwind({ applyBaseStyles: false }),
-		react(),
-		markdoc(),
-		sitemap(),
-		...(import.meta.env.PROD ? [] : [keystatic()]),
-	],
-	output: import.meta.env.PROD ? "static" : "hybrid",
+    site: "https://jrivero.net",
+    integrations: [
+        tailwind({ applyBaseStyles: false }),
+        react(),
+        markdoc(),
+        sitemap(),
+        ...(import.meta.env.PROD ? [] : [keystatic()]),
+    ],
+    output: import.meta.env.PROD ? "static" : "hybrid",
 });
