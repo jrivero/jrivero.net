@@ -4,7 +4,7 @@ import { collection, config, fields } from "@keystatic/core";
 export default config({
     storage: {
         kind: "github",
-        repo: "jrivero/jrivero-net",
+        repo: "jrivero/jrivero.net",
     },
     collections: {
         posts: collection({
