@@ -14,8 +14,8 @@ export default defineConfig({
         react(),
         markdoc(),
         sitemap(),
-        ...(import.meta.env.PROD ? [] : [keystatic()]),
+        ...(import.meta.env.VERCEL ? [] : [keystatic()]),
     ],
-    output: import.meta.env.PROD ? "static" : "hybrid",
+    output: import.meta.env.VERCEL ? "static" : "hybrid",
     adapter: vercelServerless(),
 });
