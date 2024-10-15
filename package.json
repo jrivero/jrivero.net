@@ -16,6 +16,7 @@
     "@astrojs/react": "^3.6.2",
     "@astrojs/sitemap": "^3.2.0",
     "@astrojs/tailwind": "^5.1.1",
+    "@astrojs/vercel": "^7.8.1",
     "@fontsource-variable/jost": "^5.1.1",
     "@keystatic/astro": "^5.0.1",
     "@keystatic/core": "^0.5.37",
@@ -32,7 +33,8 @@
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.3",
     "tailwindcss": "^3.4.13",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "vercel": "^37.8.0"
   },
   "devDependencies": {
     "@types/bun": "^1.1.11",
