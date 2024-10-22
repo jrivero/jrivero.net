@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tablas de Multiplicación</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="flex items-center justify-center min-h-screen bg-blue-200">
+        <div class="w-11/12 max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <h1 class="text-xl font-bold text-center text-gray-500">
+                ¡Practica las Tablas de Multiplicación!
+            </h1>
+            <div id="scoreboard" class="mt-4 text-lg text-center text-gray-400">
+                Correctas: <span id="correctCount">0</span> | Vidas: <span
+                    id="livesCount">10</span
+                > | Faltan: <span id="remainingCount">90</span>
+            </div>
+            <div id="question" class="mt-6 text-4xl text-center"></div>
+            <div id="timer" class="mt-4 text-center text-gray-400"></div>
+            <div id="options" class="mt-4 flex justify-center space-x-4"></div>
+            <div id="message" class="mt-4 text-center text-xl"></div>
+        </div>
+        <script
+            src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"
+        ></script>
+        <script>
+            const questions = [];
+            for (let i = 2; i <= 9; i++) {
+                for (let j = 2; j <= 9; j++) {
+                    questions.push({ question: `${i} x ${j}`, answer: i * j });
+                }
+            }
+            let currentQuestion;
+            let correctAnswers = 0;
+            let lives = 10;
+            let timer;
+            const timeLimit = 10;
+
+            function updateScoreboard() {
+                document.getElementById("correctCount").innerText =
+                    correctAnswers;
+                document.getElementById("livesCount").innerText = lives;
+                document.getElementById("remainingCount").innerText =
+                    questions.length;
+            }
+
+            function resetTimer() {
+                clearInterval(timer);
+                let timeLeft = timeLimit;
+                document.getElementById("timer").innerText = `${timeLeft}`;
+                timer = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById("timer").innerText = `${timeLeft}`;
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        document.getElementById("message").innerText =
+                            "Tiempo agotado, respuesta errónea.";
+                        lives--;
+                        highlightAnswers(null);
+                        setTimeout(() => {
+                            getNextQuestion(); // Pasar a la siguiente pregunta después de 3 segundos
+                        }, 3000);
+                    }
+                }, 1000);
+            }
+
+            function generateOptions(correctAnswer) {
+                const wrongAnswer1 = correctAnswer - 1;
+                const wrongAnswer2 = correctAnswer + 2;
+                const options = [correctAnswer, wrongAnswer1, wrongAnswer2];
+                options.sort(() => Math.random() - 0.5);
+                return options;
+            }
+
+            function displayOptions(options) {
+                const optionsContainer = document.getElementById("options");
+                optionsContainer.innerHTML = ""; // Clear previous options
+
+                // Delay for 3 seconds before showing buttons
+                setTimeout(() => {
+                    options.forEach((option) => {
+                        const button = document.createElement("button");
+                        button.innerText = option;
+                        button.className =
+                            "w-1/3 p-4 bg-blue-500 text-white text-lg rounded hover:bg-blue-600";
+                        button.onclick = () => selectAnswer(option);
+                        optionsContainer.appendChild(button);
+                    });
+                }, 3000);
+            }
+
+            function highlightAnswers(selectedAnswer) {
+                const optionsContainer = document.getElementById("options");
+                const buttons = optionsContainer.getElementsByTagName("button");
+                let correctButton;
+
+                for (let button of buttons) {
+                    if (parseInt(button.innerText) === currentQuestion.answer) {
+                        correctButton = button;
+                    }
+                    if (
+                        selectedAnswer &&
+                        parseInt(button.innerText) === selectedAnswer
+                    ) {
+                        button.className =
+                            "w-1/3 p-4 bg-red-500 text-white text-lg rounded"; // Incorrect answer
+                    }
+                }
+                if (correctButton) {
+                    correctButton.className =
+                        "w-1/3 p-4 bg-green-500 text-white text-lg rounded"; // Correct answer
+                }
+            }
+
+            function getNextQuestion() {
+                if (questions.length === 0 || lives < 0) {
+                    document.getElementById("question").innerHTML =
+                        lives > 0
+                            ? "¡Felicidades! Has terminado el juego."
+                            : "¡Game Over! Has perdido todas tus vidas.";
+                    document.getElementById("options").innerHTML = ""; // Clear options
+                    clearInterval(timer);
+                    return;
+                }
+                const randomIndex = Math.floor(
+                    Math.random() * questions.length,
+                );
+                currentQuestion = questions[randomIndex];
+                document.getElementById("question").innerText =
+                    currentQuestion.question;
+                document.getElementById("message").innerText = "";
+                const options = generateOptions(currentQuestion.answer);
+                displayOptions(options);
+                updateScoreboard();
+                resetTimer();
+            }
+
+            function showConfetti() {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                });
+            }
+
+            function selectAnswer(selectedAnswer) {
+                clearInterval(timer);
+                if (selectedAnswer === currentQuestion.answer) {
+                    correctAnswers++;
+                    document.getElementById("message").innerText = "¡Correcto!";
+                    showConfetti();
+                    questions.splice(questions.indexOf(currentQuestion), 1); // Remove question from the array
+                    highlightAnswers(null);
+                } else {
+                    lives--;
+                    document.getElementById("message").innerText =
+                        "Incorrecto, intenta de nuevo.";
+                    highlightAnswers(selectedAnswer);
+                }
+
+                setTimeout(() => {
+                    getNextQuestion(); // Pasar a la siguiente pregunta después de 3 segundos
+                }, 3000);
+            }
+
+            getNextQuestion();
+            updateScoreboard();
+        </script>
+    </body>
+</html>
