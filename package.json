@@ -13,17 +13,17 @@
   "dependencies": {
     "@astrojs/check": "0.9.4",
     "@astrojs/markdoc": "0.11.5",
-    "@astrojs/react": "^3.6.2",
+    "@astrojs/react": "^3.6.3",
     "@astrojs/sitemap": "3.2.1",
     "@astrojs/tailwind": "5.1.2",
     "@astrojs/vercel": "^7.8.2",
     "@fontsource-variable/jost": "^5.1.1",
-    "@keystatic/astro": "^5.0.2",
-    "@keystatic/core": "^0.5.38",
+    "@keystatic/astro": "^5.0.3",
+    "@keystatic/core": "^0.5.42",
     "@radix-ui/react-slot": "^1.1.0",
     "astro": "latest",
-    "caniuse-lite": "^1.0.30001669",
-    "class-variance-authority": "^0.7.0",
+    "caniuse-lite": "^1.0.30001684",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "keystatic": "latest",
     "lucide-react": "^0.294.0",
@@ -31,17 +31,17 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.33.5",
-    "tailwind-merge": "^2.5.4",
-    "tailwindcss": "^3.4.14",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^3.4.15",
     "tailwindcss-animate": "^1.0.7",
-    "vercel": "^37.12.0"
+    "vercel": "^37.14.0"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.11",
-    "@types/node": "^20.16.14",
-    "@types/react": "^18.3.11",
+    "@types/bun": "^1.1.14",
+    "@types/node": "^20.17.9",
+    "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "bun-types": "^1.1.32",
-    "typescript": "^5.6.3"
+    "bun-types": "^1.1.38",
+    "typescript": "^5.7.2"
   }
 }
