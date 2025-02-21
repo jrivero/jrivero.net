@@ -16,6 +16,6 @@ export default defineConfig({
         sitemap(),
         ...(import.meta.env.VERCEL ? [] : [keystatic()]),
     ],
-    output: import.meta.env.VERCEL ? "static" : "hybrid",
+    output: import.meta.env.VERCEL ? "static" : "server",
     adapter: vercelServerless(),
 });
