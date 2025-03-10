@@ -6,6 +6,8 @@ import vercel from "@astrojs/vercel";
 import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
 
+const isProduction = Boolean(import.meta.env.VERCEL);
+
 // https://astro.build/config
 export default defineConfig({
     site: "https://jrivero.net",
@@ -14,8 +16,8 @@ export default defineConfig({
         react(),
         markdoc(),
         sitemap(),
-        ...(import.meta.env.VERCEL ? [] : [keystatic()]),
+        ...(isProduction ? [] : [keystatic()]),
     ],
-    output: import.meta.env.VERCEL ? "static" : "server",
+    output: isProduction ? "static" : "server",
     adapter: vercel(),
 });
