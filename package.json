@@ -12,17 +12,17 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
-    "@astrojs/markdoc": "0.11.5",
-    "@astrojs/react": "^3.6.3",
+    "@astrojs/markdoc": "0.12.10",
+    "@astrojs/react": "4.2.1",
     "@astrojs/sitemap": "3.2.1",
-    "@astrojs/tailwind": "5.1.2",
-    "@astrojs/vercel": "^7.8.2",
-    "@fontsource-variable/jost": "^5.1.2",
-    "@keystatic/astro": "^5.0.5",
-    "@keystatic/core": "^0.5.45",
+    "@astrojs/tailwind": "6.0.0",
+    "@astrojs/vercel": "8.1.1",
+    "@fontsource-variable/jost": "^5.2.5",
+    "@keystatic/astro": "^5.0.6",
+    "@keystatic/core": "^0.5.46",
     "@radix-ui/react-slot": "^1.1.2",
     "astro": "latest",
-    "caniuse-lite": "^1.0.30001700",
+    "caniuse-lite": "^1.0.30001703",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "keystatic": "latest",
@@ -37,11 +37,11 @@
     "vercel": "^37.14.0"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.2",
-    "@types/node": "^20.17.19",
+    "@types/bun": "^1.2.4",
+    "@types/node": "^20.17.24",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "bun-types": "^1.2.2",
-    "typescript": "^5.7.3"
+    "bun-types": "^1.2.4",
+    "typescript": "^5.8.2"
   }
 }
