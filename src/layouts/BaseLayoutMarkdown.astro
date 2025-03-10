@@ -1,5 +1,4 @@
 ---
-import Prose from "../components/Prose.astro";
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 ---
@@ -9,5 +8,5 @@ const { frontmatter } = Astro.props;
   description={frontmatter.description}
   author={frontmatter.author}
 >
-  <Prose><slot /></Prose>
+  <article class="prose max-w-4xl prose-h1:font-bold prose-h1:text-2xl prose-p:text-justify prose-img:rounded-xl"><slot /></article>
 </BaseLayout>

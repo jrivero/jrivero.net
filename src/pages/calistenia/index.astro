@@ -1,15 +1,16 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-const allPosts = await Astro.glob('./*.md');
+import BaseLayout from "@/layouts/BaseLayout.astro";
+const allPosts = await Astro.glob("./*.md");
 
 const frontmatter = {
-	title: 'Calistenia',
-	description: 'La calistenia es mi ritual para mantenerme en forma',
-	author: 'Jordi Rivero',
+    title: "Calistenia",
+    description: "La calistenia es mi ritual para mantenerme en forma",
+    author: "Jordi Rivero",
 };
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description} author={frontmatter.author}>
+	<article class="prose">
 	<h1>Calistenia</h1>
 	<p>
 		La calistenia es una forma de entrenamiento que hace uso del peso corporal para ejercitar y fortalecer los músculos.
@@ -29,4 +30,5 @@ const frontmatter = {
 		importante trabajar todas las partes del cuerpo de manera equilibrada para evitar desequilibrios musculares y
 		lesiones. Siempre asegúrate de mantener una técnica adecuada y progresar gradualmente en tu rutina de entrenamiento.
 	</p>
+	</article>
 </BaseLayout>

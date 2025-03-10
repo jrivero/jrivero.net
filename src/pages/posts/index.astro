@@ -5,7 +5,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 const allPosts = await getCollection("posts");
 ---
 
-<BaseLayout title="foo" description="foo">
+<BaseLayout title="Posts" description="posts...">
+  <article class="prose">
   <ul>
     {
       allPosts.map((post) => (
@@ -15,4 +16,5 @@ const allPosts = await getCollection("posts");
       ))
     }
   </ul>
+  </article>
 </BaseLayout>
