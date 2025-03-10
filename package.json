@@ -21,6 +21,7 @@
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.46",
     "@radix-ui/react-slot": "^1.1.2",
+    "@tailwindcss/vite": "^4.0.12",
     "astro": "latest",
     "caniuse-lite": "^1.0.30001703",
     "class-variance-authority": "^0.7.1",
@@ -32,7 +33,7 @@
     "react-dom": "^18.3.1",
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.0.12",
     "tailwindcss-animate": "^1.0.7",
     "vercel": "^37.14.0"
   },

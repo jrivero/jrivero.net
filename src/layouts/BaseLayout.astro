@@ -1,15 +1,16 @@
 ---
-import HeadSEO from '@/components/HeadSEO.astro';
-import Footer from '@/components/Footer.astro';
-import Header from '@/components/Header.astro';
+import HeadSEO from "@/components/HeadSEO.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import "@/styles/global.css";
 
-import '@fontsource-variable/jost';
+import "@fontsource-variable/jost";
 
 interface Props {
-	title?: string | undefined;
-	description?: string | undefined;
-	author?: string | undefined;
-	ogImage?: URL | undefined;
+    title?: string | undefined;
+    description?: string | undefined;
+    author?: string | undefined;
+    ogImage?: URL | undefined;
 }
 
 const { title, description, author, ogImage } = Astro.props;
@@ -21,7 +22,7 @@ const { title, description, author, ogImage } = Astro.props;
 	</head>
 	<body class="bg-stone-50 font-sans text-stone-950 antialiased">
 		<Header />
-		<main class="container grid max-w-4xl items-center gap-4 py-6">
+		<main class="container grid max-w-4xl mx-auto gap-4 py-6">
 			<slot />
 		</main>
 		<Footer />
