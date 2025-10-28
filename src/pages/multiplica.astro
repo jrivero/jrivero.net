@@ -9,7 +9,6 @@
             rel="stylesheet"
         />
         <style>
-            /* Añadimos una transición suave para la barra de progreso */
             #timer-bar {
                 transition: width 0.1s linear;
             }
@@ -21,8 +20,11 @@
                 ¡Practica las Tablas de Multiplicación!
             </h1>
 
-            <div class="mt-4 flex justify-between items-center text-gray-400">
-                 <div>Correctas: <span id="correctCount">0</span></div>
+            <div class="mt-4 flex justify-between items-center text-gray-500">
+                 <div>
+                    Correctas: <span id="correctCount">0</span>
+                    <span id="avgTime" class="text-gray-400 font-normal ml-2"></span>
+                 </div>
                  <div id="livesContainer" class="flex items-center text-red-500 text-xl"></div>
                  <div>Faltan: <span id="remainingCount">0</span></div>
             </div>
@@ -40,8 +42,8 @@
         <script>
             // --- CONFIGURACIÓN DEL JUEGO ---
             const GAME_CONFIG = {
-                LIVES_INITIAL: 5,
-                TIME_LIMIT_SECONDS: 10,
+                LIVES_INITIAL: 3,
+                TIME_LIMIT_SECONDS: 5,
                 POST_ANSWER_DELAY_MS: 2000,
                 MIN_NUMBER: 2,
                 MAX_NUMBER: 9,
@@ -55,25 +57,26 @@
             const timerBarEl = document.getElementById("timer-bar");
             const optionsEl = document.getElementById("options");
             const messageEl = document.getElementById("message");
+            const avgTimeEl = document.getElementById("avgTime");
 
             // --- ESTADO DEL JUEGO ---
-            const questions = [];
+            let questions = [];
             let currentQuestion;
             let correctAnswers = 0;
             let lives = GAME_CONFIG.LIVES_INITIAL;
             let timer;
+            let questionStartTime;
+            let totalCorrectResponseTime = 0;
             
             // --- GENERACIÓN DE PREGUNTAS ---
             for (let i = GAME_CONFIG.MIN_NUMBER; i <= GAME_CONFIG.MAX_NUMBER; i++) {
                 for (let j = i; j <= GAME_CONFIG.MAX_NUMBER; j++) {
                     let questionText;
-            
                     if (i !== j && Math.random() > 0.5) {
-                        questionText = `${j} x ${i}`; // Orden invertido (ej: 3 x 2)
+                        questionText = `${j} x ${i}`;
                     } else {
-                        questionText = `${i} x ${j}`; // Orden normal (ej: 2 x 3)
+                        questionText = `${i} x ${j}`;
                     }
-                    
                     questions.push({ question: questionText, answer: i * j });
                 }
             }
@@ -83,10 +86,14 @@
                 correctCountEl.innerText = correctAnswers;
                 remainingCountEl.innerText = questions.length;
                 
-                // Dibuja los corazones
                 livesContainerEl.innerHTML = "";
                 for (let i = 0; i < lives; i++) {
                     livesContainerEl.innerHTML += '<span>❤️</span>';
+                }
+
+                if (correctAnswers > 0) {
+                    const averageTimeInSeconds = (totalCorrectResponseTime / correctAnswers / 1000).toFixed(1);
+                    avgTimeEl.innerText = `(~${averageTimeInSeconds}s)`;
                 }
             }
 
@@ -94,10 +101,9 @@
                 clearInterval(timer);
                 let totalTime = GAME_CONFIG.TIME_LIMIT_SECONDS * 1000;
                 let timePassed = 0;
-                const updateInterval = 50; // ms
+                const updateInterval = 50;
 
                 timerBarEl.style.width = '100%';
-
                 timer = setInterval(() => {
                     timePassed += updateInterval;
                     let percentRemaining = Math.max(0, 100 - (timePassed / totalTime) * 100);
@@ -105,8 +111,9 @@
                     
                     if (timePassed >= totalTime) {
                         clearInterval(timer);
-                        messageEl.innerText = "¡Tiempo agotado!";
                         lives--;
+                        messageEl.innerText = "¡Tiempo agotado!";
+                        updateScoreboard();
                         highlightAnswers(null);
                         scheduleNextQuestion();
                     }
@@ -123,8 +130,7 @@
                         options.add(wrongAnswer);
                     }
                 }
-                // return Array.from(options).sort(() => Math.random() - 0.5); // random
-                return Array.from(options).sort((a, b) => a - b); // de menor a mayor
+                return Array.from(options).sort((a, b) => a - b);
             }
             
             function displayOptions(options) {
@@ -142,13 +148,11 @@
                 const buttons = optionsEl.getElementsByTagName("button");
                 for (let button of buttons) {
                     const buttonValue = parseInt(button.innerText);
-                    // Deshabilitar botones para evitar múltiples clics
                     button.disabled = true;
-
                     if (buttonValue === currentQuestion.answer) {
-                        button.className = "w-1/3 p-4 bg-green-500 text-white text-lg rounded"; // Correcta
+                        button.className = "w-1/3 p-4 bg-green-500 text-white text-lg rounded";
                     } else if (buttonValue === selectedAnswer) {
-                        button.className = "w-1/3 p-4 bg-red-500 text-white text-lg rounded"; // Incorrecta seleccionada
+                        button.className = "w-1/3 p-4 bg-red-500 text-white text-lg rounded";
                     }
                 }
             }
@@ -164,7 +168,6 @@
                     messageEl.innerHTML = "";
                     clearInterval(timer);
                     timerBarEl.style.width = '0%';
-                    updateScoreboard(); // Para mostrar 0 corazones si se pierden todas las vidas
                     return;
                 }
 
@@ -175,8 +178,8 @@
                 
                 const options = generateOptions(currentQuestion.answer);
                 displayOptions(options);
-                updateScoreboard();
                 resetTimer();
+                questionStartTime = Date.now();
             }
 
             function showConfetti() {
@@ -185,10 +188,12 @@
 
             function selectAnswer(selectedAnswer) {
                 clearInterval(timer);
+                const responseTime = Date.now() - questionStartTime;
                 highlightAnswers(selectedAnswer);
 
                 if (selectedAnswer === currentQuestion.answer) {
                     correctAnswers++;
+                    totalCorrectResponseTime += responseTime;
                     messageEl.innerText = "¡Correcto!";
                     showConfetti();
                     questions.splice(questions.indexOf(currentQuestion), 1);
@@ -197,10 +202,12 @@
                     messageEl.innerText = "Incorrecto...";
                 }
                 
+                updateScoreboard();
                 scheduleNextQuestion();
             }
 
             // --- INICIAR JUEGO ---
+            updateScoreboard();
             getNextQuestion();
         </script>
     </body>
