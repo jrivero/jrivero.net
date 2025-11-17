@@ -1,32 +1,29 @@
 {
+	// 1. Activa el formato al guardar
 	"editor.formatOnSave": true,
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "explicit"
+
+	// 2. Usa la extensión de Astro (astro-vscode) SOLO para archivos .astro
+	"[astro]": {
+		"editor.defaultFormatter": "astro-build.astro-vscode"
 	},
-	"[markdown]": {
-		"editor.wordWrap": "on",
-		"editor.codeActionsOnSave": {
-			"source.fixAll.markdownlint": "explicit"
-		}
+
+	// 3. Usa Biome como formateador para todo el JavaScript, TypeScript y JSON
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"prettier.documentSelectors": [
-		"**/*.astro"
-	],
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"astro", // Enable .astro
-		"typescript", // Enable .ts
-		"typescriptreact"
-	],
-	"tailwindCSS.experimental.classRegex": [
-		[
-			"cva\\(([^)]*)\\)",
-			"[\"'`]([^\"'`]*).*?[\"'`]"
-		],
-		[
-			"cn\\(([^)]*)\\)",
-			"[\"'`]([^\"'`]*).*?[\"'`]"
-		]
-	]
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }
