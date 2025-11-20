@@ -6,7 +6,7 @@ import { Image } from "astro:assets";
 
 const pageTitle = "Jordi Rivero - CTO & Inversor";
 const metaDescription =
-    "CTO en Leadtech, Inversor y Tech Explorer. Liderando decisiones técnicas, SEO y estrategias de capital.";
+    "CTO en LeadTech Group. Inversor y Estratega Técnico con background en sistemas de alto rendimiento, Telco y Social Media.";
 
 const profileImage = "/jordi-rivero.webp";
 ---
@@ -29,7 +29,7 @@ const profileImage = "/jordi-rivero.webp";
                     <Image
                         width="128"
                         height="128"
-                        class="w-32 h-32 rounded-full border-2 border-stone-800 shadow-2xl object-cover mx-auto"
+                        class="w-36 h-36 rounded-full border-2 border-stone-800 shadow-2xl object-cover mx-auto"
                         src={profileImage}
                         alt="Jordi Rivero Avatar"
                     />
@@ -61,206 +61,240 @@ const profileImage = "/jordi-rivero.webp";
                 </div>
             </header>
 
-            <hr class="border-stone-800 my-10" />
+            <hr class="border-stone-800/60 my-12 max-w-xs mx-auto" />
 
-            <section class="space-y-5 text-stone-400 leading-relaxed text-lg">
+            <section class="space-y-6 text-lg leading-relaxed text-stone-400">
                 <p>
-                    Desde 2010, lidero las decisiones técnicas en <strong
-                        class="text-white font-semibold"
+                    No soy un CTO teórico. Mi visión estratégica se forjó en las
+                    trincheras del código. Antes de liderar las decisiones
+                    técnicas en <strong class="text-white font-semibold"
                         ><a
                             class="text-blue-500 hover:text-white transition-colors"
-                            href="https://leadtech.com">Leadtech</a
+                            href="https://leadtech.com">LeadTech</a
                         ></strong
-                    >, donde aprendí que el código es solo una palanca para
-                    mover negocios. Mi carrera se ha forjado en la intersección
-                    entre la ingeniería de software robusta, el SEO y el
-                    Marketing Digital.
+                    > (donde opero desde 2010 alineando ingeniería y negocio), he
+                    creado software y sistemas desde la base.
                 </p>
+
                 <p>
-                    No solo construyo tecnología; <strong
-                        class="text-white font-semibold"
-                        >invierto en ella.</strong
-                    >
+                    Mi trayectoria pasa por la gestión de alto tráfico en
+                    servicios Telco (SMS/IVR en <em>Jet Multimedia</em>), el
+                    desarrollo de redes sociales geolocalizadas (<em
+                        >Funtropy</em
+                    >) y el liderazgo técnico en startups como <em>Solimba</em>.
+                    Empecé tocando hardware y acabé diseñando arquitecturas
+                    escalables.
                 </p>
+
+                <div
+                    class="pl-4 border-l-2 border-blue-500/30 my-8 italic text-stone-500 text-base"
+                >
+                    "Esa experiencia técnica profunda es mi ventaja competitiva
+                    como inversor: detecto la solidez tecnológica donde otros
+                    solo ven hype."
+                </div>
+
                 <p>
-                    Mi perfil combina la visión operativa de un CTO con la
-                    mentalidad analítica de un inversor. Evalúo proyectos desde
-                    la arquitectura del servidor hasta la viabilidad del modelo
-                    de negocio. Busco siempre la eficiencia, la escalabilidad y
-                    el retorno.
+                    Hoy combino esa solidez técnica con el SEO y el Marketing
+                    Digital para escalar negocios. Y cuando necesito recalibrar
+                    la mente, cambio el código por la óptica de mi <strong
+                        >Nikon D7200</strong
+                    >, la disciplina de la <strong
+                        ><a
+                            class="text-blue-500 hover:text-white transition-colors"
+                            href="/calistenia/">calistenia</a
+                        ></strong
+                    > o la táctica del <strong>Ajedrez</strong>.
                 </p>
-                <p class="italic opacity-80 text-base mt-6">
-                    Cuando no estoy analizando métricas, busco perspectiva a
-                    través del objetivo de mi Nikon D7200, la disciplina de la
-                    <a
-                        class="text-blue-500 hover:text-white transition-colors"
-                        href="/calistenia/">calistenia</a
-                    >
-                </p>
-                <!--
-            <section
-                class="mt-12 p-6 border border-dashed border-stone-800 bg-white/[0.02] rounded-xl hover:border-stone-600 transition-colors duration-300 group"
+            </section>
+
+            <!--<section
+                class="mt-16 p-px bg-gradient-to-r from-stone-800 to-transparent rounded-xl overflow-hidden"
             >
                 <div
-                    class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                    class="bg-[#161616] p-6 rounded-xl hover:bg-[#1a1a1a] transition-colors duration-300 flex flex-col sm:flex-row items-center justify-between gap-4 group"
                 >
-                    <div>
+                    <div class="text-center sm:text-left">
                         <h3
-                            class="text-white font-semibold text-sm uppercase tracking-wider mb-1"
+                            class="text-white font-semibold text-sm uppercase tracking-wider mb-1 flex items-center justify-center sm:justify-start gap-2"
                         >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 text-blue-500"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><path
+                                    d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"
+                                ></path><path
+                                    d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
+                                ></path></svg
+                            >
                             El Laboratorio
                         </h3>
                         <p class="text-sm text-stone-500">
-                            De vez en cuando, documento mis hallazgos y análisis
-                            de mercado.
+                            Deep dives técnicos y tesis de inversión.
                         </p>
                     </div>
                     <a
                         href="/blog"
-                        class="text-blue-500 hover:text-blue-400 text-sm font-semibold whitespace-nowrap group-hover:translate-x-1 transition-transform"
+                        class="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-1 group-hover:translate-x-1 transition-transform"
                     >
-                        Explorar mis notas &rarr;
+                        Explorar archivos <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><line x1="5" y1="12" x2="19" y2="12"
+                            ></line><polyline points="12 5 19 12 12 19"
+                            ></polyline></svg
+                        >
                     </a>
                 </div>
-            </section>
-            -->
-                <section class="mt-16 mb-8">
-                    <div class="text-center mb-8">
-                        <h3 class="text-2xl font-semibold text-white mb-2">
-                            ¿Hacemos sinergia?
-                        </h3>
-                        <p class="text-stone-500 text-sm">
-                            Estoy abierto a conectar si vienes con una propuesta
-                            clara
+            </section>-->
+
+            <section class="mt-16 mb-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-semibold text-white mb-2">
+                        ¿Hacemos sinergia?
+                    </h3>
+                    <p class="text-stone-500 text-sm">
+                        Estoy abierto a conectar si vienes con una propuesta
+                        clara
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                    <div
+                        class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-8 h-8 text-blue-500 mb-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><line x1="12" y1="1" x2="12" y2="23"></line><path
+                                d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                            ></path></svg
+                        >
+                        <h4 class="text-white font-semibold text-lg mb-2">
+                            Inversión & Negocio
+                        </h4>
+                        <p class="text-base text-stone-500 leading-relaxed">
+                            Proyectos con tracción, <em>Smart Capital</em> o tesis
+                            de inversión.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-                        <div
-                            class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+                    <div
+                        class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-8 h-8 text-blue-500 mb-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><polyline points="16 18 22 12 16 6"
+                            ></polyline><polyline points="8 6 2 12 8 18"
+                            ></polyline></svg
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-8 h-8 text-blue-500 mb-4"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                ><line x1="12" y1="1" x2="12" y2="23"
-                                ></line><path
-                                    d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-                                ></path></svg
-                            >
-                            <h4 class="text-white font-semibold text-lg mb-2">
-                                Inversión & Negocio
-                            </h4>
-                            <p class="text-base text-stone-500 leading-relaxed">
-                                Proyectos con tracción, <em>Smart Capital</em> o
-                                tesis de inversión.
-                            </p>
-                        </div>
-
-                        <div
-                            class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-8 h-8 text-blue-500 mb-4"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                ><polyline points="16 18 22 12 16 6"
-                                ></polyline><polyline points="8 6 2 12 8 18"
-                                ></polyline></svg
-                            >
-                            <h4 class="text-white font-semibold text-lg mb-2">
-                                Dirección Técnica
-                            </h4>
-                            <p class="text-base text-stone-500 leading-relaxed">
-                                Debates sobre escalabilidad, gestión de equipos
-                                y Tech + SEO.
-                            </p>
-                        </div>
-
-                        <div
-                            class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-8 h-8 text-blue-500 mb-4"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                ><circle cx="12" cy="12" r="10"></circle><line
-                                    x1="22"
-                                    y1="12"
-                                    x2="18"
-                                    y2="12"></line><line
-                                    x1="6"
-                                    y1="12"
-                                    x2="2"
-                                    y2="12"></line><line
-                                    x1="12"
-                                    y1="6"
-                                    x2="12"
-                                    y2="2"></line><line
-                                    x1="12"
-                                    y1="22"
-                                    x2="12"
-                                    y2="18"></line></svg
-                            >
-                            <h4 class="text-white font-semibold text-lg mb-2">
-                                Off-Topic
-                            </h4>
-                            <p class="text-base text-stone-500 leading-relaxed">
-                                Fotografía, Calistenia o una partida rápida de
-                                Ajedrez.
-                            </p>
-                        </div>
+                        <h4 class="text-white font-semibold text-lg mb-2">
+                            Dirección Técnica
+                        </h4>
+                        <p class="text-base text-stone-500 leading-relaxed">
+                            Debates sobre escalabilidad, gestión de equipos y
+                            Tech + SEO.
+                        </p>
                     </div>
 
-                    <div class="flex flex-col items-center gap-6">
+                    <div
+                        class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-8 h-8 text-blue-500 mb-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><circle cx="12" cy="12" r="10"></circle><line
+                                x1="22"
+                                y1="12"
+                                x2="18"
+                                y2="12"></line><line
+                                x1="6"
+                                y1="12"
+                                x2="2"
+                                y2="12"></line><line
+                                x1="12"
+                                y1="6"
+                                x2="12"
+                                y2="2"></line><line
+                                x1="12"
+                                y1="22"
+                                x2="12"
+                                y2="18"></line></svg
+                        >
+                        <h4 class="text-white font-semibold text-lg mb-2">
+                            Off-Topic
+                        </h4>
+                        <p class="text-base text-stone-500 leading-relaxed">
+                            Fotografía, Calistenia o una partida rápida de
+                            Ajedrez.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center gap-6">
+                    <a
+                        href="https://x.com/jrivero"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-block no-underline px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-stone-200 hover:scale-110 transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                    >
+                        Iniciar Conversación
+                    </a>
+
+                    <footer
+                        class="text-sm text-stone-600 flex items-center gap-3"
+                    >
                         <a
                             href="https://x.com/jrivero"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-block no-underline px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-stone-200 hover:scale-110 transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                            class="text-blue-500 hover:text-white transition-colors"
+                            >@jrivero</a
                         >
-                            Iniciar Conversación
-                        </a>
-
-                        <footer
-                            class="text-sm text-stone-600 flex items-center gap-3"
-                        >
-                            <a
-                                href="https://x.com/jrivero"
-                                class="text-blue-500 hover:text-white transition-colors"
-                                >@jrivero</a
-                            >
-                            <script
-                                defer
-                                src="https://eu.umami.is/script.js"
-                                data-website-id="033be64a-5f35-4177-8255-50707ce7f7d3"
-                            ></script>
-                        </footer>
-                    </div>
-                </section>
+                        <script
+                            defer
+                            src="https://eu.umami.is/script.js"
+                            data-website-id="033be64a-5f35-4177-8255-50707ce7f7d3"
+                        ></script>
+                    </footer>
+                </div>
             </section>
-
-            <div
-                class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-20"
-                style="background-image: radial-gradient(circle at 50% 0%, #3b82f6 0%, transparent 25%);"
-            >
-            </div>
         </main>
+
+        <div
+            class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-20"
+            style="background-image: radial-gradient(circle at 50% 0%, #3b82f6 0%, transparent 25%);"
+        >
+        </div>
     </body><style>
         body {
             font-family: "Inter Variable", sans-serif;
