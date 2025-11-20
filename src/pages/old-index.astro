@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { Image } from "astro:assets";
+
+const frontmatter = {
+	title: "Jordi Rivero",
+	description: "Director Técnico, Desarrollador, Fotógrafo desde Barcelona",
+	author: "Jordi Rivero",
+};
+---
+
+<BaseLayout
+	title={frontmatter.title}
+	description={frontmatter.description}
+	author={frontmatter.author}
+>
+	<div class="mx-auto h-48 items-center">
+		<Image
+			width="200"
+			height="200"
+			class="rounded-full"
+			src="/jordi-rivero.webp"
+			alt="Jordi Rivero Avatar"
+		/>
+	</div>
+	<p>
+		Desde 2010, lidero decisiones técnicas en <a
+			href="https://leadtech.com/">Leadtech</a
+		>, donde combino mi pasión por la programación con mi experiencia en
+		desarrollo de aplicaciones web, SEO y marketing digital. Lo que empezó
+		como un hobby se convirtió en mi profesión, impulsándome a dominar
+		diversos lenguajes de programación y a mantenerme al día con las últimas
+		tendencias tecnológicas. Mi enfoque se centra en crear soluciones
+		innovadoras y eficientes para cada proyecto, siempre abrazando nuevos
+		desafíos y aprendiendo de mis colegas.
+	</p>
+	<p>
+		Fuera del trabajo, encuentro equilibrio a través de mis aficiones: la
+		fotografía, donde capturo momentos únicos con mi Nikon D7200, Olympus
+		OM-D E-M10 Mark II o iPhone 16 pro; la <a href="/calistenia/"
+			>calistenia</a
+		> y el padel, que me mantienen en forma; y el <a href="/ajedrez/"
+			>ajedrez</a
+		>, que desafía mi mente. Para mí, combinar pasión profesional con
+		bienestar personal es la clave para dar lo mejor en cada ámbito.
+	</p>
+</BaseLayout>
