@@ -1,0 +1,482 @@
+---
+// src/pages/simulador-hipoteca.astro
+---
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Hipotecas Pro</title>
+    <!-- CDNs para estilos y gráficas -->
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Animaciones suaves */
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Scrollbar personalizada */
+        .custom-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 250px; 
+            background-color: #333; 
+            color: #fff; 
+            text-align: center; 
+            border-radius: 8px; 
+            padding: 16px; 
+            position: fixed; 
+            z-index: 50; 
+            left: 50%; 
+            bottom: 30px; 
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2 text-indigo-600">
+                    <i class="fa-solid fa-house-chimney text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">HipotecApp</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="shareBtn" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded-lg transition flex items-center cursor-pointer">
+                        <i class="fa-solid fa-share-nodes mr-2"></i> Compartir
+                    </button>
+                    <button id="printBtn" class="text-sm text-slate-500 hover:text-indigo-600 transition cursor-pointer flex items-center">
+                        <i class="fa-solid fa-print mr-1"></i> <span class="hidden sm:inline">Imprimir</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Toast Notification -->
+    <div id="toast"><i class="fa-solid fa-check mr-2 text-emerald-400"></i> Enlace copiado al portapapeles</div>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Columna Izquierda: Formulario -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+                    <h2 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-indigo-500"></i> Parámetros del Préstamo
+                    </h2>
+
+                    <form id="mortgageForm" class="space-y-5">
+                        
+                        <!-- Precio de la vivienda -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Valor de la Propiedad</label>
+                            <div class="relative rounded-md shadow-sm">
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                    <span class="text-slate-500 sm:text-sm">€/$</span>
+                                </div>
+                                <input type="number" id="propertyPrice" required class="block w-full rounded-lg border-slate-300 pl-10 py-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-slate-50 border" placeholder="Ej. 300000" value="300000">
+                            </div>
+                        </div>
+
+                        <!-- Pago Inicial -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Entrada / Pago Inicial</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="relative rounded-md shadow-sm">
+                                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                        <span class="text-slate-500 sm:text-sm">€/$</span>
+                                    </div>
+                                    <input type="number" id="downPayment" class="block w-full rounded-lg border-slate-300 pl-10 py-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-slate-50 border" value="60000">
+                                </div>
+                                <div class="relative rounded-md shadow-sm">
+                                    <input type="number" id="downPaymentPercent" class="block w-full rounded-lg border-slate-300 pr-8 py-3 text-right focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-slate-50 border" value="20">
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <span class="text-slate-500 sm:text-sm">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tasa de Interés -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Tasa de Interés Anual</label>
+                            <div class="relative rounded-md shadow-sm">
+                                <input type="number" id="interestRate" step="0.01" required class="block w-full rounded-lg border-slate-300 pr-10 py-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-slate-50 border" placeholder="Ej. 3.5" value="3.5">
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <span class="text-slate-500 sm:text-sm">%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Plazo -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Plazo del Préstamo (Años)</label>
+                            <div class="relative">
+                                <input type="range" id="loanTermRange" min="5" max="40" step="1" value="30" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                                <div class="flex justify-between items-center mt-2">
+                                    <span class="text-xs text-slate-500">5 años</span>
+                                    <div class="flex items-center">
+                                        <input type="number" id="loanTerm" min="1" max="50" value="30" class="w-16 text-center rounded-md border-slate-300 py-1 text-sm border focus:ring-indigo-500 focus:border-indigo-500">
+                                        <span class="ml-1 text-sm text-slate-600">años</span>
+                                    </div>
+                                    <span class="text-xs text-slate-500">40 años</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-[1.02] cursor-pointer">
+                            Calcular Cuota
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Resultados -->
+            <div class="lg:col-span-8 space-y-6 fade-in">
+                
+                <!-- Tarjetas de Resumen -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-indigo-600 rounded-2xl p-5 text-white shadow-lg transform transition hover:-translate-y-1">
+                        <p class="text-indigo-100 text-sm font-medium mb-1">Cuota Mensual</p>
+                        <h3 class="text-3xl font-bold tracking-tight" id="monthlyPaymentResult">--</h3>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                        <p class="text-slate-500 text-sm font-medium mb-1">Total Intereses</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="totalInterestResult">--</h3>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                        <p class="text-slate-500 text-sm font-medium mb-1">Total a Pagar</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="totalPaymentResult">--</h3>
+                    </div>
+                </div>
+
+                <!-- Gráfico y Detalles -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">Desglose del Coste</h3>
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-full md:w-1/2 h-64 relative">
+                            <canvas id="mortgageChart"></canvas>
+                        </div>
+                        <div class="w-full md:w-1/2 space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-4 h-4 rounded-full bg-indigo-500"></div>
+                                    <span class="text-sm font-medium text-slate-600">Préstamo (Capital)</span>
+                                </div>
+                                <span class="font-bold text-slate-800" id="principalDisplay">--</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-4 h-4 rounded-full bg-emerald-400"></div>
+                                    <span class="text-sm font-medium text-slate-600">Intereses Totales</span>
+                                </div>
+                                <span class="font-bold text-slate-800" id="interestDisplay">--</span>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-200 text-xs text-slate-400 text-center">
+                                * Los resultados son estimaciones. No incluyen impuestos, seguros ni gastos de notaría.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Amortización (Acordeón) -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+                    <button id="toggleTableBtn" class="w-full flex justify-between items-center p-6 bg-slate-50 hover:bg-slate-100 transition cursor-pointer">
+                        <span class="font-bold text-slate-800">Ver Tabla de Amortización</span>
+                        <i id="tableIcon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="amortizationContainer" class="hidden border-t border-slate-200">
+                        <div class="overflow-x-auto custom-scroll max-h-[500px]">
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-slate-500 uppercase bg-slate-50 sticky top-0 z-10">
+                                    <tr>
+                                        <th class="px-6 py-3">Mes</th>
+                                        <th class="px-6 py-3">Cuota</th>
+                                        <th class="px-6 py-3">Interés</th>
+                                        <th class="px-6 py-3">Capital</th>
+                                        <th class="px-6 py-3">Pendiente</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="amortizationBody" class="divide-y divide-slate-200">
+                                    <!-- Filas generadas por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 mt-8">
+        <div class="container mx-auto text-center text-slate-400 text-sm">
+            <p>&copy; 2024 HipotecApp. Simulador financiero.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Declaramos variables globales al script del módulo
+        let myChart = null;
+
+        // Referencias al DOM
+        const form = document.getElementById('mortgageForm');
+        const printBtn = document.getElementById('printBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const toggleTableBtn = document.getElementById('toggleTableBtn');
+        
+        const downPaymentInput = document.getElementById('downPayment');
+        const downPaymentPercentInput = document.getElementById('downPaymentPercent');
+        const propertyPriceInput = document.getElementById('propertyPrice');
+        const interestRateInput = document.getElementById('interestRate');
+        
+        const loanTermRange = document.getElementById('loanTermRange');
+        const loanTermInput = document.getElementById('loanTerm');
+
+        // Event Listeners
+        if(form) form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            calculateMortgage();
+        });
+
+        if(printBtn) printBtn.addEventListener('click', () => window.print());
+
+        if(shareBtn) shareBtn.addEventListener('click', copyShareLink);
+
+        if(toggleTableBtn) toggleTableBtn.addEventListener('click', toggleTable);
+
+        if(downPaymentInput) downPaymentInput.addEventListener('input', updateDownPaymentPercent);
+        if(downPaymentPercentInput) downPaymentPercentInput.addEventListener('input', updateDownPaymentValue);
+        
+        // Sync Range y Number input para los años
+        if(loanTermRange) loanTermRange.addEventListener('input', (e) => {
+            if(loanTermInput) loanTermInput.value = e.target.value;
+        });
+        if(loanTermInput) loanTermInput.addEventListener('input', (e) => {
+            if(loanTermRange) loanTermRange.value = e.target.value;
+        });
+
+        // Formateador de moneda
+        const formatCurrency = (num) => {
+            return new Intl.NumberFormat('es-ES', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 2
+            }).format(num);
+        };
+
+        // --- Lógica de Compartir y URL ---
+
+        function loadFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            
+            if(params.has('precio')) propertyPriceInput.value = params.get('precio');
+            if(params.has('entrada')) downPaymentInput.value = params.get('entrada');
+            if(params.has('interes')) interestRateInput.value = params.get('interes');
+            if(params.has('plazo')) {
+                loanTermInput.value = params.get('plazo');
+                loanTermRange.value = params.get('plazo');
+            }
+
+            // Actualizamos el porcentaje visualmente basado en la entrada cargada
+            updateDownPaymentPercent();
+        }
+
+        function updateURLState(price, downPayment, rate, years) {
+            const params = new URLSearchParams();
+            params.set('precio', price);
+            params.set('entrada', downPayment);
+            params.set('interes', rate);
+            params.set('plazo', years);
+
+            // Actualiza la URL sin recargar la página
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        function copyShareLink() {
+            // Aseguramos que la URL actual está actualizada con los últimos datos
+            calculateMortgage(); // Esto actualiza la URL via updateURLState dentro de calculate
+            
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        // --- Fin Lógica de Compartir ---
+
+        // Lógica de sincronización de inputs
+        function updateDownPaymentPercent() {
+            const price = parseFloat(propertyPriceInput.value) || 0;
+            const downPayment = parseFloat(downPaymentInput.value) || 0;
+            if (price > 0) {
+                const percent = (downPayment / price) * 100;
+                downPaymentPercentInput.value = percent.toFixed(2);
+            }
+        }
+
+        function updateDownPaymentValue() {
+            const price = parseFloat(propertyPriceInput.value) || 0;
+            const percent = parseFloat(downPaymentPercentInput.value) || 0;
+            const value = (price * percent) / 100;
+            downPaymentInput.value = value.toFixed(2);
+        }
+
+        function toggleTable() {
+            const container = document.getElementById('amortizationContainer');
+            const icon = document.getElementById('tableIcon');
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                container.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Cálculo principal
+        function calculateMortgage() {
+            const price = parseFloat(propertyPriceInput.value);
+            const downPayment = parseFloat(downPaymentInput.value);
+            const annualRate = parseFloat(interestRateInput.value);
+            const years = parseInt(loanTermInput.value);
+
+            if (!price || !years) return;
+
+            // Actualizar URL con los nuevos datos
+            updateURLState(price, downPayment, annualRate, years);
+
+            const principal = price - downPayment;
+            const monthlyRate = (annualRate / 100) / 12;
+            const totalMonths = years * 12;
+
+            let monthlyPayment = 0;
+
+            if (annualRate === 0) {
+                monthlyPayment = principal / totalMonths;
+            } else {
+                monthlyPayment = (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalMonths));
+            }
+
+            const totalPayment = monthlyPayment * totalMonths;
+            const totalInterest = totalPayment - principal;
+
+            document.getElementById('monthlyPaymentResult').textContent = formatCurrency(monthlyPayment);
+            document.getElementById('totalInterestResult').textContent = formatCurrency(totalInterest);
+            document.getElementById('totalPaymentResult').textContent = formatCurrency(totalPayment);
+            
+            document.getElementById('principalDisplay').textContent = formatCurrency(principal);
+            document.getElementById('interestDisplay').textContent = formatCurrency(totalInterest);
+
+            updateChart(principal, totalInterest);
+            generateAmortizationTable(principal, monthlyRate, totalMonths, monthlyPayment);
+        }
+
+        function updateChart(principal, interest) {
+            const ctx = document.getElementById('mortgageChart').getContext('2d');
+            
+            if (typeof Chart === 'undefined') return;
+
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Capital (Préstamo)', 'Intereses'],
+                    datasets: [{
+                        data: [principal, interest],
+                        backgroundColor: ['#6366f1', '#34d399'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) label += ': ';
+                                    label += formatCurrency(context.raw);
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function generateAmortizationTable(principal, monthlyRate, totalMonths, monthlyPayment) {
+            const tbody = document.getElementById('amortizationBody');
+            tbody.innerHTML = '';
+
+            let balance = principal;
+            let fragment = document.createDocumentFragment();
+
+            for (let i = 1; i <= totalMonths; i++) {
+                const interestPayment = balance * monthlyRate;
+                const principalPayment = monthlyPayment - interestPayment;
+                
+                balance -= principalPayment;
+                if (balance < 0) balance = 0;
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors text-slate-700";
+                tr.innerHTML = `
+                    <td class="px-6 py-4 font-medium">${i}</td>
+                    <td class="px-6 py-4">${formatCurrency(monthlyPayment)}</td>
+                    <td class="px-6 py-4 text-red-500">-${formatCurrency(interestPayment)}</td>
+                    <td class="px-6 py-4 text-emerald-600">-${formatCurrency(principalPayment)}</td>
+                    <td class="px-6 py-4 font-bold text-slate-900">${formatCurrency(balance)}</td>
+                `;
+                fragment.appendChild(tr);
+            }
+            tbody.appendChild(fragment);
+        }
+
+        // Inicializar
+        // 1. Cargar datos de la URL si existen
+        loadFromURL();
+        // 2. Calcular con esos datos
+        calculateMortgage();
+    </script>
+</body>
+</html>
