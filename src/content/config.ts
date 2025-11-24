@@ -5,6 +5,7 @@ const postsCollection = defineCollection({
 	type: "content",
 	schema: z.object({
 		title: z.string(),
+		layout: z.string().optional(),
 	}),
 });
 // Export a single `collections` object to register your collection(s)

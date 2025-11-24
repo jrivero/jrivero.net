@@ -1,0 +1,41 @@
+---
+title: Build vs. Buy - Tomando decisiones de arquitectura
+---
+
+# Build vs. Buy: Tomando decisiones de arquitectura
+
+¿Deberíamos construir nuestro propio sistema de autenticación o usar Auth0? ¿Desarrollar un chat interno o integrar
+Stream? La decisión de "Construir vs. Comprar" (Build vs. Buy) es constante en la vida de un CTO.
+
+## El Core Business
+
+La pregunta fundamental es: **¿Es esto parte de nuestro "Core Business"?**
+- Si eres una empresa de logística, tu algoritmo de rutas es Core. Debes construirlo.
+- Si eres una empresa de logística, tu sistema de facturación NO es Core. Cómpralo (Stripe, etc.).
+
+Todo lo que no sea tu ventaja competitiva diferencial debería ser, idealmente, comprado o subcontratado. Tu tiempo de
+ingeniería es el recurso más escaso; úsalo donde realmente importa.
+
+## Costo Total de Propiedad (TCO)
+
+A menudo subestimamos el costo de construir. "Son solo un par de semanas de desarrollo", dice el ingeniero optimista.
+Olvida:
+- Mantenimiento a largo plazo.
+- Parches de seguridad.
+- Actualizaciones.
+- Documentación.
+- Onboarding de nuevos devs.
+
+Comprar un SaaS puede parecer caro mensualmente, pero el costo de oportunidad de tener a dos ingenieros manteniendo una
+herramienta interna suele ser mucho mayor.
+
+## El factor de dependencia (Vendor Lock-in)
+
+El miedo al "Vendor Lock-in" es real, pero a veces exagerado. Estar "atado" a AWS o Stripe suele ser mejor que estar
+"atado" a un sistema propietario mal documentado que escribió un desarrollador que ya se fue de la empresa. Evalúa el
+riesgo de salida, pero no dejes que te paralice.
+
+## Conclusión
+
+Sé celoso con el tiempo de tu equipo. Construye solo lo que te hace único. Para todo lo demás, usa herramientas
+existentes. La mejor línea de código es la que no tienes que escribir (ni mantener).
