@@ -1,11 +1,12 @@
 // keystatic.config.ts
-import { collection, config, fields } from "@keystatic/core";
+import { config, fields, collection } from "@keystatic/core";
+
+const shouldUseCloudStorage = true;
 
 export default config({
-    storage: {
-        kind: "github",
-        repo: "jrivero/jrivero.net",
-    },
+    storage: shouldUseCloudStorage
+        ? { kind: "github", repo: "jrivero/jrivero.net" }
+        : { kind: "local" },
     collections: {
         posts: collection({
             label: "Posts",
