@@ -6,9 +6,22 @@ const postsCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		layout: z.string().optional(),
+		pubDate: z.date().default(() => new Date()),
+		author: z.string().default('Jordi Rivero'),
+		description: z.string().optional(),
 	}),
 });
+const slidesCollection = defineCollection({
+	type: "content",
+	schema: z.object({
+		title: z.string(),
+		order: z.number(),
+		layout: z.string().optional(),
+	}),
+});
+
 // Export a single `collections` object to register your collection(s)
 export const collections = {
 	posts: postsCollection,
+	slides: slidesCollection,
 };
