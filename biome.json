@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
   "linter": {
     "enabled": true,
     "rules": {
@@ -48,7 +48,6 @@
         "noShadow": "off",
         "noUselessUndefined": "off",
         "useMaxParams": "off",
-        "useConsistentTypeDefinitions": "off",
         "noUnnecessaryConditions": "off"
       },
       "performance": {
@@ -76,16 +75,7 @@
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "includes": [
-      "apps/**",
-      "packages/**",
-      "!node_modules/**",
-      "!*.config.*",
-      "!*.json",
-      "!**/tsconfig*.json",
-      "!.turbo/**",
-      "!.next/**"
-    ]
+    "includes": ["src/**", "public/**", "*.config.*", "*.json", "package.json"]
   },
   "javascript": {
     "formatter": {
@@ -94,18 +84,7 @@
     }
   },
   "files": {
-    "includes": [
-      "apps/**",
-      "packages/**",
-      "!node_modules",
-      "!*.config.*",
-      "!*.json",
-      "!**/tsconfig*.json",
-      "!.turbo",
-      "!.next",
-      "!sw.js",
-      "!.vscode"
-    ]
+    "includes": ["src/**", "public/**", "*.config.*", "*.json", "package.json"]
   },
   "assist": {
     "actions": {
@@ -121,8 +100,6 @@
         "**/__tests__/**",
         "**/*.test.*",
         "**/*.spec.*",
-        "apps/unsubscriber/**",
-        "packages/**",
         "**/*.tsx",
         "**/scripts/**"
       ],
@@ -134,6 +111,5 @@
         }
       }
     }
-  ],
-  "extends": ["ultracite"]
+  ]
 }
