@@ -20,299 +20,220 @@ const profileImage = "/jordi-rivero.webp";
         />
     </head>
 
-    <body
-        class="bg-neutral-900 text-stone-100 font-sans antialiased min-h-screen flex flex-col items-center justify-center"
-    >
-        <main class="max-w-2xl w-full animate-fade-in-up">
-            <header class="text-center mb-12 mt-6 md:mt-12">
-                <div class="relative inline-block mb-6">
-                    <Image
-                        width="128"
-                        height="128"
-                        class="w-36 h-36 rounded-full border-2 border-stone-800 shadow-2xl object-cover mx-auto"
-                        src={profileImage}
-                        alt="Jordi Rivero Avatar"
-                    />
-                    <span
-                        class="absolute bottom-1 right-1 w-4 h-4 bg-emerald-500 border-2 border-[#111] rounded-full"
-                    ></span>
+    <body class="bg-black text-zinc-100 font-sans antialiased min-h-screen">
+        <div
+            class="max-w-4xl mx-auto border-x border-zinc-800 min-h-screen flex flex-col"
+        >
+            <!-- TECHNICAL HEADER -->
+            <header
+                class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800"
+            >
+                <div
+                    class="md:col-span-4 p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex items-center justify-center bg-zinc-950"
+                >
+                    <div class="relative group">
+                        <Image
+                            width="200"
+                            height="200"
+                            class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
+                            src={profileImage}
+                            alt="Jordi Rivero"
+                        />
+                        <div
+                            class="absolute -bottom-2 -right-2 bg-emerald-500 w-4 h-4 border-2 border-black"
+                        >
+                        </div>
+                    </div>
                 </div>
 
-                <h1 class="text-4xl font-bold text-white tracking-tight mb-2">
-                    Jordi Rivero
-                </h1>
-                <h2 class="text-lg text-stone-500 font-normal mb-6">
-                    Tecnología. Estrategia. Capital.
-                </h2>
-
-                <div class="flex flex-wrap justify-center gap-2">
-                    <span
-                        class="px-3 py-1 text-xs font-medium border border-stone-800 rounded-full bg-white/5 text-stone-400"
-                        >CTO @ Leadtech</span
-                    >
-                    <span
-                        class="px-3 py-1 text-xs font-medium border border-stone-800 rounded-full bg-white/5 text-stone-400"
-                        >Inversor</span
-                    >
-                    <span
-                        class="px-3 py-1 text-xs font-medium border border-stone-800 rounded-full bg-white/5 text-stone-400"
-                        >Tech Explorer</span
-                    >
+                <div class="md:col-span-8 p-8 flex flex-col justify-center">
+                    <span class="data-label">Identity / Status: Active</span>
+                    <h1 class="text-5xl md:text-7xl font-black mb-4">
+                        Jordi<br />Rivero
+                    </h1>
+                    <div class="flex flex-wrap gap-4 mt-2">
+                        <div class="flex flex-col">
+                            <span class="data-label">Current Role</span>
+                            <span
+                                class="font-bold text-zinc-300 uppercase tracking-tight"
+                                >CTO @ Leadtech</span
+                            >
+                        </div>
+                        <div
+                            class="flex flex-col border-l border-zinc-800 pl-4"
+                        >
+                            <span class="data-label">Focus</span>
+                            <span
+                                class="font-bold text-zinc-300 uppercase tracking-tight"
+                                >Venture Capital / Tech</span
+                            >
+                        </div>
+                    </div>
                 </div>
             </header>
 
-            <hr class="border-stone-800/60 my-12 max-w-xs mx-auto" />
-
-            <section class="space-y-6 text-lg leading-relaxed text-stone-400">
-                <p>
-                    No soy un CTO teórico. Mi visión estratégica se forjó en las
-                    trincheras del código. Antes de liderar las decisiones
-                    técnicas en <strong class="text-white font-semibold"
-                        ><a
-                            class="text-blue-500 hover:text-white transition-colors"
-                            href="https://leadtech.com">LeadTech</a
-                        ></strong
-                    > (donde opero desde 2010 alineando ingeniería y negocio), he
-                    creado software y sistemas desde la base.
-                </p>
-
-                <p>
-                    Mi trayectoria pasa por la gestión de alto tráfico en
-                    servicios Telco (SMS/IVR en <em>Jet Multimedia</em>), el
-                    desarrollo de redes sociales geolocalizadas (<em
-                        >Funtropy</em
-                    >) y el liderazgo técnico en startups como <em>Solimba</em>.
-                    Empecé tocando hardware y acabé diseñando arquitecturas
-                    escalables.
-                </p>
-
-                <div
-                    class="pl-4 border-l-2 border-blue-500/30 my-8 italic text-stone-500 text-base"
-                >
-                    "Esa experiencia técnica profunda es mi ventaja competitiva
-                    como inversor: detecto la solidez tecnológica donde otros
-                    solo ven hype."
-                </div>
-
-                <p>
-                    Hoy combino esa solidez técnica con el SEO y el Marketing
-                    Digital para escalar negocios. Y cuando necesito recalibrar
-                    la mente, cambio el código por la óptica de mi <strong
-                        >Nikon D7200</strong
-                    >, la disciplina de la <strong
-                        ><a
-                            class="text-blue-500 hover:text-white transition-colors"
-                            href="/calistenia/">calistenia</a
-                        ></strong
-                    > o la táctica del <strong>Ajedrez</strong>.
-                </p>
-            </section>
-
+            <!-- MISSION / STRATEGY -->
             <section
-                class="mt-16 p-px bg-gradient-to-r from-stone-800 to-transparent rounded-xl overflow-hidden"
+                class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800"
             >
                 <div
-                    class="bg-[#161616] p-6 rounded-xl hover:bg-[#1a1a1a] transition-colors duration-300 flex flex-col sm:flex-row items-center justify-between gap-4 group"
+                    class="md:col-span-4 p-8 md:border-r border-zinc-800 bg-zinc-900/30"
                 >
-                    <div class="text-center sm:text-left">
-                        <h3
-                            class="text-white font-semibold text-sm uppercase tracking-wider mb-1 flex items-center justify-center sm:justify-start gap-2"
+                    <h2 class="text-xl font-black mb-6">Briefing</h2>
+                    <p class="text-sm text-zinc-400 leading-relaxed font-mono">
+                        [REDACTED] Visionary strategy forged in the trenches of
+                        code. Operational since 1990s. Specialized in
+                        high-performance architectures and tactical investment.
+                    </p>
+                </div>
+                <div
+                    class="md:col-span-8 p-8 text-lg leading-relaxed space-y-6"
+                >
+                    <p>
+                        No soy un CTO teórico. Mi visión estratégica se forjó en
+                        las trincheras del código. Antes de liderar ingeniería
+                        en
+                        <a href="https://leadtech.com" class="font-bold"
+                            >LeadTech</a
+                        >, he diseñado sistemas desde la base.
+                    </p>
+                    <p>
+                        Trayectoria: Alto tráfico en Telco, redes geolocalizadas
+                        y liderazgo técnico en startups de crecimiento
+                        explosivo. Mi ventaja: <span
+                            class="bg-zinc-800 px-1 py-0.5 text-white"
+                            >detecto la solidez donde otros ven hype.</span
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-4 h-4 text-blue-500"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                ><path
-                                    d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"
-                                ></path><path
-                                    d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
-                                ></path></svg
-                            >
-                            El Laboratorio
-                        </h3>
-                        <p class="text-sm text-stone-500">
-                            Deep dives técnicos y tesis de inversión.
-                        </p>
-                    </div>
-                    <a
-                        href="/posts"
-                        class="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-1 group-hover:translate-x-1 transition-transform"
-                    >
-                        Explorar archivos <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><line x1="5" y1="12" x2="19" y2="12"
-                            ></line><polyline points="12 5 19 12 12 19"
-                            ></polyline></svg
-                        >
-                    </a>
+                    </p>
                 </div>
             </section>
 
-            <section class="mt-16 mb-8">
-                <div class="text-center mb-8">
-                    <h3 class="text-2xl font-semibold text-white mb-2">
-                        ¿Hacemos sinergia?
-                    </h3>
-                    <p class="text-stone-500 text-sm">
-                        Estoy abierto a conectar si vienes con una propuesta
-                        clara
+            <!-- ARCHIVE ACCESS -->
+            <section
+                class="p-8 border-b border-zinc-800 flex items-center justify-between group cursor-pointer hover:bg-zinc-950 transition-colors duration-75"
+            >
+                <div>
+                    <span class="data-label">Knowledge Base</span>
+                    <h3 class="text-2xl font-black italic">EL LABORATORIO</h3>
+                    <p class="text-zinc-500 text-sm mt-1 uppercase">
+                        Deep dives técnicos y tesis de inversión.
                     </p>
                 </div>
+                <a
+                    href="/posts"
+                    class="border border-white px-6 py-2 font-bold hover:bg-white hover:text-black transition-all"
+                >
+                    OPEN ARCHIVE →
+                </a>
+            </section>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <!-- SYNERGY GRID -->
+            <section class="grow">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-3 text-center border-b border-zinc-800"
+                >
                     <div
-                        class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-950 transition-colors"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-8 h-8 text-blue-500 mb-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><line x1="12" y1="1" x2="12" y2="23"></line><path
-                                d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-                            ></path></svg
+                        <span class="data-label">Vertical 01</span>
+                        <h4
+                            class="text-xl font-black mb-4 underline decoration-2 underline-offset-8"
                         >
-                        <h4 class="text-white font-semibold text-lg mb-2">
-                            Inversión & Negocio
+                            Capitals
                         </h4>
-                        <p class="text-base text-stone-500 leading-relaxed">
-                            Proyectos con tracción, <em>Smart Capital</em> o tesis
-                            de inversión.
+                        <p
+                            class="text-sm text-zinc-500 uppercase tracking-tighter"
+                        >
+                            Proyectos con tracción y Smart Capital.
                         </p>
                     </div>
-
                     <div
-                        class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-950 transition-colors"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-8 h-8 text-blue-500 mb-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><polyline points="16 18 22 12 16 6"
-                            ></polyline><polyline points="8 6 2 12 8 18"
-                            ></polyline></svg
+                        <span class="data-label">Vertical 02</span>
+                        <h4
+                            class="text-xl font-black mb-4 underline decoration-2 underline-offset-8"
                         >
-                        <h4 class="text-white font-semibold text-lg mb-2">
-                            Dirección Técnica
+                            Directive
                         </h4>
-                        <p class="text-base text-stone-500 leading-relaxed">
-                            Debates sobre escalabilidad, gestión de equipos y
-                            Tech + SEO.
+                        <p
+                            class="text-sm text-zinc-500 uppercase tracking-tighter"
+                        >
+                            Escalabilidad, equipos y Tech+SEO.
                         </p>
                     </div>
-
-                    <div
-                        class="p-6 rounded-xl bg-[#1a1a1a] border border-transparent hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-8 h-8 text-blue-500 mb-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><circle cx="12" cy="12" r="10"></circle><line
-                                x1="22"
-                                y1="12"
-                                x2="18"
-                                y2="12"></line><line
-                                x1="6"
-                                y1="12"
-                                x2="2"
-                                y2="12"></line><line
-                                x1="12"
-                                y1="6"
-                                x2="12"
-                                y2="2"></line><line
-                                x1="12"
-                                y1="22"
-                                x2="12"
-                                y2="18"></line></svg
+                    <div class="p-10 hover:bg-zinc-950 transition-colors">
+                        <span class="data-label">Vertical 03</span>
+                        <h4
+                            class="text-xl font-black mb-4 underline decoration-2 underline-offset-8"
                         >
-                        <h4 class="text-white font-semibold text-lg mb-2">
-                            Off-Topic
+                            Interests
                         </h4>
-                        <p class="text-base text-stone-500 leading-relaxed">
-                            Fotografía, Calistenia o una partida rápida de
-                            Ajedrez.
+                        <p
+                            class="text-sm text-zinc-500 uppercase tracking-tighter"
+                        >
+                            Fotografía, Calistenia y Ajedrez.
                         </p>
                     </div>
                 </div>
 
-                <div class="flex flex-col items-center gap-6">
+                <div class="p-12 text-center bg-white text-black">
+                    <h2
+                        class="text-4xl md:text-6xl font-black tracking-tighter mb-8 italic"
+                    >
+                        ¿Hacemos sinergia?
+                    </h2>
                     <a
                         href="https://x.com/jrivero"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="inline-block no-underline px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-stone-200 hover:scale-110 transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                        class="inline-block border-4 border-black px-12 py-4 text-2xl font-black hover:bg-black hover:text-white transition-all uppercase"
                     >
-                        Iniciar Conversación
+                        CONNECT VIA X.COM
                     </a>
-
-                    <footer
-                        class="text-sm text-stone-600 flex items-center gap-3"
-                    >
-                        <a
-                            href="https://x.com/jrivero"
-                            class="text-blue-500 hover:text-white transition-colors"
-                            >@jrivero</a
-                        >
-                        <script
-                            defer
-                            src="https://eu.umami.is/script.js"
-                            data-website-id="033be64a-5f35-4177-8255-50707ce7f7d3"
-                        ></script>
-                    </footer>
                 </div>
             </section>
-        </main>
 
+            <!-- FOOTER -->
+            <footer
+                class="p-8 border-t border-zinc-800 bg-zinc-950 flex flex-col md:flex-row justify-between items-center gap-4"
+            >
+                <div
+                    class="flex items-center gap-4 text-xs font-mono text-zinc-500 uppercase tracking-widest"
+                >
+                    <span>© JRIVERO.NET</span>
+                    <span class="hidden md:inline">/</span>
+                    <span>EST. 2026</span>
+                </div>
+                <div class="flex gap-6">
+                    <a
+                        href="https://x.com/jrivero"
+                        class="text-zinc-400 hover:text-white font-mono text-xs uppercase tracking-widest underline underline-offset-4"
+                        >X/Twitter</a
+                    >
+                    <script
+                        defer
+                        src="https://eu.umami.is/script.js"
+                        data-website-id="033be64a-5f35-4177-8255-50707ce7f7d3"
+                    ></script>
+                </div>
+            </footer>
+        </div>
+
+        <!-- TECHNICAL OVERLAY -->
         <div
-            class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-20"
-            style="background-image: radial-gradient(circle at 50% 0%, #3b82f6 0%, transparent 25%);"
+            class="fixed inset-0 pointer-events-none border-20 border-black/10 z-50"
         >
         </div>
-    </body><style>
-        body {
-            font-family: "Inter Variable", sans-serif;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        <div
+            class="fixed top-4 left-4 font-mono text-[8px] text-zinc-800 uppercase tracking-[0.3em] z-50 mix-blend-difference"
+        >
+            System Status: Nominal // Latency: 24ms
+        </div>
+        <style>
+            body {
+                font-family: "Inter Variable", sans-serif;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-    </style>
+        </style>
+    </body>
 </html>

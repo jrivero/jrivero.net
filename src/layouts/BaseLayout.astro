@@ -7,10 +7,10 @@ import "@/styles/global.css";
 import "@fontsource-variable/jost";
 
 interface Props {
-    title?: string | undefined;
-    description?: string | undefined;
-    author?: string | undefined;
-    ogImage?: URL | undefined;
+	title?: string | undefined;
+	description?: string | undefined;
+	author?: string | undefined;
+	ogImage?: URL | undefined;
 }
 
 const { title, description, author, ogImage } = Astro.props;
@@ -18,13 +18,22 @@ const { title, description, author, ogImage } = Astro.props;
 
 <html lang="es">
 	<head>
-		<HeadSEO title={title} description={description} author={author} ogImage={ogImage} />
+		<HeadSEO
+			title={title}
+			description={description}
+			author={author}
+			ogImage={ogImage}
+		/>
 	</head>
-	<body class="bg-stone-50 font-sans text-stone-950 antialiased">
-		<Header />
-		<main class="container grid max-w-4xl mx-auto gap-4 py-6">
-			<slot />
-		</main>
-		<Footer />
+	<body class="bg-black font-sans text-zinc-100 antialiased min-h-screen">
+		<div
+			class="max-w-4xl mx-auto border-x border-zinc-800 min-h-screen flex flex-col"
+		>
+			<Header />
+			<main class="grow p-8">
+				<slot />
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>

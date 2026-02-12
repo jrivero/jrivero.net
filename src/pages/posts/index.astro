@@ -5,16 +5,49 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 const allPosts = await getCollection("posts");
 ---
 
-<BaseLayout title="Posts" description="posts...">
-  <article class="prose">
-  <ul>
+<BaseLayout
+  title="Technical Archive"
+  description="Deep dives técnicos y tesis de inversión."
+>
+  <div class="mb-12">
+    <span class="data-label">Subject / Directory</span>
+    <h1 class="text-6xl font-black italic">ARCHIVE_ACCESS</h1>
+    <p class="text-zinc-500 uppercase text-sm font-mono mt-2 tracking-tighter">
+      Exploration of technology, strategy and capital flow.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 border-t border-zinc-800">
     {
-      allPosts.map((post) => (
-        <li>
-          <a href={`/posts/${post.slug}/`}>{post.data.title}</a>
-        </li>
-      ))
+      allPosts
+        .sort(
+          (a, b) =>
+            new Date(b.data.pubDate).getTime() -
+            new Date(a.data.pubDate).getTime(),
+        )
+        .map((post) => (
+          <a
+            href={`/posts/${post.slug}/`}
+            class="group flex flex-col md:flex-row md:items-center justify-between p-6 border-b border-zinc-800 hover:bg-zinc-950 transition-colors duration-75"
+          >
+            <div class="flex flex-col">
+              <span class="data-label">Entry ID: {post.slug}</span>
+              <h2 class="text-2xl font-black group-hover:underline decoration-brand decoration-4 underline-offset-4 tracking-tighter transition-none">
+                {post.data.title}
+              </h2>
+            </div>
+            <div class="mt-4 md:mt-0 text-right">
+              <span class="data-label">Classification</span>
+              <span class="font-mono text-zinc-300 text-sm bg-zinc-900 px-2 py-1">
+                {new Date(post.data.pubDate).toLocaleDateString("es-ES", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })}
+              </span>
+            </div>
+          </a>
+        ))
     }
-  </ul>
-  </article>
+  </div>
 </BaseLayout>

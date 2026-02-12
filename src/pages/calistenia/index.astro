@@ -3,32 +3,56 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 const allPosts = await Astro.glob("./*.md");
 
 const frontmatter = {
-    title: "Calistenia",
-    description: "La calistenia es mi ritual para mantenerme en forma",
-    author: "Jordi Rivero",
+	title: "Calistenia",
+	description: "La calistenia es mi ritual para mantenerme en forma",
+	author: "Jordi Rivero",
 };
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description} author={frontmatter.author}>
-	<article class="prose">
-	<h1>Calistenia</h1>
-	<p>
-		La calistenia es una forma de entrenamiento que hace uso del peso corporal para ejercitar y fortalecer los músculos.
-		Se pueden entrenar muchas partes del cuerpo utilizando esta técnica.
-	</p>
-	<ul>
+<BaseLayout
+	title={frontmatter.title}
+	description={frontmatter.description}
+	author={frontmatter.author}
+>
+	<div class="mb-12">
+		<span class="data-label">Vertical / Discipline</span>
+		<h1 class="text-6xl font-black italic uppercase">Calistenia</h1>
+		<p
+			class="text-zinc-500 uppercase text-sm font-mono mt-2 tracking-tighter"
+		>
+			Ritual de entrenamiento / Optimización biológica mediante peso
+			corporal.
+		</p>
+	</div>
+
+	<div class="grid grid-cols-1 border-t border-zinc-800 mb-12">
 		{
 			allPosts.map((post) => (
-				<li>
-					<a href={post.url}>{post.frontmatter.title}</a>
-				</li>
+				<a
+					href={post.url}
+					class="group flex flex-col md:flex-row md:items-center justify-between p-6 border-b border-zinc-800 hover:bg-zinc-950 transition-colors duration-75"
+				>
+					<div class="flex flex-col">
+						<span class="data-label">Module / Program</span>
+						<h2 class="text-2xl font-black group-hover:underline decoration-brand decoration-4 underline-offset-4 tracking-tighter transition-none uppercase">
+							{post.frontmatter.title}
+						</h2>
+					</div>
+					<div class="mt-4 md:mt-0">
+						<span class="border border-zinc-700 px-3 py-1 font-mono text-[10px] text-zinc-500">
+							READY_FOR_EXECUTION
+						</span>
+					</div>
+				</a>
 			))
 		}
-	</ul>
-	<p>
-		Recuerda que la calistenia es versátil y puede adaptarse a diferentes niveles de condición física. También es
-		importante trabajar todas las partes del cuerpo de manera equilibrada para evitar desequilibrios musculares y
-		lesiones. Siempre asegúrate de mantener una técnica adecuada y progresar gradualmente en tu rutina de entrenamiento.
-	</p>
-	</article>
+	</div>
+
+	<div class="p-8 bg-zinc-900 border border-zinc-800">
+		<p class="text-zinc-400 font-mono text-xs leading-relaxed max-w-2xl">
+			[LOG_ENTRY] La calistenia es versátil y adaptable. Priorizar técnica
+			y progresión gradual. Evitar desequilibrios musculares mediante
+			entrenamiento sistémico.
+		</p>
+	</div>
 </BaseLayout>

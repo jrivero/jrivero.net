@@ -1,16 +1,52 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme {
+    --color-brand: #3b82f6;
+    --font-mono: "JetBrains Mono Variable", monospace;
+}
 
 @layer base {
-    header a {
-        @apply text-stone-900 hover:text-sky-800;
+    :root {
+        --brutalist-border: 1px solid #27272a;
+        /* zinc-800 */
+        --brutalist-border-bold: 2px solid #ffffff;
     }
 
-    header nav a {
-        @apply ml-5 hover:underline;
+    body {
+        @apply bg-black text-zinc-100 selection:bg-brand selection:text-white;
+        font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    }
+
+    /* Force sharp corners everywhere for Brutalist look */
+    * {
+        border-radius: 0 !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-bold tracking-tighter uppercase;
+    }
+
+    a {
+        @apply transition-none;
+        /* Brutalism prefers instant feedback */
     }
 
     main a {
-        @apply text-sky-800 underline hover:underline;
+        @apply text-inherit underline decoration-brand/50 underline-offset-4 hover:decoration-brand hover:text-white;
+    }
+}
+
+@layer components {
+    .brutalist-card {
+        @apply border border-zinc-800 p-6 bg-transparent hover:border-zinc-400 transition-colors duration-75;
+    }
+
+    .data-label {
+        @apply font-mono text-[10px] uppercase tracking-widest text-zinc-500 mb-1 block;
     }
 }
