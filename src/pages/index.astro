@@ -22,7 +22,7 @@ const profileImage = "/jordi-rivero.webp";
 
     <body class="bg-black text-zinc-100 font-sans antialiased min-h-screen">
         <div
-            class="max-w-4xl mx-auto border-x border-zinc-800 min-h-screen flex flex-col"
+            class="max-w-4xl mx-auto border-x border-zinc-800 min-h-screen flex flex-col uppercase"
         >
             <!-- TECHNICAL HEADER -->
             <header
@@ -47,8 +47,12 @@ const profileImage = "/jordi-rivero.webp";
                 </div>
 
                 <div class="md:col-span-8 p-8 flex flex-col justify-center">
-                    <span class="data-label">Identity / Status: Active</span>
-                    <h1 class="text-5xl md:text-7xl font-black mb-4">
+                    <span class="data-label"
+                        >Identity / Global Technical Strategy</span
+                    >
+                    <h1
+                        class="text-5xl md:text-7xl font-black mb-4 tracking-tighter"
+                    >
                         Jordi<br />Rivero
                     </h1>
                     <div class="flex flex-wrap gap-4 mt-2">
@@ -56,7 +60,7 @@ const profileImage = "/jordi-rivero.webp";
                             <span class="data-label">Current Role</span>
                             <span
                                 class="font-bold text-zinc-300 uppercase tracking-tight"
-                                >CTO @ Leadtech</span
+                                >CTO @ Leadtech Group</span
                             >
                         </div>
                         <div
@@ -65,7 +69,7 @@ const profileImage = "/jordi-rivero.webp";
                             <span class="data-label">Focus</span>
                             <span
                                 class="font-bold text-zinc-300 uppercase tracking-tight"
-                                >Venture Capital / Tech</span
+                                >AI Systems / VC / Product Design</span
                             >
                         </div>
                     </div>
@@ -79,52 +83,97 @@ const profileImage = "/jordi-rivero.webp";
                 <div
                     class="md:col-span-4 p-8 md:border-r border-zinc-800 bg-zinc-900/30"
                 >
-                    <h2 class="text-xl font-black mb-6">Briefing</h2>
-                    <p class="text-sm text-zinc-400 leading-relaxed font-mono">
-                        [REDACTED] Visionary strategy forged in the trenches of
-                        code. Operational since 1990s. Specialized in
-                        high-performance architectures and tactical investment.
+                    <h2 class="text-xl font-black mb-6">Manifesto</h2>
+                    <p
+                        class="text-[10px] text-zinc-400 leading-relaxed font-mono"
+                    >
+                        [HISTORIAL] +30 años operando en la intersección entre
+                        ingeniería avanzada y visión de negocio. Perfil 100%
+                        autodidacta. Dominio multilingüe de sistemas.
+                        Especialista en escalado de infraestructuras críticas y
+                        despliegue estratégico de IA.
                     </p>
                 </div>
                 <div
-                    class="md:col-span-8 p-8 text-lg leading-relaxed space-y-6"
+                    class="md:col-span-8 p-8 text-lg leading-snug space-y-6 normal-case"
                 >
                     <p>
-                        No soy un CTO teórico. Mi visión estratégica se forjó en
-                        las trincheras del código. Antes de liderar ingeniería
-                        en
-                        <a href="https://leadtech.com" class="font-bold"
-                            >LeadTech</a
-                        >, he diseñado sistemas desde la base.
+                        No soy un CTO de despacho. Mi autoridad emana de <strong
+                            >30 años en las trincheras del código</strong
+                        >, donde he aprendido a dominar decenas de lenguajes y
+                        arquitecturas por pura curiosidad intelectual. Desde
+                        liderar el alto rendimiento en <a
+                            href="https://leadtech.com"
+                            class="font-bold decoration-brand/50 hover:decoration-brand"
+                            >LeadTech Group</a
+                        >
+                        hasta orquestar sistemas de infraestructura masiva, mi enfoque
+                        siempre ha sido la ejecución implacable.
                     </p>
                     <p>
-                        Trayectoria: Alto tráfico en Telco, redes geolocalizadas
-                        y liderazgo técnico en startups de crecimiento
-                        explosivo. Mi ventaja: <span
-                            class="bg-zinc-800 px-1 py-0.5 text-white"
-                            >detecto la solidez donde otros ven hype.</span
-                        >
+                        Hoy mi obsesión es la <strong
+                            >Inteligencia Artificial aplicada</strong
+                        >: no como hype, sino como motor para redefinir procesos
+                        obsoletos y ganar ventajas competitivas exponenciales.
+                        Fusiono conocimientos profundos de márketing, SEO y
+                        producto para que la tecnología no sea un gasto, sino el
+                        activo más valioso de la compañía.
+                    </p>
+                    <p
+                        class="text-sm border-l-2 border-brand pl-4 text-zinc-400 italic"
+                    >
+                        "En un mundo donde el código se vuelve commodity, el
+                        valor real reside en el pensamiento sistémico y la
+                        integración táctica de la IA."
                     </p>
                 </div>
             </section>
 
             <!-- ARCHIVE ACCESS -->
             <section
-                class="p-8 border-b border-zinc-800 flex items-center justify-between group cursor-pointer hover:bg-zinc-950 transition-colors duration-75"
+                class="p-8 border-b border-zinc-800 flex flex-col md:flex-row items-center justify-between group cursor-pointer hover:bg-zinc-950 transition-colors duration-75"
             >
-                <div>
-                    <span class="data-label">Knowledge Base</span>
-                    <h3 class="text-2xl font-black italic">EL LABORATORIO</h3>
-                    <p class="text-zinc-500 text-sm mt-1 uppercase">
-                        Deep dives técnicos y tesis de inversión.
+                <div class="mb-4 md:mb-0">
+                    <span class="data-label">Intelligence Archive</span>
+                    <h3 class="text-2xl font-black italic">
+                        EL LABORATORIO_S26
+                    </h3>
+                    <p
+                        class="text-zinc-500 text-sm mt-1 uppercase tracking-tighter"
+                    >
+                        Análisis de infra, IA aplicada y tesis de inversión
+                        técnica.
                     </p>
                 </div>
                 <a
                     href="/posts"
-                    class="border border-white px-6 py-2 font-bold hover:bg-white hover:text-black transition-all"
+                    class="border-2 border-white px-8 py-3 font-black hover:bg-white hover:text-black transition-all"
                 >
-                    OPEN ARCHIVE →
+                    ACCEDER AL ARCHIVO →
                 </a>
+            </section>
+
+            <!-- INVESTMENT SECTOR -->
+            <section class="border-b border-zinc-800 p-8 bg-zinc-950">
+                <div class="max-w-2xl">
+                    <span class="data-label"
+                        >Investment & Partnership Protocol</span
+                    >
+                    <h2 class="text-3xl font-black mb-4">
+                        Capital Estratégico
+                    </h2>
+                    <p
+                        class="text-zinc-400 text-sm normal-case leading-relaxed"
+                    >
+                        Busco activamente oportunidades donde mi capital pueda
+                        ir acompañado de mi
+                        <strong>experiencia operativa</strong>. Me involucro
+                        personalmente en proyectos con base tecnológica sólida
+                        que busquen escalar mediante IA y eficiencia de
+                        producto. Si tienes un desafío que requiere más que solo
+                        dinero, hablemos.
+                    </p>
+                </div>
             </section>
 
             <!-- SYNERGY GRID -->
@@ -133,83 +182,92 @@ const profileImage = "/jordi-rivero.webp";
                     class="grid grid-cols-1 md:grid-cols-3 text-center border-b border-zinc-800"
                 >
                     <div
-                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-950 transition-colors"
+                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-900/50 transition-colors"
                     >
-                        <span class="data-label">Vertical 01</span>
+                        <span class="data-label">Node 01</span>
                         <h4
-                            class="text-xl font-black mb-4 underline decoration-2 underline-offset-8"
+                            class="text-xl font-black mb-4 underline decoration-brand decoration-2 underline-offset-8"
                         >
-                            Capitals
+                            Venture
                         </h4>
                         <p
-                            class="text-sm text-zinc-500 uppercase tracking-tighter"
+                            class="text-[10px] text-zinc-500 uppercase tracking-tighter leading-tight"
                         >
-                            Proyectos con tracción y Smart Capital.
+                            Detección de oportunidades / High potential tech
+                            startups / Smart Capital.
                         </p>
                     </div>
                     <div
-                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-950 transition-colors"
+                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-900/50 transition-colors"
                     >
-                        <span class="data-label">Vertical 02</span>
+                        <span class="data-label">Node 02</span>
                         <h4
-                            class="text-xl font-black mb-4 underline decoration-2 underline-offset-8"
+                            class="text-xl font-black mb-4 underline decoration-brand decoration-2 underline-offset-8"
                         >
-                            Directive
+                            Applied AI
                         </h4>
                         <p
-                            class="text-sm text-zinc-500 uppercase tracking-tighter"
+                            class="text-[10px] text-zinc-500 uppercase tracking-tighter leading-tight"
                         >
-                            Escalabilidad, equipos y Tech+SEO.
+                            Optimización de procesos clásicos / LLM Lifecycle /
+                            Product strategy.
                         </p>
                     </div>
-                    <div class="p-10 hover:bg-zinc-950 transition-colors">
-                        <span class="data-label">Vertical 03</span>
+                    <div class="p-10 hover:bg-zinc-900/50 transition-colors">
+                        <span class="data-label">Node 03</span>
                         <h4
-                            class="text-xl font-black mb-4 underline decoration-2 underline-offset-8"
+                            class="text-xl font-black mb-4 underline decoration-brand decoration-2 underline-offset-8"
                         >
-                            Interests
+                            Structure
                         </h4>
                         <p
-                            class="text-sm text-zinc-500 uppercase tracking-tighter"
+                            class="text-[10px] text-zinc-500 uppercase tracking-tighter leading-tight"
                         >
-                            Fotografía, Calistenia y Ajedrez.
+                            Infraestructura crítica / SEO técnico / Escala de
+                            equipos de alto rendimiento.
                         </p>
                     </div>
                 </div>
 
                 <div class="p-12 text-center bg-white text-black">
                     <h2
-                        class="text-4xl md:text-6xl font-black tracking-tighter mb-8 italic"
+                        class="text-4xl md:text-7xl font-black tracking-tighter mb-8 italic"
                     >
-                        ¿Hacemos sinergia?
+                        ¿ESTABLECEMOS CONEXIÓN?
                     </h2>
                     <a
                         href="https://x.com/jrivero"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="inline-block border-4 border-black px-12 py-4 text-2xl font-black hover:bg-black hover:text-white transition-all uppercase"
+                        class="inline-block border-4 border-black px-12 py-5 text-2xl font-black hover:bg-black hover:text-white transition-all uppercase tracking-widest"
                     >
-                        CONNECT VIA X.COM
+                        START DIALOGUE via X.COM
                     </a>
                 </div>
             </section>
 
             <!-- FOOTER -->
             <footer
-                class="p-8 border-t border-zinc-800 bg-zinc-950 flex flex-col md:flex-row justify-between items-center gap-4"
+                class="p-8 border-t border-zinc-800 bg-zinc-950 flex flex-col md:flex-row justify-between items-center gap-6"
             >
                 <div
-                    class="flex items-center gap-4 text-xs font-mono text-zinc-500 uppercase tracking-widest"
+                    class="flex items-center gap-4 text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em]"
                 >
+                    <div class="w-2 h-2 bg-emerald-500 animate-pulse"></div>
                     <span>© JRIVERO.NET</span>
-                    <span class="hidden md:inline">/</span>
-                    <span>EST. 2026</span>
+                    <span>/</span>
+                    <span>OP: TECHNICAL_STRATEGY</span>
                 </div>
-                <div class="flex gap-6">
+                <div class="flex gap-8">
                     <a
                         href="https://x.com/jrivero"
-                        class="text-zinc-400 hover:text-white font-mono text-xs uppercase tracking-widest underline underline-offset-4"
-                        >X/Twitter</a
+                        class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
+                        >Twitter Protocol</a
+                    >
+                    <a
+                        href="https://leadtech.com"
+                        class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
+                        >Leadtech Group</a
                     >
                     <script
                         defer
@@ -226,9 +284,15 @@ const profileImage = "/jordi-rivero.webp";
         >
         </div>
         <div
-            class="fixed top-4 left-4 font-mono text-[8px] text-zinc-800 uppercase tracking-[0.3em] z-50 mix-blend-difference"
+            class="fixed top-4 left-4 font-mono text-[8px] text-zinc-800 uppercase tracking-[0.4em] z-50 mix-blend-difference pointer-events-none"
         >
-            System Status: Nominal // Latency: 24ms
+            30Y_SYSTEM_HISTORY // LEVEL: EXPERT // STATUS: INNOVATING
+        </div>
+        <div
+            class="fixed bottom-4 right-4 font-mono text-[8px] text-zinc-600 uppercase tracking-[0.4em] z-50 hidden md:block pointer-events-none"
+        >
+            AI_AUGMENTED_WORKFLOW // LATENCY: 14MS // STACK:
+            ASTRO+TAILWIND4+KEYSTATIC
         </div>
         <style>
             body {
