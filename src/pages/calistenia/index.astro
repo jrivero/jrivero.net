@@ -1,6 +1,7 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-const allPosts = await Astro.glob("./*.md");
+const allPosts = await getCollection("calistenia");
 
 const frontmatter = {
 	title: "Calistenia",
@@ -29,13 +30,13 @@ const frontmatter = {
 		{
 			allPosts.map((post) => (
 				<a
-					href={post.url}
+					href={`/calistenia/${post.slug}/`}
 					class="group flex flex-col md:flex-row md:items-center justify-between p-6 border-b border-zinc-800 hover:bg-zinc-950 transition-colors duration-75"
 				>
 					<div class="flex flex-col">
 						<span class="data-label">Module / Program</span>
 						<h2 class="text-2xl font-black group-hover:underline decoration-brand decoration-4 underline-offset-4 tracking-tighter transition-none uppercase">
-							{post.frontmatter.title}
+							{post.data.title}
 						</h2>
 					</div>
 					<div class="mt-4 md:mt-0">

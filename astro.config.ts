@@ -20,7 +20,10 @@ export default defineConfig({
   output: "static",
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      chunkSizeWarningLimit: 1000
+    }
   },
 
   adapter: vercel()
