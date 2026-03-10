@@ -17,6 +17,15 @@ const allPosts = await getCollection("posts");
     </p>
   </div>
 
+  {
+    allPosts.length === 0 && (
+      <div class="text-center py-12">
+        <h2 class="text-3xl font-bold">No posts found</h2>
+        <p class="text-zinc-500 mt-4">Check back later for new content.</p>
+      </div>
+    )
+  }
+
   <div class="grid grid-cols-1 border-t border-zinc-800">
     {
       allPosts
