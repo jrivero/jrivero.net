@@ -5,7 +5,7 @@ import "@/styles/global.css";
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0f1419">
     <title>Bingo Assistant</title>
     <style is:global>
@@ -51,9 +51,16 @@ import "@/styles/global.css";
             from { transform: translateY(0); opacity: 1; }
             to { transform: translateY(20px); opacity: 0; }
         }
+        @keyframes bingo-win-pulse {
+            0%, 100% { box-shadow: 0 0 0 2px var(--warn), 0 0 0 4px rgba(245,158,11,0.35); }
+            50% { box-shadow: 0 0 0 2px var(--warn), 0 0 0 8px transparent; }
+        }
         .bingo-ball-last {
             animation: bingo-pulse 1.4s ease-in-out infinite;
             box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px var(--accent-soft);
+        }
+        .bingo-ball-bingo-win {
+            animation: bingo-win-pulse 1.2s ease-in-out infinite;
         }
         .bingo-toast { animation: bingo-toast-in 0.3s forwards, bingo-toast-out 0.3s forwards 3.2s; }
     </style>
@@ -78,12 +85,12 @@ import "@/styles/global.css";
     <section class="grid grid-cols-3 gap-1.5 mb-3" id="stats"></section>
 
     <div class="flex items-center gap-2 mt-4 mb-2 px-1">
-        <h2 class="flex-1 m-0 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider normal-case">Bombo · tap para marcar</h2>
+        <h2 class="flex-1 m-0 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider">Bombo · tap para marcar</h2>
     </div>
     <section class="grid grid-cols-10 gap-1 mb-4 p-2 bg-[var(--surface)] border border-[var(--border)] rounded-lg!" id="bombo"></section>
 
     <div class="flex items-center gap-2 mt-4 mb-2 px-1">
-        <h2 class="flex-1 m-0 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider normal-case" id="cartonesTitle">Cartones</h2>
+        <h2 class="flex-1 m-0 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider" id="cartonesTitle">Cartones</h2>
     </div>
     <section class="flex flex-col gap-2" id="cartones"></section>
 </div>
@@ -145,7 +152,7 @@ let state = {
 
 const SEED = [
     {
-        id: "134",
+        id: "1",
         filas: [
             [1, null, null, 30, null, 52, 62, null, 81],
             [7, 10, null, null, 49, null, 69, 71, null],
@@ -153,7 +160,7 @@ const SEED = [
         ]
     },
     {
-        id: "207",
+        id: "2",
         filas: [
             [3, null, 21, null, 40, null, 60, 73, null],
             [9, null, null, 36, null, 56, 67, null, 81],
@@ -177,10 +184,19 @@ function load() {
 }
 
 let saveTimer = null;
+let quotaWarned = false;
 function save() {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            quotaWarned = false;
+        } catch (e) {
+            if (!quotaWarned) {
+                quotaWarned = true;
+                toast('No se puede guardar (cuota llena). Quita fotos.', 'warn');
+            }
+        }
     }, 200);
 }
 
@@ -195,33 +211,28 @@ function cartonStats(carton) {
     let marcados = 0, total = 0;
     let lineasCompletas = 0;
     let minFaltaLinea = Infinity;
-    let proxLineaNumeros = [];
 
-    carton.filas.forEach((fila, idx) => {
+    carton.filas.forEach(fila => {
         let mark = 0, t = 0;
-        const pendientes = [];
         fila.forEach(n => {
             if (n != null) {
                 t++;
                 if (salidosSet.has(n)) mark++;
-                else pendientes.push(n);
             }
         });
         marcados += mark;
         total += t;
+        if (t === 0) return;
         if (mark === t) {
             lineasCompletas++;
         } else {
             const falta = t - mark;
-            if (falta < minFaltaLinea) {
-                minFaltaLinea = falta;
-                proxLineaNumeros = pendientes.slice();
-            }
+            if (falta < minFaltaLinea) minFaltaLinea = falta;
         }
     });
 
     const faltaBingo = total - marcados;
-    return { marcados, total, lineasCompletas, minFaltaLinea, proxLineaNumeros, faltaBingo };
+    return { marcados, total, lineasCompletas, minFaltaLinea, faltaBingo };
 }
 
 function detectAvisos() {
@@ -278,18 +289,69 @@ function toast(msg, type) {
     setTimeout(() => el.remove(), 3700);
 }
 
-const BALL_BASE = 'aspect-square flex items-center justify-center text-sm font-bold rounded-full! cursor-pointer select-none transition-transform duration-150 [font-variant-numeric:tabular-nums] active:scale-[0.88]';
-const BALL_IDLE = 'bg-[var(--surface-2)] text-[var(--text)]';
-const BALL_MARKED = 'bg-[var(--accent)] text-white';
+const BALL_BASE = 'aspect-square flex items-center justify-center text-sm font-bold rounded-full! select-none transition-transform duration-150 [font-variant-numeric:tabular-nums] active:scale-[0.88]';
+const BALL_IDLE_PLAIN = 'bg-[var(--surface-2)] text-[var(--text)]';
+const BALL_IDLE_IN = 'bg-[var(--surface-2)] text-[var(--text)] ring-2 ring-inset ring-[var(--accent)]/60';
+const BALL_IDLE_OUT = 'bg-[var(--surface-2)] text-[var(--muted)] opacity-50';
+const BALL_LINEA_WIN = 'bg-[var(--warn)] text-black font-extrabold';
+const BALL_BINGO_WIN = '[background:linear-gradient(135deg,var(--warn),var(--accent))] text-white font-extrabold';
+const BALL_MARKED_IN = 'bg-[var(--accent)] text-white';
+const BALL_MARKED_OUT = 'bg-[var(--surface-2)] text-[var(--muted)] opacity-40 line-through';
+
+function computeWinners() {
+    const salidosSet = new Set(state.salidos);
+    const linea = new Set();
+    const bingo = new Set();
+    state.cartones.forEach(c => {
+        const filaState = c.filas.map(fila => {
+            let t = 0, m = 0;
+            const pendientes = [];
+            fila.forEach(n => {
+                if (n != null) { t++; if (salidosSet.has(n)) m++; else pendientes.push(n); }
+            });
+            return { t, m, pendientes };
+        });
+        const lineasCompletas = filaState.filter(f => f.t > 0 && f.m === f.t).length;
+        if (lineasCompletas === 3) return;
+        filaState.forEach(f => {
+            if (f.t > 0 && f.pendientes.length === 1 && f.m === f.t - 1) {
+                const n = f.pendientes[0];
+                if (lineasCompletas === 2) bingo.add(n);
+                else linea.add(n);
+            }
+        });
+    });
+    return { linea, bingo };
+}
 
 function renderBombo() {
     const bombo = document.getElementById('bombo');
     bombo.innerHTML = '';
     const salidosSet = new Set(state.salidos);
+    const inCartones = new Set();
+    state.cartones.forEach(c => c.filas.forEach(f => f.forEach(n => { if (n != null) inCartones.add(n); })));
+    const showSignal = inCartones.size > 0;
+    const { linea: lineaWin, bingo: bingoWin } = computeWinners();
     const lastN = state.salidos[state.salidos.length - 1];
     for (let i = 1; i <= 90; i++) {
         const b = document.createElement('button');
-        b.className = BALL_BASE + ' ' + (salidosSet.has(i) ? BALL_MARKED : BALL_IDLE) + (i === lastN ? ' bingo-ball-last' : '');
+        const marked = salidosSet.has(i);
+        const inCart = inCartones.has(i);
+        let variant;
+        let extra = '';
+        if (marked) {
+            variant = (showSignal && !inCart) ? BALL_MARKED_OUT : BALL_MARKED_IN;
+        } else if (bingoWin.has(i)) {
+            variant = BALL_BINGO_WIN;
+            extra = ' bingo-ball-bingo-win';
+        } else if (lineaWin.has(i)) {
+            variant = BALL_LINEA_WIN;
+        } else if (!showSignal) {
+            variant = BALL_IDLE_PLAIN;
+        } else {
+            variant = inCart ? BALL_IDLE_IN : BALL_IDLE_OUT;
+        }
+        b.className = BALL_BASE + ' ' + variant + extra + (i === lastN ? ' bingo-ball-last' : '');
         b.textContent = i;
         b.addEventListener('click', () => toggleNumero(i));
         bombo.appendChild(b);
@@ -330,17 +392,17 @@ function renderStats() {
             if (s.faltaBingo > 0 && (!mejorBingo || s.faltaBingo < mejorBingo.f)) {
                 mejorBingo = { id: c.id, f: s.faltaBingo };
             }
-            if (s.minFaltaLinea !== Infinity && (!mejorLinea || s.minFaltaLinea < mejorLinea.f)) {
+            if (s.lineasCompletas === 0 && s.minFaltaLinea !== Infinity && (!mejorLinea || s.minFaltaLinea < mejorLinea.f)) {
                 mejorLinea = { id: c.id, f: s.minFaltaLinea };
             }
         }
     });
 
     const mejorLineaTxt = mejorLinea
-        ? `<div class="${STAT_V}">${mejorLinea.f}</div><div class="${STAT_L}">→ línea #${mejorLinea.id}</div>`
+        ? `<div class="${STAT_V}">${mejorLinea.f}</div><div class="${STAT_L}">→ línea #${escapeHtml(mejorLinea.id)}</div>`
         : `<div class="${STAT_V}">—</div><div class="${STAT_L}">línea</div>`;
     const mejorBingoTxt = mejorBingo
-        ? `<div class="${STAT_V}">${mejorBingo.f}</div><div class="${STAT_L}">→ bingo #${mejorBingo.id}</div>`
+        ? `<div class="${STAT_V}">${mejorBingo.f}</div><div class="${STAT_L}">→ bingo #${escapeHtml(mejorBingo.id)}</div>`
         : `<div class="${STAT_V}">—</div><div class="${STAT_L}">bingo</div>`;
 
     el.innerHTML = `
@@ -384,13 +446,13 @@ function renderCartones() {
         const card = document.createElement('article');
         let cls = CARTON_BASE;
         if (s.lineasCompletas === 3) cls += ' ' + CARTON_BINGO;
-        else if (s.minFaltaLinea <= 1) cls += ' ' + CARTON_NEAR;
+        else if (s.faltaBingo <= 1 || (s.lineasCompletas === 0 && s.minFaltaLinea <= 1)) cls += ' ' + CARTON_NEAR;
         card.className = cls;
 
         let badge = '';
         if (s.lineasCompletas === 3) badge = `<span class="${BADGE_BASE} bg-[var(--accent)] text-white">Bingo</span>`;
-        else if (s.minFaltaLinea === 0) badge = `<span class="${BADGE_BASE} bg-[var(--warn)] text-black">Línea</span>`;
-        else if (s.minFaltaLinea === 1) badge = `<span class="${BADGE_BASE} bg-[var(--accent-soft)] text-[var(--accent)]">1 a línea</span>`;
+        else if (s.faltaBingo === 1) badge = `<span class="${BADGE_BASE} bg-[var(--warn)] text-black">1 a bingo</span>`;
+        else if (s.lineasCompletas === 0 && s.minFaltaLinea === 1) badge = `<span class="${BADGE_BASE} bg-[var(--accent-soft)] text-[var(--accent)]">1 a línea</span>`;
 
         let statusTxt;
         if (s.lineasCompletas === 3) statusTxt = `${s.marcados}/${s.total} · cartón completo`;
@@ -404,8 +466,8 @@ function renderCartones() {
             ${badge}
             <div class="text-xs text-[var(--muted)] flex-1">${statusTxt}</div>
             <div class="flex gap-1">
-                <button class="bg-transparent border-none text-[var(--muted)] cursor-pointer p-1.5 text-base leading-none rounded-sm! active:bg-[var(--surface-2)]" data-act="edit" title="Editar">✎</button>
-                <button class="bg-transparent border-none text-[var(--muted)] cursor-pointer p-1.5 text-base leading-none rounded-sm! active:bg-[var(--surface-2)]" data-act="del" title="Eliminar">🗑</button>
+                <button class="bg-transparent border-none text-[var(--muted)] cursor-pointer p-1.5 text-base leading-none rounded-sm! active:bg-[var(--surface-2)]" data-act="edit" title="Editar" aria-label="Editar cartón ${escapeHtml(c.id)}">✎</button>
+                <button class="bg-transparent border-none text-[var(--muted)] cursor-pointer p-1.5 text-base leading-none rounded-sm! active:bg-[var(--surface-2)]" data-act="del" title="Eliminar" aria-label="Eliminar cartón ${escapeHtml(c.id)}">🗑</button>
             </div>
         `;
         head.querySelector('[data-act=edit]').addEventListener('click', () => openModal(c));
@@ -608,8 +670,13 @@ function saveModal() {
         toast('Hay números fuera de rango', 'warn');
         return;
     }
-    if (rowCounts.every(n => n === 0)) {
+    const totalNums = rowCounts.reduce((a, b) => a + b, 0);
+    if (totalNums === 0) {
         toast('Introduce los números del cartón', 'warn');
+        return;
+    }
+    if (rowCounts.some(n => n !== 0 && n !== 5) || totalNums !== 15) {
+        toast('Cada fila con números debe tener exactamente 5 (15 en total)', 'warn');
         return;
     }
     const dup = state.cartones.find(c => c.id === idVal && c.id !== editingId);
@@ -618,7 +685,7 @@ function saveModal() {
         return;
     }
 
-    const payload = { id: idVal, filas: filas.map(f => f.slice(0, 9)) };
+    const payload = { id: idVal, filas };
     if (photoDataUrl) payload.fotoDataUrl = photoDataUrl;
 
     if (editingId) {
@@ -648,7 +715,7 @@ function handlePhoto(file) {
     reader.onload = e => {
         const img = new Image();
         img.onload = () => {
-            const max = 1200;
+            const max = 800;
             let w = img.width, h = img.height;
             if (w > max || h > max) {
                 const r = Math.min(max / w, max / h);
@@ -658,7 +725,7 @@ function handlePhoto(file) {
             const canvas = document.createElement('canvas');
             canvas.width = w; canvas.height = h;
             canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-            photoDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            photoDataUrl = canvas.toDataURL('image/jpeg', 0.7);
             renderPhotoPreview();
         };
         img.src = e.target.result;
