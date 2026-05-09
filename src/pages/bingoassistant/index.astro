@@ -1,0 +1,707 @@
+---
+import "@/styles/global.css";
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#0f1419">
+    <title>Bingo Assistant</title>
+    <style is:global>
+        .bingo-page {
+            --bg: #0f1419;
+            --surface: #1a2028;
+            --surface-2: #232a35;
+            --border: #2a3340;
+            --text: #e8ecf0;
+            --muted: #8a95a3;
+            --accent: #10b981;
+            --accent-soft: rgba(16, 185, 129, 0.15);
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+        @media (prefers-color-scheme: light) {
+            .bingo-page {
+                --bg: #f7f8fa;
+                --surface: #ffffff;
+                --surface-2: #f0f2f5;
+                --border: #e1e5ea;
+                --text: #1a2028;
+                --muted: #6b7585;
+                --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+        }
+        .bingo-page input[type="number"] { -moz-appearance: textfield; }
+        .bingo-page input[type="number"]::-webkit-outer-spin-button,
+        .bingo-page input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        @keyframes bingo-pulse {
+            0%, 100% { box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px var(--accent-soft); }
+            50% { box-shadow: 0 0 0 2px var(--accent), 0 0 0 8px transparent; }
+        }
+        @keyframes bingo-toast-in {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bingo-toast-out {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(20px); opacity: 0; }
+        }
+        .bingo-ball-last {
+            animation: bingo-pulse 1.4s ease-in-out infinite;
+            box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px var(--accent-soft);
+        }
+        .bingo-toast { animation: bingo-toast-in 0.3s forwards, bingo-toast-out 0.3s forwards 3.2s; }
+    </style>
+</head>
+<body class="bingo-page m-0 p-0 min-h-screen pb-[calc(80px+env(safe-area-inset-bottom))] font-sans text-base leading-snug antialiased bg-[var(--bg)]! text-[var(--text)]! [overscroll-behavior-y:none] [-webkit-tap-highlight-color:transparent]">
+
+<div class="mx-auto max-w-[720px] px-3">
+    <header class="sticky top-0 z-50 flex items-center gap-2 -mx-3 px-3 pt-[calc(env(safe-area-inset-top)+10px)] pb-2.5 mb-2 border-b border-[var(--border)] backdrop-blur-md" style="background: color-mix(in srgb, var(--bg) 92%, transparent);">
+        <h1 class="flex-1 m-0 text-lg font-bold tracking-tight normal-case">Bingo<span class="text-[var(--accent)]">.</span></h1>
+        <button class="rounded-md! border-none bg-[var(--accent)] text-white px-3.5 py-2 text-sm font-semibold cursor-pointer min-h-[38px] transition-transform active:scale-[0.96]" id="btnNuevoCarton" aria-label="Añadir cartón">+ Cartón</button>
+        <div class="relative">
+            <button class="rounded-md! border-none bg-[var(--surface-2)] text-[var(--text)] w-[38px] h-[38px] inline-flex items-center justify-center text-lg cursor-pointer active:scale-[0.96] transition-transform" id="btnMenu" aria-label="Menú">⋯</button>
+            <div class="hidden absolute top-full right-0 mt-1 bg-[var(--surface)] border border-[var(--border)] rounded-md! p-1 min-w-[180px] z-[60] shadow-[var(--shadow)] data-[open=true]:block" id="menuPop">
+                <button class="block w-full bg-transparent border-none text-[var(--text)] text-left px-3 py-2.5 text-sm cursor-pointer rounded-sm! font-[inherit] active:bg-[var(--surface-2)]" id="btnNuevaPartida">Nueva partida</button>
+                <button class="block w-full bg-transparent border-none text-[var(--danger)] text-left px-3 py-2.5 text-sm cursor-pointer rounded-sm! font-[inherit] active:bg-[var(--surface-2)]" id="btnLimpiarTodo">Borrar todo</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="flex items-center gap-3 bg-[var(--surface)] border border-[var(--border)] rounded-lg! p-2.5 px-3.5 mb-3 min-h-[58px]" id="lastCalled"></section>
+
+    <section class="grid grid-cols-3 gap-1.5 mb-3" id="stats"></section>
+
+    <div class="flex items-center gap-2 mt-4 mb-2 px-1">
+        <h2 class="flex-1 m-0 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider normal-case">Bombo · tap para marcar</h2>
+    </div>
+    <section class="grid grid-cols-10 gap-1 mb-4 p-2 bg-[var(--surface)] border border-[var(--border)] rounded-lg!" id="bombo"></section>
+
+    <div class="flex items-center gap-2 mt-4 mb-2 px-1">
+        <h2 class="flex-1 m-0 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider normal-case" id="cartonesTitle">Cartones</h2>
+    </div>
+    <section class="flex flex-col gap-2" id="cartones"></section>
+</div>
+
+<button class="hidden fixed right-4 bottom-[calc(20px+env(safe-area-inset-bottom))] z-30 rounded-full! border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] px-4 py-2.5 text-sm font-semibold cursor-pointer items-center gap-1.5 shadow-[var(--shadow)] active:scale-[0.95] transition-transform data-[show=true]:inline-flex" id="fabUndo">↶ Deshacer último</button>
+
+<div class="fixed bottom-[calc(20px+env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-[200] flex flex-col gap-2 items-center pointer-events-none w-[calc(100%-24px)] max-w-[440px]" id="toastStack"></div>
+
+<div class="fixed inset-0 bg-black/60 z-[100] flex items-end justify-center opacity-0 pointer-events-none transition-opacity duration-200 sm:items-center data-[open=true]:opacity-100 data-[open=true]:pointer-events-auto" id="modalBg">
+    <div class="bg-[var(--bg)] w-full max-w-[720px] max-h-[92vh] sm:max-h-[86vh] rounded-t-2xl! sm:rounded-2xl! p-3.5 pb-[calc(14px+env(safe-area-inset-bottom))] overflow-y-auto translate-y-full transition-transform duration-[250ms] border-t border-[var(--border)] [[data-open=true]_&]:translate-y-0" role="dialog" aria-modal="true" id="modalCard">
+        <div class="flex items-center mb-3">
+            <h2 class="m-0 text-lg flex-1 normal-case font-bold" id="modalTitle">Nuevo cartón</h2>
+            <button class="rounded-md! border-none bg-transparent text-[var(--muted)] w-[38px] h-[38px] inline-flex items-center justify-center text-lg cursor-pointer active:scale-[0.96] transition-transform" id="modalClose" aria-label="Cerrar">✕</button>
+        </div>
+
+        <div class="mb-3">
+            <label class="block text-xs text-[var(--muted)] mb-1 uppercase tracking-wider" for="cId">Identificador (#)</label>
+            <input type="text" id="cId" inputmode="numeric" placeholder="ej. 134" maxlength="12" class="w-full bg-[var(--surface)] text-[var(--text)] border border-[var(--border)] rounded-md! px-3 py-2.5 text-base font-[inherit] focus:outline focus:outline-2 focus:outline-[var(--accent)] focus:border-[var(--accent)]">
+        </div>
+
+        <div class="mb-3">
+            <label class="block text-xs text-[var(--muted)] mb-1 uppercase tracking-wider">Foto del cartón (opcional)</label>
+            <label class="block border border-dashed border-[var(--border)] rounded-lg! p-4 text-center text-[var(--muted)] text-sm cursor-pointer bg-[var(--surface)]" id="photoDrop">
+                <input type="file" id="cPhoto" accept="image/*" capture="environment" class="hidden">
+                <span id="photoLabel">📷 Tocar para hacer foto o subir imagen</span>
+            </label>
+            <div class="hidden relative mt-2 data-[show=true]:block" id="photoWrap">
+                <img class="w-full max-h-[280px] object-contain rounded-lg! bg-[var(--surface)] block" id="photoPreview" alt="">
+                <button class="absolute top-1.5 right-1.5 bg-black/60 text-white border-none rounded-full! w-[30px] h-[30px] text-base cursor-pointer" id="photoRemove" aria-label="Quitar foto">✕</button>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="block text-xs text-[var(--muted)] mb-1 uppercase tracking-wider">Números (3 filas × 9 columnas, dejar vacío los huecos)</label>
+            <div class="grid grid-cols-9 gap-[3px] bg-[var(--border)] p-0.5 rounded-md!" id="editGrid"></div>
+            <div class="text-xs text-[var(--muted)] mt-1 data-[warn=true]:text-[var(--warn)]" id="editHint">Cada fila debe tener 5 números. Columnas: 1-9, 10-19, 20-29… 80-90.</div>
+        </div>
+
+        <div class="flex gap-2 mt-4 sticky bottom-0 bg-[var(--bg)] pt-2">
+            <button class="flex-1 rounded-md! border-none bg-[var(--surface-2)] text-[var(--text)] px-3.5 py-2 text-sm font-semibold cursor-pointer min-h-[38px] active:scale-[0.96] transition-transform" id="modalCancel">Cancelar</button>
+            <button class="flex-1 rounded-md! border-none bg-[var(--accent)] text-white px-3.5 py-2 text-sm font-semibold cursor-pointer min-h-[38px] active:scale-[0.96] transition-transform" id="modalSave">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script is:inline>
+(function() {
+'use strict';
+
+const STORAGE_KEY = 'bingoState.v1';
+
+let state = {
+    cartones: [],
+    salidos: [],
+    avisosLinea: [],
+    avisosBingo: [],
+    partidaId: Date.now()
+};
+
+const SEED = [
+    {
+        id: "134",
+        filas: [
+            [1, null, null, 30, null, 52, 62, null, 81],
+            [7, 10, null, null, 49, null, 69, 71, null],
+            [null, null, 24, 36, null, 58, null, 73, 86]
+        ]
+    },
+    {
+        id: "207",
+        filas: [
+            [3, null, 21, null, 40, null, 60, 73, null],
+            [9, null, null, 36, null, 56, 67, null, 81],
+            [null, 18, 29, null, 45, null, null, 75, 85]
+        ]
+    }
+];
+
+function load() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && Array.isArray(parsed.cartones)) {
+                state = Object.assign(state, parsed);
+                return;
+            }
+        }
+    } catch (e) {}
+    state.cartones = SEED.map(c => ({...c}));
+}
+
+let saveTimer = null;
+function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    }, 200);
+}
+
+function colRange(col) {
+    if (col === 0) return [1, 9];
+    if (col === 8) return [80, 90];
+    return [col * 10, col * 10 + 9];
+}
+
+function cartonStats(carton) {
+    const salidosSet = new Set(state.salidos);
+    let marcados = 0, total = 0;
+    let lineasCompletas = 0;
+    let minFaltaLinea = Infinity;
+    let proxLineaNumeros = [];
+
+    carton.filas.forEach((fila, idx) => {
+        let mark = 0, t = 0;
+        const pendientes = [];
+        fila.forEach(n => {
+            if (n != null) {
+                t++;
+                if (salidosSet.has(n)) mark++;
+                else pendientes.push(n);
+            }
+        });
+        marcados += mark;
+        total += t;
+        if (mark === t) {
+            lineasCompletas++;
+        } else {
+            const falta = t - mark;
+            if (falta < minFaltaLinea) {
+                minFaltaLinea = falta;
+                proxLineaNumeros = pendientes.slice();
+            }
+        }
+    });
+
+    const faltaBingo = total - marcados;
+    return { marcados, total, lineasCompletas, minFaltaLinea, proxLineaNumeros, faltaBingo };
+}
+
+function detectAvisos() {
+    const newAvisosLinea = new Set(state.avisosLinea);
+    const newAvisosBingo = new Set(state.avisosBingo);
+    const salidosSet = new Set(state.salidos);
+
+    state.cartones.forEach(c => {
+        let lineas = 0;
+        c.filas.forEach((fila, idx) => {
+            const total = fila.filter(n => n != null).length;
+            const mark = fila.filter(n => n != null && salidosSet.has(n)).length;
+            if (mark === total && total > 0) {
+                lineas++;
+                const key = `${c.id}-L${idx}-${state.partidaId}`;
+                if (!newAvisosLinea.has(key)) {
+                    newAvisosLinea.add(key);
+                    toast(`¡Línea en #${c.id}!`, 'warn');
+                    vibrate([120, 60, 120]);
+                }
+            }
+        });
+        if (lineas === 3) {
+            const key = `${c.id}-${state.partidaId}`;
+            if (!newAvisosBingo.has(key)) {
+                newAvisosBingo.add(key);
+                toast(`¡¡¡ BINGO en #${c.id} !!!`, 'bingo');
+                vibrate([200, 80, 200, 80, 400]);
+            }
+        }
+    });
+
+    state.avisosLinea = [...newAvisosLinea];
+    state.avisosBingo = [...newAvisosBingo];
+}
+
+function vibrate(pattern) {
+    if (navigator.vibrate) try { navigator.vibrate(pattern); } catch (e) {}
+}
+
+const TOAST_BASE = 'bingo-toast pointer-events-auto text-center w-full font-semibold border rounded-lg! shadow-[var(--shadow)]';
+const TOAST_VARIANT = {
+    '': 'bg-[var(--surface)] text-[var(--text)] border-[var(--border)] text-[15px] py-3 px-4',
+    success: 'bg-[var(--surface)] text-[var(--text)] border-[var(--accent)] text-[15px] py-3 px-4',
+    warn: 'bg-[var(--surface)] text-[var(--text)] border-[var(--warn)] text-[15px] py-3 px-4',
+    bingo: 'text-white border-[var(--accent)] text-[17px] py-4 px-5 [background:linear-gradient(135deg,var(--accent),#059669)]'
+};
+
+function toast(msg, type) {
+    const el = document.createElement('div');
+    el.className = TOAST_BASE + ' ' + (TOAST_VARIANT[type || ''] || TOAST_VARIANT['']);
+    el.textContent = msg;
+    document.getElementById('toastStack').appendChild(el);
+    setTimeout(() => el.remove(), 3700);
+}
+
+const BALL_BASE = 'aspect-square flex items-center justify-center text-sm font-bold rounded-full! cursor-pointer select-none transition-transform duration-150 [font-variant-numeric:tabular-nums] active:scale-[0.88]';
+const BALL_IDLE = 'bg-[var(--surface-2)] text-[var(--text)]';
+const BALL_MARKED = 'bg-[var(--accent)] text-white';
+
+function renderBombo() {
+    const bombo = document.getElementById('bombo');
+    bombo.innerHTML = '';
+    const salidosSet = new Set(state.salidos);
+    const lastN = state.salidos[state.salidos.length - 1];
+    for (let i = 1; i <= 90; i++) {
+        const b = document.createElement('button');
+        b.className = BALL_BASE + ' ' + (salidosSet.has(i) ? BALL_MARKED : BALL_IDLE) + (i === lastN ? ' bingo-ball-last' : '');
+        b.textContent = i;
+        b.addEventListener('click', () => toggleNumero(i));
+        bombo.appendChild(b);
+    }
+}
+
+function renderLastCalled() {
+    const el = document.getElementById('lastCalled');
+    const n = state.salidos.length;
+    if (n === 0) {
+        el.innerHTML = '<span class="text-[var(--muted)] text-sm">Toca un número del bombo para empezar.</span>';
+        return;
+    }
+    const last = state.salidos[n - 1];
+    const prev = state.salidos.slice(Math.max(0, n - 4), n - 1).reverse();
+    el.innerHTML = `
+        <div>
+            <div class="text-[11px] text-[var(--muted)] uppercase tracking-wider">Último cantado</div>
+            <div class="text-[36px] font-extrabold text-[var(--accent)] leading-none [font-variant-numeric:tabular-nums]">${last}</div>
+        </div>
+        <div class="ml-auto flex gap-1">${prev.map(p => `<span class="bg-[var(--accent-soft)] text-[var(--accent)] py-1 px-2 rounded-md! text-[13px] font-bold [font-variant-numeric:tabular-nums]">${p}</span>`).join('')}</div>
+    `;
+}
+
+const STAT_BOX = 'bg-[var(--surface)] border border-[var(--border)] rounded-lg! p-2.5 text-center';
+const STAT_V = 'text-[22px] font-bold leading-none text-[var(--text)]';
+const STAT_L = 'text-[11px] text-[var(--muted)] uppercase tracking-wider mt-1';
+
+function renderStats() {
+    const el = document.getElementById('stats');
+    const total = state.salidos.length;
+
+    let mejorLinea = null;
+    let mejorBingo = null;
+    state.cartones.forEach(c => {
+        const s = cartonStats(c);
+        if (s.lineasCompletas < 3) {
+            if (s.faltaBingo > 0 && (!mejorBingo || s.faltaBingo < mejorBingo.f)) {
+                mejorBingo = { id: c.id, f: s.faltaBingo };
+            }
+            if (s.minFaltaLinea !== Infinity && (!mejorLinea || s.minFaltaLinea < mejorLinea.f)) {
+                mejorLinea = { id: c.id, f: s.minFaltaLinea };
+            }
+        }
+    });
+
+    const mejorLineaTxt = mejorLinea
+        ? `<div class="${STAT_V}">${mejorLinea.f}</div><div class="${STAT_L}">→ línea #${mejorLinea.id}</div>`
+        : `<div class="${STAT_V}">—</div><div class="${STAT_L}">línea</div>`;
+    const mejorBingoTxt = mejorBingo
+        ? `<div class="${STAT_V}">${mejorBingo.f}</div><div class="${STAT_L}">→ bingo #${mejorBingo.id}</div>`
+        : `<div class="${STAT_V}">—</div><div class="${STAT_L}">bingo</div>`;
+
+    el.innerHTML = `
+        <div class="${STAT_BOX}"><div class="${STAT_V}">${total}<span class="text-[var(--muted)] text-sm font-medium">/90</span></div><div class="${STAT_L}">salidos</div></div>
+        <div class="${STAT_BOX}">${mejorLineaTxt}</div>
+        <div class="${STAT_BOX}">${mejorBingoTxt}</div>
+    `;
+}
+
+const CARTON_BASE = 'bg-[var(--surface)] border border-[var(--border)] rounded-lg! p-2.5 transition-[border-color] duration-200';
+const CARTON_NEAR = 'border-[var(--warn)]!';
+const CARTON_BINGO = 'border-[var(--accent)]! [background:linear-gradient(135deg,var(--surface),var(--accent-soft))]';
+const BADGE_BASE = 'text-[11px] font-bold py-[3px] px-2 rounded-full! uppercase tracking-wider';
+
+function renderCartones() {
+    const cont = document.getElementById('cartones');
+    cont.innerHTML = '';
+    document.getElementById('cartonesTitle').textContent =
+        `Cartones (${state.cartones.length})`;
+
+    if (state.cartones.length === 0) {
+        cont.innerHTML = `
+            <div class="text-center p-6 text-[var(--muted)] bg-[var(--surface)] border border-dashed border-[var(--border)] rounded-lg!">
+                <p class="m-0 mb-3 text-sm">Aún no tienes cartones.</p>
+                <button class="rounded-md! border-none bg-[var(--accent)] text-white px-3.5 py-2 text-sm font-semibold cursor-pointer min-h-[38px]" onclick="document.getElementById('btnNuevoCarton').click()">+ Añadir cartón</button>
+            </div>`;
+        return;
+    }
+
+    const enriched = state.cartones.map(c => ({ c, s: cartonStats(c) }));
+    enriched.sort((a, b) => {
+        if ((a.s.lineasCompletas === 3) !== (b.s.lineasCompletas === 3))
+            return a.s.lineasCompletas === 3 ? -1 : 1;
+        if (a.s.faltaBingo !== b.s.faltaBingo) return a.s.faltaBingo - b.s.faltaBingo;
+        return a.s.minFaltaLinea - b.s.minFaltaLinea;
+    });
+
+    const salidosSet = new Set(state.salidos);
+
+    enriched.forEach(({ c, s }) => {
+        const card = document.createElement('article');
+        let cls = CARTON_BASE;
+        if (s.lineasCompletas === 3) cls += ' ' + CARTON_BINGO;
+        else if (s.minFaltaLinea <= 1) cls += ' ' + CARTON_NEAR;
+        card.className = cls;
+
+        let badge = '';
+        if (s.lineasCompletas === 3) badge = `<span class="${BADGE_BASE} bg-[var(--accent)] text-white">Bingo</span>`;
+        else if (s.minFaltaLinea === 0) badge = `<span class="${BADGE_BASE} bg-[var(--warn)] text-black">Línea</span>`;
+        else if (s.minFaltaLinea === 1) badge = `<span class="${BADGE_BASE} bg-[var(--accent-soft)] text-[var(--accent)]">1 a línea</span>`;
+
+        let statusTxt;
+        if (s.lineasCompletas === 3) statusTxt = `${s.marcados}/${s.total} · cartón completo`;
+        else if (s.lineasCompletas >= 1) statusTxt = `${s.marcados}/${s.total} · ${s.lineasCompletas} línea${s.lineasCompletas !== 1 ? 's' : ''} · falta ${s.faltaBingo} para bingo`;
+        else statusTxt = `${s.marcados}/${s.total} · falta ${s.minFaltaLinea} para línea`;
+
+        const head = document.createElement('div');
+        head.className = 'flex items-center gap-2 mb-2';
+        head.innerHTML = `
+            <div class="text-base font-bold text-[var(--text)]"><span class="text-[var(--muted)]">#</span>${escapeHtml(c.id)}</div>
+            ${badge}
+            <div class="text-xs text-[var(--muted)] flex-1">${statusTxt}</div>
+            <div class="flex gap-1">
+                <button class="bg-transparent border-none text-[var(--muted)] cursor-pointer p-1.5 text-base leading-none rounded-sm! active:bg-[var(--surface-2)]" data-act="edit" title="Editar">✎</button>
+                <button class="bg-transparent border-none text-[var(--muted)] cursor-pointer p-1.5 text-base leading-none rounded-sm! active:bg-[var(--surface-2)]" data-act="del" title="Eliminar">🗑</button>
+            </div>
+        `;
+        head.querySelector('[data-act=edit]').addEventListener('click', () => openModal(c));
+        head.querySelector('[data-act=del]').addEventListener('click', () => removeCarton(c.id));
+        card.appendChild(head);
+
+        const grid = document.createElement('div');
+        grid.className = 'grid grid-cols-9 gap-0.5 bg-[var(--border)] p-px rounded-sm!';
+        c.filas.forEach(fila => {
+            fila.forEach(n => {
+                const cell = document.createElement('div');
+                let cellCls = 'aspect-square flex items-center justify-center text-[11px] font-semibold [font-variant-numeric:tabular-nums]';
+                if (n == null) {
+                    cellCls += ' bg-transparent';
+                } else if (salidosSet.has(n)) {
+                    cellCls += ' bg-[var(--accent)] text-white';
+                } else {
+                    cellCls += ' bg-[var(--surface)] text-[var(--text)]';
+                }
+                cell.className = cellCls;
+                if (n != null) cell.textContent = n;
+                grid.appendChild(cell);
+            });
+        });
+        card.appendChild(grid);
+
+        cont.appendChild(card);
+    });
+}
+
+function render() {
+    detectAvisos();
+    renderLastCalled();
+    renderStats();
+    renderBombo();
+    renderCartones();
+    document.getElementById('fabUndo').dataset.show = state.salidos.length > 0 ? 'true' : 'false';
+    save();
+}
+
+function toggleNumero(n) {
+    const idx = state.salidos.indexOf(n);
+    if (idx >= 0) state.salidos.splice(idx, 1);
+    else state.salidos.push(n);
+    render();
+}
+
+function undoUltimo() {
+    if (state.salidos.length === 0) return;
+    state.salidos.pop();
+    render();
+}
+
+function nuevaPartida() {
+    if (!confirm('¿Empezar nueva partida? Se borran los números cantados.')) return;
+    state.salidos = [];
+    state.avisosLinea = [];
+    state.avisosBingo = [];
+    state.partidaId = Date.now();
+    render();
+}
+
+function limpiarTodo() {
+    if (!confirm('¿Borrar TODO? Cartones y partida desaparecen.')) return;
+    state = {
+        cartones: [],
+        salidos: [],
+        avisosLinea: [],
+        avisosBingo: [],
+        partidaId: Date.now()
+    };
+    render();
+}
+
+function removeCarton(id) {
+    if (!confirm(`¿Eliminar cartón #${id}?`)) return;
+    state.cartones = state.cartones.filter(c => c.id !== id);
+    render();
+    toast(`Cartón #${id} eliminado`);
+}
+
+let editingId = null;
+let photoDataUrl = null;
+
+function openModal(carton) {
+    editingId = carton ? carton.id : null;
+    document.getElementById('modalTitle').textContent = carton ? `Editar #${carton.id}` : 'Nuevo cartón';
+    document.getElementById('cId').value = carton ? carton.id : '';
+    photoDataUrl = carton ? (carton.fotoDataUrl || null) : null;
+    renderPhotoPreview();
+    buildEditGrid(carton ? carton.filas : null);
+    document.getElementById('modalBg').dataset.open = 'true';
+    if (!carton) setTimeout(() => document.getElementById('cId').focus(), 250);
+}
+
+function closeModal() {
+    document.getElementById('modalBg').dataset.open = 'false';
+    editingId = null;
+    photoDataUrl = null;
+}
+
+function renderPhotoPreview() {
+    const wrap = document.getElementById('photoWrap');
+    const drop = document.getElementById('photoDrop');
+    if (photoDataUrl) {
+        wrap.dataset.show = 'true';
+        document.getElementById('photoPreview').src = photoDataUrl;
+        drop.style.display = 'none';
+    } else {
+        wrap.dataset.show = 'false';
+        drop.style.display = 'block';
+    }
+}
+
+const EDIT_INPUT_CLS = 'w-full aspect-[1/1.1] bg-[var(--surface)] text-[var(--text)] border-none text-sm font-semibold text-center [font-variant-numeric:tabular-nums] p-0 focus:outline focus:outline-2 focus:outline-[var(--accent)] focus:bg-[var(--accent-soft)] data-[invalid=true]:bg-[rgba(239,68,68,0.2)]';
+
+function buildEditGrid(initialFilas) {
+    const grid = document.getElementById('editGrid');
+    grid.innerHTML = '';
+    for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 9; c++) {
+            const inp = document.createElement('input');
+            inp.type = 'number';
+            inp.inputMode = 'numeric';
+            inp.min = colRange(c)[0];
+            inp.max = colRange(c)[1];
+            inp.dataset.r = r;
+            inp.dataset.c = c;
+            inp.className = EDIT_INPUT_CLS;
+            const v = initialFilas && initialFilas[r] && initialFilas[r][c];
+            if (v != null) inp.value = v;
+            inp.addEventListener('input', validateGrid);
+            inp.addEventListener('keydown', handleGridKey);
+            grid.appendChild(inp);
+        }
+    }
+    validateGrid();
+}
+
+function handleGridKey(e) {
+    const inp = e.currentTarget;
+    const r = +inp.dataset.r, c = +inp.dataset.c;
+    let nr = r, nc = c;
+    if (e.key === 'ArrowRight' || (e.key === 'Enter' && !e.shiftKey)) { nc = c + 1; }
+    else if (e.key === 'ArrowLeft') { nc = c - 1; }
+    else if (e.key === 'ArrowDown') { nr = r + 1; }
+    else if (e.key === 'ArrowUp') { nr = r - 1; }
+    else return;
+    if (nc > 8) { nc = 0; nr++; }
+    if (nc < 0) { nc = 8; nr--; }
+    if (nr < 0 || nr > 2) return;
+    e.preventDefault();
+    const next = document.querySelector(`#editGrid input[data-r="${nr}"][data-c="${nc}"]`);
+    if (next) { next.focus(); next.select(); }
+}
+
+function validateGrid() {
+    const inputs = document.querySelectorAll('#editGrid input');
+    const filas = [[], [], []];
+    let invalid = 0;
+    let rowCounts = [0, 0, 0];
+    inputs.forEach(inp => {
+        const r = +inp.dataset.r, c = +inp.dataset.c;
+        const v = inp.value.trim() === '' ? null : parseInt(inp.value, 10);
+        filas[r][c] = v;
+        inp.dataset.invalid = 'false';
+        if (v != null) {
+            const [lo, hi] = colRange(c);
+            if (isNaN(v) || v < lo || v > hi) {
+                inp.dataset.invalid = 'true';
+                invalid++;
+            } else {
+                rowCounts[r]++;
+            }
+        }
+    });
+    const hint = document.getElementById('editHint');
+    const wrongCount = rowCounts.some(n => n > 0 && n !== 5);
+    if (invalid > 0) {
+        hint.dataset.warn = 'true';
+        hint.textContent = `${invalid} número(s) fuera de rango. Cada columna tiene su decena.`;
+    } else if (wrongCount) {
+        hint.dataset.warn = 'true';
+        hint.textContent = `Filas: ${rowCounts.join(' / ')} · cada fila debería tener 5 números.`;
+    } else {
+        hint.dataset.warn = 'false';
+        hint.textContent = `Filas: ${rowCounts.join(' / ')} · columnas: 1-9, 10-19… 80-90.`;
+    }
+    return { filas, invalid, rowCounts };
+}
+
+function saveModal() {
+    const idVal = document.getElementById('cId').value.trim();
+    if (!idVal) {
+        toast('Falta identificador del cartón', 'warn');
+        return;
+    }
+    const { filas, invalid, rowCounts } = validateGrid();
+    if (invalid > 0) {
+        toast('Hay números fuera de rango', 'warn');
+        return;
+    }
+    if (rowCounts.every(n => n === 0)) {
+        toast('Introduce los números del cartón', 'warn');
+        return;
+    }
+    const dup = state.cartones.find(c => c.id === idVal && c.id !== editingId);
+    if (dup) {
+        toast(`Ya existe un cartón #${idVal}`, 'warn');
+        return;
+    }
+
+    const payload = { id: idVal, filas: filas.map(f => f.slice(0, 9)) };
+    if (photoDataUrl) payload.fotoDataUrl = photoDataUrl;
+
+    if (editingId) {
+        const i = state.cartones.findIndex(c => c.id === editingId);
+        if (i >= 0) state.cartones[i] = payload;
+    } else {
+        state.cartones.push(payload);
+    }
+    closeModal();
+    render();
+    toast(editingId ? `Cartón #${idVal} actualizado` : `Cartón #${idVal} añadido`, 'success');
+}
+
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[m]));
+}
+
+function handlePhoto(file) {
+    if (!file) return;
+    if (file.size > 6 * 1024 * 1024) {
+        toast('Foto demasiado grande (>6MB)', 'warn');
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+            const max = 1200;
+            let w = img.width, h = img.height;
+            if (w > max || h > max) {
+                const r = Math.min(max / w, max / h);
+                w = Math.round(w * r);
+                h = Math.round(h * r);
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            photoDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            renderPhotoPreview();
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+document.getElementById('btnNuevoCarton').addEventListener('click', () => openModal(null));
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+document.getElementById('modalSave').addEventListener('click', saveModal);
+document.getElementById('modalBg').addEventListener('click', e => {
+    if (e.target.id === 'modalBg') closeModal();
+});
+document.getElementById('cPhoto').addEventListener('change', e => handlePhoto(e.target.files[0]));
+document.getElementById('photoRemove').addEventListener('click', e => {
+    e.preventDefault();
+    photoDataUrl = null;
+    document.getElementById('cPhoto').value = '';
+    renderPhotoPreview();
+});
+
+document.getElementById('fabUndo').addEventListener('click', undoUltimo);
+
+const menuBtn = document.getElementById('btnMenu');
+const menuPop = document.getElementById('menuPop');
+menuBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = menuPop.dataset.open === 'true';
+    menuPop.dataset.open = open ? 'false' : 'true';
+});
+document.addEventListener('click', () => menuPop.dataset.open = 'false');
+document.getElementById('btnNuevaPartida').addEventListener('click', () => { menuPop.dataset.open = 'false'; nuevaPartida(); });
+document.getElementById('btnLimpiarTodo').addEventListener('click', () => { menuPop.dataset.open = 'false'; limpiarTodo(); });
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+});
+
+load();
+render();
+
+})();
+</script>
+</body>
+</html>
