@@ -1,0 +1,87 @@
+seoTitle: Jordi Rivero - AI CTO & Inversor
+seoDescription: >-
+  AI CTO en LeadTech. Inversor y Estratega Técnico con background en sistemas de
+  alto rendimiento, Telco y Social Media.
+blocks:
+  - discriminant: hero
+    value:
+      identityLabel: Identity / Global Technical Strategy
+      name: Jordi|Rivero
+      roleLabel: Current Role
+      role: CTO @ Leadtech
+      focusLabel: Focus
+      focus: AI Systems / VC / Product Design
+      image: /src/assets/home/jordi-rivero.webp
+      imageAlt: Jordi Rivero
+  - discriminant: mission
+    value:
+      heading: Manifesto
+      manifesto: >-
+        [HISTORIAL] +30 AÑOS EN LAS TRINCHERAS DE LA INGENIERÍA Y LA VISIÓN DE
+        NEGOCIO. PERFIL 100% AUTODIDACTA, EXPERTO EN TELECOM LEGACY. HOY, MI
+        MISIÓN ES ORQUESTAR LA IA COMO MOTOR ESTRATÉGICO: NO COMO HYPE, SINO
+        COMO ALIADA RESPONSABLE PARA TRANSFORMAR PROCESOS OBSOLETOS EN VENTAJAS
+        EXPONENCIALES. FUSIONO AI/ML INTEGRATION, PROMPT ENGINEERING Y DATA
+        SCIENCE CON MI BASE OPERATIVA PARA ESCALAR INFRAESTRUCTURAS CRÍTICAS,
+        OPTIMIZAR SEO/PRODUCTO Y GARANTIZAR ÉTICA EN LA IA. LA RESPONSABILIDAD
+        ES HUMANA: COCREO CON IA PARA INNOVAR, PERO SIEMPRE CON CRITERIO,
+        TRANSPARENCIA Y ALINEACIÓN CON OBJETIVOS DE NEGOCIO SOSTENIBLES. EN MI
+        LABORATORIO S26, EXPERIMENTO CON MODELOS AVANZADOS PARA REDEFINIR EL
+        FUTURO: DE LEGACY A INTELIGENTE, DE AUTOMATISMO A COLABORACIÓN
+        HUMANO-IA. SI BUSCAS UN SOCIO QUE INVIERTA CAPITAL Y EXPERTISE EN
+        PROYECTOS IA-DRIVEN, HABLEMOS – PORQUE LA DISRUPCIÓN NO ES UNA AMENAZA,
+        SINO UNA OPORTUNIDAD QUE DOMINO.
+      paragraphs:
+        - CTO Especialista en IA Aplicada y Estrategia Técnica.
+        - 30 años en las trincheras del código fusionando ingeniería y negocio.
+        - >-
+          Ahora centrado en IA como motor para redefinir procesos obsoletos y
+          ganar ventajas competitivas exponenciales.
+        - >-
+          Fusiono conocimientos profundos de márketing, SEO y producto para que
+          la tecnología no sea un gasto, sino el activo más valioso de la
+          compañía.
+        - Inversor en tech startups con foco en ML y optimización de procesos.
+      quote: >-
+        "En un mundo donde el código se vuelve commodity, el valor real reside
+        en el pensamiento sistémico y la integración táctica de la IA."
+  - discriminant: cta
+    value:
+      label: Intelligence Archive
+      title: EL LABORATORIO_S26
+      description: Análisis de infra, IA aplicada y tesis de inversión técnica.
+      buttonText: ACCEDER AL ARCHIVO
+      buttonHref: /posts
+  - discriminant: investment
+    value:
+      label: Investment & Partnership Protocol
+      title: Capital Estratégico
+      body: >-
+        Busco activamente oportunidades donde mi capital pueda ir acompañado de
+        mi <strong>experiencia operativa</strong>. Me involucro personalmente en
+        proyectos con base tecnológica sólida que busquen escalar mediante IA y
+        eficiencia de producto. Si tienes un desafío que requiere más que solo
+        dinero, hablemos.
+  - discriminant: featureGrid
+    value:
+      items:
+        - label: Node 01
+          title: Venture
+          description: >-
+            Detección de oportunidades / High potential tech startups / Smart
+            Capital.
+        - label: Node 02
+          title: Applied AI
+          description: >-
+            Optimización de procesos clásicos / LLM Lifecycle / Product
+            strategy.
+        - label: Node 03
+          title: Structure
+          description: >-
+            Infraestructura crítica / SEO técnico / Escala de equipos de alto
+            rendimiento.
+  - discriminant: finalCta
+    value:
+      title: ¿ESTABLECEMOS CONEXIÓN?
+      buttonText: Conecta vía X para partnerships AI o Inversiones
+      buttonHref: https://x.com/jrivero

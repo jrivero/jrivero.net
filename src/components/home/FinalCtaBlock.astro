@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  buttonText: string;
+  buttonHref: string;
+}
+
+const { title, buttonText, buttonHref } = Astro.props;
+const external = buttonHref.startsWith("http");
+---
+
+<section>
+  <div class="p-12 text-center bg-white text-black">
+    <h2 class="text-4xl md:text-7xl font-black tracking-tighter mb-8 italic">{title}</h2>
+    <a
+      href={buttonHref}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      class="inline-block border-4 border-black px-12 py-5 text-2xl font-black hover:bg-black hover:text-white transition-all uppercase tracking-widest"
+    >
+      {buttonText}
+    </a>
+  </div>
+</section>

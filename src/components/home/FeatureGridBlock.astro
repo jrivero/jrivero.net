@@ -1,0 +1,29 @@
+---
+interface GridItem {
+  label: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  items: GridItem[];
+}
+
+const { items } = Astro.props;
+const cols = items.length === 3 ? "md:grid-cols-3" : items.length === 2 ? "md:grid-cols-2" : items.length === 4 ? "md:grid-cols-4" : "md:grid-cols-1";
+---
+
+<section class="grow">
+  <div class={`grid grid-cols-1 ${cols} text-center border-b border-zinc-800`}>
+    {items.map((item, idx) => (
+      <div class:list={[
+        "p-10 hover:bg-zinc-900/50 transition-colors",
+        idx < items.length - 1 && "border-b md:border-b-0 md:border-r border-zinc-800",
+      ]}>
+        <span class="data-label">{item.label}</span>
+        <h4 class="text-xl font-black mb-4 underline decoration-brand decoration-2 underline-offset-8">{item.title}</h4>
+        <p class="text-[10px] text-zinc-500 uppercase tracking-tighter leading-tight">{item.description}</p>
+      </div>
+    ))}
+  </div>
+</section>

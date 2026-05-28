@@ -1,0 +1,22 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+}
+
+const { label, title, description, buttonText, buttonHref } = Astro.props;
+---
+
+<section class="p-8 border-b border-zinc-800 flex flex-col md:flex-row items-center justify-between group cursor-pointer hover:bg-zinc-950 transition-colors duration-75">
+  <div class="mb-4 md:mb-0">
+    <span class="data-label">{label}</span>
+    <h3 class="text-2xl font-black italic">{title}</h3>
+    <p class="text-zinc-500 text-sm mt-1 uppercase tracking-tighter">{description}</p>
+  </div>
+  <a href={buttonHref} class="border-2 border-white px-8 py-3 font-black hover:bg-white hover:text-black transition-all">
+    {buttonText} →
+  </a>
+</section>

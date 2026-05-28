@@ -1,0 +1,17 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  body: string;
+}
+
+const { label, title, body } = Astro.props;
+---
+
+<section class="border-b border-zinc-800 p-8 bg-zinc-950">
+  <div class="max-w-2xl">
+    <span class="data-label">{label}</span>
+    <h2 class="text-3xl font-black mb-4">{title}</h2>
+    <p class="text-zinc-400 text-sm normal-case leading-relaxed" set:html={body}></p>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import BaseLayoutMarkdown from "@/layouts/BaseLayoutMarkdown.astro";
+import { getCollection, render } from "astro:content";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const pageEntries = await getCollection("pages");
+  return pageEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+{
+  entry.data.layout ? (
+    <Content />
+  ) : (
+    <BaseLayoutMarkdown frontmatter={entry.data}>
+      <Content />
+    </BaseLayoutMarkdown>
+  )
+}

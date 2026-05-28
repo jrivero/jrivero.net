@@ -1,0 +1,72 @@
+---
+import { Image, type ImageMetadata } from "astro:assets";
+
+interface Props {
+  identityLabel: string;
+  name: string;
+  roleLabel: string;
+  role: string;
+  focusLabel: string;
+  focus: string;
+  image: string;
+  imageAlt: string;
+}
+
+const { identityLabel, name, roleLabel, role, focusLabel, focus, image, imageAlt } = Astro.props;
+const nameParts = name.split("|");
+
+const heroImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/home/**/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true }
+);
+const imageEntry = heroImages[image];
+const imageSrc = imageEntry?.default;
+---
+
+<header class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800">
+  <div class="md:col-span-4 p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex items-center justify-center bg-zinc-950">
+    <div class="relative group">
+      {imageSrc ? (
+        <Image
+          width={200}
+          height={200}
+          format="webp"
+          quality={85}
+          class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
+          src={imageSrc}
+          alt={imageAlt}
+        />
+      ) : (
+        <img
+          width="200"
+          height="200"
+          class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
+          src={image}
+          alt={imageAlt}
+        />
+      )}
+      <div class="absolute -bottom-2 -right-2 bg-emerald-500 w-4 h-4 border-2 border-black"></div>
+    </div>
+  </div>
+
+  <div class="md:col-span-8 p-8 flex flex-col justify-center">
+    <span class="data-label">{identityLabel}</span>
+    <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tighter">
+      {nameParts.map((part, i) => (
+        <>
+          {part}{i < nameParts.length - 1 && <br />}
+        </>
+      ))}
+    </h1>
+    <div class="flex flex-wrap gap-4 mt-2">
+      <div class="flex flex-col">
+        <span class="data-label">{roleLabel}</span>
+        <span class="font-bold text-zinc-300 uppercase tracking-tight">{role}</span>
+      </div>
+      <div class="flex flex-col border-l border-zinc-800 pl-4">
+        <span class="data-label">{focusLabel}</span>
+        <span class="font-bold text-zinc-300 uppercase tracking-tight">{focus}</span>
+      </div>
+    </div>
+  </div>
+</header>

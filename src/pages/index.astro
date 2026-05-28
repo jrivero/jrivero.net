@@ -2,311 +2,88 @@
 import HeadSEO from "@/components/HeadSEO.astro";
 import "@/styles/global.css";
 import "@fontsource-variable/inter";
-import { Image } from "astro:assets";
+import { createReader } from "@keystatic/core/reader";
+import keystaticConfig from "../../keystatic.config";
 
-const pageTitle = "Jordi Rivero - AI CTO & Inversor";
+import HeroBlock from "@/components/home/HeroBlock.astro";
+import MissionBlock from "@/components/home/MissionBlock.astro";
+import CtaBlock from "@/components/home/CtaBlock.astro";
+import InvestmentBlock from "@/components/home/InvestmentBlock.astro";
+import FeatureGridBlock from "@/components/home/FeatureGridBlock.astro";
+import FinalCtaBlock from "@/components/home/FinalCtaBlock.astro";
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const home = await reader.singletons.home.read();
+
+const pageTitle = home?.seoTitle ?? "Jordi Rivero - AI CTO & Inversor";
 const metaDescription =
-    "AI CTO en LeadTech. Inversor y Estratega Técnico con background en sistemas de alto rendimiento, Telco y Social Media.";
+  home?.seoDescription ??
+  "AI CTO en LeadTech. Inversor y Estratega Técnico con background en sistemas de alto rendimiento, Telco y Social Media.";
 
-const profileImage = "/jordi-rivero.webp";
+const blocks = home?.blocks ?? [];
 ---
 
 <html lang="es" class="scroll-smooth">
-    <head>
-        <HeadSEO
-            title={pageTitle}
-            description={metaDescription}
-            author="Jordi Rivero"
-        />
-    </head>
+  <head>
+    <HeadSEO title={pageTitle} description={metaDescription} author="Jordi Rivero" />
+  </head>
 
-    <body class="bg-black text-zinc-100 font-sans antialiased min-h-screen">
-        <div
-            class="max-w-4xl mx-auto border-x border-zinc-800 min-h-screen flex flex-col uppercase"
-        >
-            <!-- TECHNICAL HEADER -->
-            <header
-                class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800"
-            >
-                <div
-                    class="md:col-span-4 p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex items-center justify-center bg-zinc-950"
-                >
-                    <div class="relative group">
-                        <Image
-                            width="200"
-                            height="200"
-                            class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
-                            src={profileImage}
-                            alt="Jordi Rivero"
-                        />
-                        <div
-                            class="absolute -bottom-2 -right-2 bg-emerald-500 w-4 h-4 border-2 border-black"
-                        >
-                        </div>
-                    </div>
-                </div>
+  <body class="bg-black text-zinc-100 font-sans antialiased min-h-screen">
+    <div class="max-w-4xl mx-auto border-x border-zinc-800 min-h-screen flex flex-col uppercase">
+      {blocks.map((block) => {
+        switch (block.discriminant) {
+          case "hero":
+            return <HeroBlock {...block.value} />;
+          case "mission":
+            return <MissionBlock {...block.value} />;
+          case "cta":
+            return <CtaBlock {...block.value} />;
+          case "investment":
+            return <InvestmentBlock {...block.value} />;
+          case "featureGrid":
+            return <FeatureGridBlock items={block.value.items} />;
+          case "finalCta":
+            return <FinalCtaBlock {...block.value} />;
+        }
+      })}
 
-                <div class="md:col-span-8 p-8 flex flex-col justify-center">
-                    <span class="data-label"
-                        >Identity / Global Technical Strategy</span
-                    >
-                    <h1
-                        class="text-5xl md:text-7xl font-black mb-4 tracking-tighter"
-                    >
-                        Jordi<br />Rivero
-                    </h1>
-                    <div class="flex flex-wrap gap-4 mt-2">
-                        <div class="flex flex-col">
-                            <span class="data-label">Current Role</span>
-                            <span
-                                class="font-bold text-zinc-300 uppercase tracking-tight"
-                                >CTO @ Leadtech</span
-                            >
-                        </div>
-                        <div
-                            class="flex flex-col border-l border-zinc-800 pl-4"
-                        >
-                            <span class="data-label">Focus</span>
-                            <span
-                                class="font-bold text-zinc-300 uppercase tracking-tight"
-                                >AI Systems / VC / Product Design</span
-                            >
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <!-- MISSION / STRATEGY -->
-            <section
-                class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800"
-            >
-                <div
-                    class="md:col-span-4 p-8 md:border-r border-zinc-800 bg-zinc-900/30"
-                >
-                    <h2 class="text-xl font-black mb-6">Manifesto</h2>
-                    <p
-                        class="text-[10px] text-zinc-400 leading-relaxed font-mono"
-                    >
-                        [HISTORIAL] +30 AÑOS EN LAS TRINCHERAS DE LA INGENIERÍA
-                        Y LA VISIÓN DE NEGOCIO. PERFIL 100% AUTODIDACTA, EXPERTO
-                        EN TELECOM LEGACY. HOY, MI MISIÓN ES ORQUESTAR LA IA
-                        COMO MOTOR ESTRATÉGICO: NO COMO HYPE, SINO COMO ALIADA
-                        RESPONSABLE PARA TRANSFORMAR PROCESOS OBSOLETOS EN
-                        VENTAJAS EXPONENCIALES. FUSIONO AI/ML INTEGRATION,
-                        PROMPT ENGINEERING Y DATA SCIENCE CON MI BASE OPERATIVA
-                        PARA ESCALAR INFRAESTRUCTURAS CRÍTICAS, OPTIMIZAR
-                        SEO/PRODUCTO Y GARANTIZAR ÉTICA EN LA IA. LA
-                        RESPONSABILIDAD ES HUMANA: COCREO CON IA PARA INNOVAR,
-                        PERO SIEMPRE CON CRITERIO, TRANSPARENCIA Y ALINEACIÓN
-                        CON OBJETIVOS DE NEGOCIO SOSTENIBLES. EN MI LABORATORIO
-                        S26, EXPERIMENTO CON MODELOS AVANZADOS PARA REDEFINIR EL
-                        FUTURO: DE LEGACY A INTELIGENTE, DE AUTOMATISMO A
-                        COLABORACIÓN HUMANO-IA. SI BUSCAS UN SOCIO QUE INVIERTA
-                        CAPITAL Y EXPERTISE EN PROYECTOS IA-DRIVEN, HABLEMOS –
-                        PORQUE LA DISRUPCIÓN NO ES UNA AMENAZA, SINO UNA
-                        OPORTUNIDAD QUE DOMINO.
-                    </p>
-                </div>
-                <div
-                    class="md:col-span-8 p-8 text-lg leading-snug space-y-6 normal-case"
-                >
-                    <p>CTO Especialista en IA Aplicada y Estrategia Técnica.</p>
-                    <p>
-                        30 años en las trincheras del código fusionando
-                        ingeniería y negocio.
-                    </p>
-                    <p>
-                        Ahora centrado en IA como motor para redefinir procesos
-                        obsoletos y ganar ventajas competitivas exponenciales.
-                    </p>
-                    <p>
-                        Fusiono conocimientos profundos de márketing, SEO y
-                        producto para que la tecnología no sea un gasto, sino el
-                        activo más valioso de la compañía.
-                    </p>
-                    <p>
-                        Inversor en tech startups con foco en ML y optimización
-                        de procesos.
-                    </p>
-                    <p
-                        class="text-sm border-l-2 border-brand pl-4 text-zinc-400 italic"
-                    >
-                        "En un mundo donde el código se vuelve commodity, el
-                        valor real reside en el pensamiento sistémico y la
-                        integración táctica de la IA."
-                    </p>
-                </div>
-            </section>
-
-            <!-- ARCHIVE ACCESS -->
-            <section
-                class="p-8 border-b border-zinc-800 flex flex-col md:flex-row items-center justify-between group cursor-pointer hover:bg-zinc-950 transition-colors duration-75"
-            >
-                <div class="mb-4 md:mb-0">
-                    <span class="data-label">Intelligence Archive</span>
-                    <h3 class="text-2xl font-black italic">
-                        EL LABORATORIO_S26
-                    </h3>
-                    <p
-                        class="text-zinc-500 text-sm mt-1 uppercase tracking-tighter"
-                    >
-                        Análisis de infra, IA aplicada y tesis de inversión
-                        técnica.
-                    </p>
-                </div>
-                <a
-                    href="/posts"
-                    class="border-2 border-white px-8 py-3 font-black hover:bg-white hover:text-black transition-all"
-                >
-                    ACCEDER AL ARCHIVO →
-                </a>
-            </section>
-
-            <!-- INVESTMENT SECTOR -->
-            <section class="border-b border-zinc-800 p-8 bg-zinc-950">
-                <div class="max-w-2xl">
-                    <span class="data-label"
-                        >Investment & Partnership Protocol</span
-                    >
-                    <h2 class="text-3xl font-black mb-4">
-                        Capital Estratégico
-                    </h2>
-                    <p
-                        class="text-zinc-400 text-sm normal-case leading-relaxed"
-                    >
-                        Busco activamente oportunidades donde mi capital pueda
-                        ir acompañado de mi
-                        <strong>experiencia operativa</strong>. Me involucro
-                        personalmente en proyectos con base tecnológica sólida
-                        que busquen escalar mediante IA y eficiencia de
-                        producto. Si tienes un desafío que requiere más que solo
-                        dinero, hablemos.
-                    </p>
-                </div>
-            </section>
-
-            <!-- SYNERGY GRID -->
-            <section class="grow">
-                <div
-                    class="grid grid-cols-1 md:grid-cols-3 text-center border-b border-zinc-800"
-                >
-                    <div
-                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-900/50 transition-colors"
-                    >
-                        <span class="data-label">Node 01</span>
-                        <h4
-                            class="text-xl font-black mb-4 underline decoration-brand decoration-2 underline-offset-8"
-                        >
-                            Venture
-                        </h4>
-                        <p
-                            class="text-[10px] text-zinc-500 uppercase tracking-tighter leading-tight"
-                        >
-                            Detección de oportunidades / High potential tech
-                            startups / Smart Capital.
-                        </p>
-                    </div>
-                    <div
-                        class="p-10 border-b md:border-b-0 md:border-r border-zinc-800 hover:bg-zinc-900/50 transition-colors"
-                    >
-                        <span class="data-label">Node 02</span>
-                        <h4
-                            class="text-xl font-black mb-4 underline decoration-brand decoration-2 underline-offset-8"
-                        >
-                            Applied AI
-                        </h4>
-                        <p
-                            class="text-[10px] text-zinc-500 uppercase tracking-tighter leading-tight"
-                        >
-                            Optimización de procesos clásicos / LLM Lifecycle /
-                            Product strategy.
-                        </p>
-                    </div>
-                    <div class="p-10 hover:bg-zinc-900/50 transition-colors">
-                        <span class="data-label">Node 03</span>
-                        <h4
-                            class="text-xl font-black mb-4 underline decoration-brand decoration-2 underline-offset-8"
-                        >
-                            Structure
-                        </h4>
-                        <p
-                            class="text-[10px] text-zinc-500 uppercase tracking-tighter leading-tight"
-                        >
-                            Infraestructura crítica / SEO técnico / Escala de
-                            equipos de alto rendimiento.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="p-12 text-center bg-white text-black">
-                    <h2
-                        class="text-4xl md:text-7xl font-black tracking-tighter mb-8 italic"
-                    >
-                        ¿ESTABLECEMOS CONEXIÓN?
-                    </h2>
-                    <a
-                        href="https://x.com/jrivero"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-block border-4 border-black px-12 py-5 text-2xl font-black hover:bg-black hover:text-white transition-all uppercase tracking-widest"
-                    >
-                        Conecta vía X para partnerships AI o Inversiones
-                    </a>
-                </div>
-            </section>
-
-            <!-- FOOTER -->
-            <footer
-                class="p-8 border-t border-zinc-800 bg-zinc-950 flex flex-col md:flex-row justify-between items-center gap-6"
-            >
-                <div
-                    class="flex items-center gap-4 text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em]"
-                >
-                    <div class="w-2 h-2 bg-emerald-500 animate-pulse"></div>
-                    <span>© JRIVERO.NET</span>
-                    <span>/</span>
-                    <span>OP: TECHNICAL_STRATEGY</span>
-                </div>
-                <div class="flex gap-8">
-                    <a
-                        href="https://x.com/jrivero"
-                        class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
-                        >Twitter Protocol</a
-                    >
-                    <a
-                        href="https://leadtech.com?utm_source=jrivero&utm_medium=link&utm_id=cto"
-                        class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
-                        >Leadtech</a
-                    >
-                    <script
-                        defer
-                        src="https://eu.umami.is/script.js"
-                        data-website-id="033be64a-5f35-4177-8255-50707ce7f7d3"
-                    ></script>
-                </div>
-            </footer>
+      <footer class="p-8 border-t border-zinc-800 bg-zinc-950 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-4 text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em]">
+          <div class="w-2 h-2 bg-emerald-500 animate-pulse"></div>
+          <span>© JRIVERO.NET</span>
+          <span>/</span>
+          <span>OP: TECHNICAL_STRATEGY</span>
         </div>
+        <div class="flex gap-8">
+          <a
+            href="https://x.com/jrivero"
+            class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
+            >Twitter Protocol</a
+          >
+          <a
+            href="https://leadtech.com?utm_source=jrivero&utm_medium=link&utm_id=cto"
+            class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
+            >Leadtech</a
+          >
+          <script
+            defer
+            src="https://eu.umami.is/script.js"
+            data-website-id="033be64a-5f35-4177-8255-50707ce7f7d3"></script>
+        </div>
+      </footer>
+    </div>
 
-        <!-- TECHNICAL OVERLAY -->
-        <div
-            class="fixed inset-0 pointer-events-none border-20 border-black/10 z-50"
-        >
-        </div>
-        <div
-            class="fixed top-4 left-4 font-mono text-[8px] text-zinc-800 uppercase tracking-[0.4em] z-50 mix-blend-difference pointer-events-none"
-        >
-            30Y_SYSTEM_HISTORY // LEVEL: EXPERT // STATUS: INNOVATING
-        </div>
-        <div
-            class="fixed bottom-4 right-4 font-mono text-[8px] text-zinc-600 uppercase tracking-[0.4em] z-50 hidden md:block pointer-events-none"
-        >
-            AI_AUGMENTED_WORKFLOW // LATENCY: 14MS // STACK:
-            ASTRO+TAILWIND4+KEYSTATIC
-        </div>
-        <style>
-            body {
-                font-family: "Inter Variable", sans-serif;
-            }
-        </style>
-    </body>
+    <div class="fixed inset-0 pointer-events-none border-20 border-black/10 z-50"></div>
+    <div class="fixed top-4 left-4 font-mono text-[8px] text-zinc-800 uppercase tracking-[0.4em] z-50 mix-blend-difference pointer-events-none">
+      30Y_SYSTEM_HISTORY // LEVEL: EXPERT // STATUS: INNOVATING
+    </div>
+    <div class="fixed bottom-4 right-4 font-mono text-[8px] text-zinc-600 uppercase tracking-[0.4em] z-50 hidden md:block pointer-events-none">
+      AI_AUGMENTED_WORKFLOW // LATENCY: 14MS // STACK: ASTRO+TAILWIND4+KEYSTATIC
+    </div>
+    <style>
+      body {
+        font-family: "Inter Variable", sans-serif;
+      }
+    </style>
+  </body>
 </html>

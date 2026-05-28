@@ -1,0 +1,23 @@
+---
+interface Props {
+  heading: string;
+  manifesto: string;
+  paragraphs: string[];
+  quote: string;
+}
+
+const { heading, manifesto, paragraphs, quote } = Astro.props;
+---
+
+<section class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800">
+  <div class="md:col-span-4 p-8 md:border-r border-zinc-800 bg-zinc-900/30">
+    <h2 class="text-xl font-black mb-6">{heading}</h2>
+    <p class="text-[10px] text-zinc-400 leading-relaxed font-mono">{manifesto}</p>
+  </div>
+  <div class="md:col-span-8 p-8 text-lg leading-snug space-y-6 normal-case">
+    {paragraphs.map((p) => <p>{p}</p>)}
+    {quote && (
+      <p class="text-sm border-l-2 border-brand pl-4 text-zinc-400 italic">{quote}</p>
+    )}
+  </div>
+</section>

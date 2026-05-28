@@ -27,8 +27,18 @@ const calistenia = defineCollection({
 	}).passthrough(), 
 });
 
+const pages = defineCollection({
+	loader: glob({ pattern: "**/*.{md,mdoc}", base: "./src/content/pages" }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+		layout: z.string().optional(),
+	}).passthrough(),
+});
+
 export const collections = {
 	posts,
 	calistenia,
+	pages,
 };
 
