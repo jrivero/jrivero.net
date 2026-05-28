@@ -11,7 +11,7 @@ blocks:
       role: CTO @ Leadtech
       focusLabel: Focus
       focus: AI Systems / VC / Product Design
-      image: /src/assets/home/jordi-rivero.webp
+      image: /src/assets/home/blocks/0/value/image.webp
       imageAlt: Jordi Rivero
   - discriminant: mission
     value:
@@ -83,5 +83,5 @@ blocks:
   - discriminant: finalCta
     value:
       title: ¿ESTABLECEMOS CONEXIÓN?
-      buttonText: Conecta vía X para partnerships AI o Inversiones
+      buttonText: Conecta vía X/twitter para partnerships AI o Inversiones
       buttonHref: https://x.com/jrivero
