@@ -5,26 +5,28 @@ import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
+import { satteri } from "@astrojs/markdown-satteri";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://jrivero.net",
 
-  integrations: [
-      react(),
-      markdoc(),
-      sitemap(),
-      keystatic()
-  ],
+  integrations: [react(), markdoc(), sitemap(), keystatic()],
 
   output: "static",
 
   vite: {
     plugins: [tailwindcss()],
     build: {
-      chunkSizeWarningLimit: 1000
-    }
+      chunkSizeWarningLimit: 1000,
+    },
   },
 
-  adapter: vercel()
+  markdown: {
+    processor: satteri({
+      features: { directive: true },
+    }),
+  },
+
+  adapter: vercel(),
 });
