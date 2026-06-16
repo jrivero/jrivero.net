@@ -32,6 +32,7 @@ const imageSrc = imageEntry?.default;
           height={200}
           format="webp"
           quality={85}
+          loading="lazy"
           class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
           src={imageSrc}
           alt={imageAlt}
@@ -40,6 +41,7 @@ const imageSrc = imageEntry?.default;
         <img
           width="200"
           height="200"
+          loading="lazy"
           class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
           src={image}
           alt={imageAlt}

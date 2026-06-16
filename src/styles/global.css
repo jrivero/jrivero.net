@@ -5,6 +5,7 @@
 @theme {
     --color-brand: #3b82f6;
     --font-mono: "JetBrains Mono Variable", monospace;
+    --radius: 0;
 }
 
 @layer base {
@@ -17,11 +18,6 @@
     body {
         @apply bg-black text-zinc-100 selection:bg-brand selection:text-white;
         font-feature-settings: "cv02", "cv03", "cv04", "ss01";
-    }
-
-    /* Force sharp corners everywhere for Brutalist look */
-    * {
-        border-radius: 0 !important;
     }
 
     h1,
