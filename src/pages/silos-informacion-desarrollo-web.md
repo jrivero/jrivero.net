@@ -1,6 +1,7 @@
 ---
 layout: '@/layouts/BaseLayout.astro'
 title: 'Silos de información en desarrollo web'
+description: 'Tipos de silos de información en desarrollo web —datos, conocimiento, herramientas y procesos— y cómo afectan la eficiencia del equipo.'
 ---
 
 # Silos de información en desarrollo web
