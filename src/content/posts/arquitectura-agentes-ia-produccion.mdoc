@@ -1,0 +1,122 @@
+---
+title: "Arquitectura de Agentes IA: del hype a producción"
+description: "Cómo construir sistemas de agentes IA que realmente funcionen en producción. Orquestación, memoria, herramientas y los problemas que los tutoriales omiten."
+pubDate: 2026-06-16
+author: "Jordi Rivero"
+tags:
+  - CTO
+  - IA
+  - Agentes
+  - Arquitectura
+  - LLM
+  - Producción
+---
+
+# 🤖 Arquitectura de Agentes IA: Del Hype a Producción
+
+Los agentes de IA son el tema más caliente de 2026. Y también el más malentendido.
+
+Como CTO que ha visto nacer y morir una docena de paradigmas arquitectónicos, te digo: los agentes no son magia, son **sistemas distribuidos con un LLM en el centro**. Y como todo sistema distribuido, el diablo está en los detalles de orquestación, estado y error handling.
+
+He revisado decenas de implementaciones "agentic" en startups. El 90% son un loop `while` con un prompt que dice "piensa paso a paso". Eso no es un agente, es un juguete.
+
+Vamos a construir uno de verdad.
+
+---
+
+## 🧱 Los 4 Componentes de un Agente Real
+
+Un agente de producción no es una sola pieza. Son 4 componentes orquestados:
+
+### 1. El Orquestador (El Cerebro)
+
+No es un LLM. Es el **sistema de control** que decide qué hacer en cada paso. Puede ser:
+
+- **Loop reactivo simple**: Útil para tareas lineales (clasificar, resumir, extraer). El LLM recibe un input, produce un output, fin.
+- **Planificador con Re-planificación**: El agente genera un plan, ejecuta, evalúa, y ajusta. Esto es lo que la mayoría llama "agente" pero pocos implementan bien.
+- **Graph-based (DAG)**: Cada paso es un nodo con condiciones de entrada/salida. Pipelines de datos, procesamiento de documentos. Mi favorito para producción por su determinismo.
+
+**Mi stack actual**: Uso **LangGraph** para flujos complejos y **Vellum** para orquestación visual en equipos de producto. Para sistemas simples, un bucle con `async/await` y un prompt estructurado pesa menos y es más debuggeable.
+
+### 2. Memoria (El Estado)
+
+La memoria es lo que separa un agente de una calculadora. Tres niveles:
+
+- **Memoria de corto plazo** (contexto de la conversación): El history de mensajes. Límite práctico: 128k tokens. Más allá, el rendimiento se degrada y el coste explota.
+- **Memoria de largo plazo** (base de conocimiento): RAG sobre datos del usuario. Almacenamiento vectorial con actualización periódica.
+- **Memoria episódica** (experiencias pasadas): El agente recuerda qué funcionó y qué no en tareas similares. Esto es donde la mayoría de implementaciones fallan.
+
+**Regla operativa**: La memoria episódica es el verdadero moat de un agente. Un agente que aprende de sus errores es 10x más valioso que uno que empieza de cero en cada sesión.
+
+### 3. Herramientas (Las Manos)
+
+Un agente sin herramientas es un filósofo, no un trabajador.
+
+Cada herramienta debe tener:
+- **Nombre único**: Para que el LLM la seleccione sin ambigüedad.
+- **Descripción semántica**: No "getUserData", sino "Obtiene datos demográficos del usuario por ID. Útil para personalización."
+- **Schema de entrada/salida**: Tipado estricto. JSON Schema. Si el LLM alucina los parámetros, la herramienta falla.
+- **Timeouts**: Cada herramienta debe tener un timeout. He visto agentes bloqueados 5 minutos esperando una API que nunca respondió.
+
+### 4. Sistema de Evaluación (El Juez)
+
+Sin evaluación, no tienes un agente. Tienes una ruleta rusa.
+
+- **Validación de salida**: ¿El output cumple el schema esperado?
+- **Validación de seguridad**: ¿El agente intentó acceder a algo que no debía?
+- **Validación de coste**: ¿El agente consumió más tokens de los esperados?
+- **Human-in-the-loop**: Para decisiones de alto riesgo, el agente debe delegar en un humano.
+
+---
+
+## ⚠️ Los 3 Problemas Reales (que Nadie Menciona)
+
+### 1. La Deriva de Coste
+
+Un agente que planea, ejecuta, evalúa y replanifica puede consumir **10x más tokens** que una llamada directa al LLM. He visto equipos emocionados con su agente hasta que llegó la factura de OpenAI.
+
+**Solución**: Implementa un "budget de tokens" por tarea. Si el agente se pasa, fuerza una respuesta subóptima pero controlada.
+
+### 2. La Deriva de Comportamiento
+
+El mismo agente, con el mismo prompt, se comporta diferente según el día. Los LLM no son deterministas. Un agente que funcionaba perfectamente el lunes puede alucinar el martes.
+
+**Solución**: Tests de regresión. Cada vez que cambias el prompt o el modelo, ejecutas una batería de 100+ casos de prueba. Si la tasa de éxito baja del 95%, no despliegas.
+
+### 3. La Deriva de Estado
+
+El agente pierde el hilo. Empieza una tarea, llama a una herramienta, la herramienta falla, el agente "olvida" lo que estaba haciendo y alucina una respuesta.
+
+**Solución**: Checkpointing. Cada paso del agente guarda el estado actual. Si algo falla, se reanuda desde el último checkpoint exitoso.
+
+---
+
+## 🏗️ Mi Arquitectura de Referencia
+
+```
+[Input] → [Router (clasificador rápido)] → [Orquestador] → [Planificador] → [Ejecutor]
+                                                                              ↓
+                                                              [Herramientas (API/DB/Files)]
+                                                                              ↓
+                                                              [Evaluador de resultados]
+                                                                              ↓
+                                                    [¿Objetivo cumplido?] → [Output]
+                                                         ↓ (no)
+                                                    [Re-planificador] → [Ejecutor]
+```
+
+Cada flecha tiene **checkpointing**, **timeouts**, y **logging estructurado**. Sin eso, no tienes un sistema. Tienes un experimento.
+
+---
+
+## Conclusión
+
+Los agentes de IA son el futuro de la automatización de procesos complejos. Pero el camino del prototipo a la producción es largo y lleno de costes ocultos, comportamientos impredecibles y errores de estado.
+
+Mi recomendación: empieza con un agente **simple y acotado**. Una sola tarea, bien definida, con herramientas limitadas. Cuando demuestres que funciona en producción (coste controlado, comportamiento estable), entonces escalas.
+
+La mayoría de proyectos fallan por sobredimensionar el agente en la primera iteración. No seas esa startup.
+
+---
+
+*¿Estás construyendo un agente? [Cuéntame qué problemas de orquestación te encuentras](https://x.com/jrivero).*

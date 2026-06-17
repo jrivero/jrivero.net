@@ -1,0 +1,150 @@
+---
+title: "Build vs Buy para IA: cuándo entrenar un modelo propio"
+description: "Decidir entre construir un modelo propio o comprar una API de IA es la pregunta del millón. Mi framework de decisión basado en 30 años de arquitectura."
+pubDate: 2026-06-16
+author: "Jordi Rivero"
+tags:
+  - CTO
+  - IA
+  - Arquitectura
+  - Estrategia
+  - Build-vs-Buy
+  - Modelos
+---
+
+# ⚖️ Build vs Buy para IA: Cuándo Entrenar un Modelo Propio
+
+Hace unos meses escribí sobre **Build vs Buy** en general —la toma de decisiones de arquitectura clásica— y fue uno de mis posts más compartidos. Porque es un tema que todo CTO enfrenta a diario.
+
+Pero la IA ha añadido una nueva dimensión a esta decisión que merece su propio análisis: **¿construimos un modelo propio o compramos acceso a uno externo?**
+
+He visto fracasar startups enteras por tomar esta decisión mal. Y he visto otras multiplicar su valor por acertar.
+
+---
+
+## 🧠 El Marco de Decisión
+
+La pregunta fundamental sigue siendo la misma que para cualquier decisión de arquitectura: **¿Esto es parte de mi core business?**
+
+Pero en IA, el marco se vuelve más matizado. No es binario. Hay un espectro:
+
+```
+API externa → Fine-tuning → RAG híbrido → Modelo propio (base) → Modelo propio (desde cero)
+```
+
+Cada paso a la derecha incrementa el control y el moat, pero también el coste y la complejidad.
+
+---
+
+## Caso 1: Usar API Externa (Comprar)
+
+**Cuándo**: Tu caso de uso es genérico. Chatbot, resumen de textos, clasificación básica, extracción de datos no especializados.
+
+**Pros**:
+- Time-to-market inmediato
+- Coste inicial bajo (pago por uso)
+- Mantenimiento cero de infraestructura ML
+- Acceso a los mejores modelos del mundo
+
+**Contras**:
+- Coste marginal alto a escala
+- Dependencia total de un proveedor
+- Sin diferenciación (tu competidor usa el mismo modelo)
+- Datos sensibles salen de tu infraestructura
+
+**Regla**: Si puedes describir tu problema en un prompt y la respuesta es "suficientemente buena", compra. No innoves donde no hace falta.
+
+---
+
+## Caso 2: Fine-tuning (Construir sobre base)
+
+**Cuándo**: Tienes un dominio especializado (legal, médico, técnico) o necesitas un tono/estilo consistente.
+
+**Pros**:
+- Diferenciación real sobre el modelo base
+- Mejor rendimiento en tareas específicas
+- Menor latencia (modelo más pequeño y enfocado)
+- Datos no salen de tu entorno
+
+**Contras**:
+- Necesitas datos de entrenamiento de calidad (el recurso más escaso)
+- Coste de infraestructura de fine-tuning
+- Mantenimiento: los modelos base evolucionan y tu fine-tuning queda obsoleto
+- Expertise en ML: no es un proyecto de un fin de semana
+
+**Regla**: Fine-tunea cuando el modelo base falla sistemáticamente en tu dominio y tienes al menos 1,000 ejemplos de alta calidad etiquetados.
+
+---
+
+## Caso 3: Modelo Propio Pequeño (Construir desde base)
+
+**Cuándo**: Tu caso de uso es crítico, el volumen es alto, y los márgenes dependen de la eficiencia de inferencia.
+
+**Pros**:
+- Coste marginal mínimo (una GPU sirve miles de requests)
+- Control total del comportamiento
+- Privacidad absoluta
+- Moat real: nadie más tiene tu modelo
+
+**Contras**:
+- Inversión inicial alta ($100k-$1M en cómputo)
+- Equipo especializado (ML engineers, MLOps)
+- Ciclo de desarrollo largo (3-12 meses)
+- Riesgo de que el modelo no alcance la calidad esperada
+
+**Regla**: Construye modelo propio solo cuando el volumen de inferencia supere los 10M de requests/mes y el coste de API externa sea superior al coste de mantener infraestructura propia.
+
+---
+
+## 🛠️ Mi Framework de Decisión
+
+```
+Pregunta 1: ¿El modelo es parte de tu core business?
+  ├── No → Usa API externa
+  └── Sí → Pregunta 2
+
+Pregunta 2: ¿Tienes datos propietarios de alta calidad?
+  ├── No → Usa API externa + RAG sobre tus datos
+  └── Sí → Pregunta 3
+
+Pregunta 3: ¿El volumen de inferencia lo justifica?
+  ├── No → Fine-tuning
+  └── Sí → Modelo propio pequeño + fine-tuning
+```
+
+---
+
+## 📊 Ejemplos Reales
+
+| Escenario | Decisión | Razón |
+|---|---|---|
+| Chatbot de atención al cliente genérico | API externa | No es core, datos genéricos, volumen bajo |
+| Asistente de diagnóstico médico | Fine-tuning de Mistral | Dominio especializado, datos propietarios, precisión crítica |
+| Motor de recomendación para e-commerce con 50M visits/mes | Modelo propio + RAG | Volumen masivo, latencia crítica, coste de API externalet al |
+| Traducción automática para contenido legal | Fine-tuning de modelo abierto | Precisión terminológica, privacidad de datos del cliente |
+
+---
+
+## ⚡ La Estrategia Híbrida (Mi Recomendación)
+
+No tienes que elegir uno. La mejor estrategia hoy es **híbrida**:
+
+- **Default**: API externa (Anthropic, OpenAI) para el 80% de los casos de uso
+- **Para lo crítico**: Fine-tuning de modelos abiertos (Llama, Mistral, Qwen)
+- **Para lo masivo**: Modelo propio pequeño (1-7B) destilado de tus fine-tunings + cuantizado para inferencia eficiente
+
+Esta estrategia te da velocidad de entrada, diferenciación donde importa y eficiencia a escala.
+
+---
+
+## Conclusión
+
+La decisión de construir o comprar en IA es más compleja que en el software tradicional porque el coste marginal no es cero. Cada transacción tiene un coste real que se multiplica con el volumen.
+
+Mi regla de oro después de 30 años: **Compra para aprender, construye para escalar, fine-tunea para diferenciarte**.
+
+No construyas un modelo propio como ejercicio de ego. Hazlo cuando los números te digan que es la decisión correcta.
+
+---
+
+*¿Estás valorando construir un modelo propio? [Analicemos juntos los costes reales](https://x.com/jrivero).*

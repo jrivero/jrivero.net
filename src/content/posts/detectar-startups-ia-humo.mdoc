@@ -1,0 +1,105 @@
+---
+title: "Cómo detecto startups de IA que son humo (y en las que invierto)"
+description: "Mi protocolo personal para separar startups de IA reales de las que solo venden humo. Los 7 patrones de alerta y lo que busco en su lugar."
+pubDate: 2026-06-16
+author: "Jordi Rivero"
+tags:
+  - CTO
+  - IA
+  - Inversión
+  - Venture-Capital
+  - Due-Diligence
+  - Startups
+---
+
+# 🔍 Cómo Detecto Startups de IA que son Humo
+
+Después de **30 años operando tecnología** y los últimos como inversor activo, he desarrollado un radar bastante preciso para detectar startups de IA que son humo.
+
+No me impresionan las demos. No me impresionan los founders de Stanford. No me impresiona "usamos IA generativa". Me impresionan los márgenes, la defensibilidad y la ejecución real.
+
+Aquí comparto mi checklist.
+
+---
+
+## 🚩 Patrón #1: "Nuestro moat es el modelo"
+
+Si tu ventaja competitiva es que tienes acceso a GPT-4 o Claude, no tienes ventaja. Todos tienen acceso.
+
+**La pregunta que hago**: "Si OpenAI libera mañana una feature que hace exactamente lo que tu producto hace, ¿qué te queda?"
+
+**Lo que busco**: Datos propietarios, integración operativa profunda, o un proceso físico que no se puede replicar con una API.
+
+---
+
+## 🚩 Patrón #2: Coste de inferencia no calculado
+
+"Vendemos a $99/mes por usuario y usamos GPT-4".
+
+Hago la cuenta rápida: si cada usuario hace ~100 consultas/día, y cada consulta cuesta ~$0.01 en inferencia, el coste mensual es ~$30/usuario. Márgen del 69%. Parece bien hasta que añades: embeddings, vector DB, re-rankers, y el 15% de consultas que requieren contexto largo.
+
+**La pregunta que hago**: "¿Cuál es tu coste marginal por transacción y cómo escala con el volumen?"
+
+---
+
+## 🚩 Patrón #3: Demo impresionante, producción inexistente
+
+He visto demos que parecen magia. Luego pregunto por el pipeline de datos y descubro que tienen a 3 personas etiquetando manualmente los outputs (el famoso "Wizard of Oz" tech). La demo funciona, el negocio no escala.
+
+**Lo que busco**: Que la automatización sea real, no un humano disfrazado de algoritmo.
+
+---
+
+## 🚩 Patrón #4: "Somos una empresa de IA" (y son un wrapper)
+
+Si tu producto es una interfaz bonita sobre la API de Anthropic, no eres una empresa de IA. Eres una agencia digital con branding moderno.
+
+**Lo que busco**: ¿Hay ingeniería real? ¿Fine-tuning? ¿Datos propietarios? ¿Optimización de inferencia? Si la respuesta es "no" a todo, no invierto.
+
+---
+
+## 🚩 Patrón #5: Founder técnico que no sabe de infraestructura
+
+Conozco el perfil: un PhD en ML que ha entrenado modelos de 70B parámetros pero no sabe cuánto cuesta servir una inferencia en producción. La academia y la industria son universos distintos.
+
+**Lo que busco**: Founders que han puesto código en producción, que saben lo que es un coste de GPU, que han sufrido outages a las 3am.
+
+---
+
+## 🚩 Patrón #6: Equipo sobredimensionado en I+D, subdimensionado en producto
+
+Veo startups con 15 researchers y 2 ingenieros de producto. Eso no es una empresa, es un laboratorio con financiación.
+
+**Lo que busco**: Equilibrio. La IA es el medio, el producto es el fin. Demasiados researchers sin ejecución de producto es una bandera roja.
+
+---
+
+## 🚩 Patrón #7: Sin obsesión por los márgenes
+
+En la era SaaS clásica, los márgenes del 80% eran normales. Con IA, el coste de los bienes vendidos (COGS) incluye inferencia, y los márgenes del 40-50% son comunes. Pero algunos founders ni siquiera saben su COGS.
+
+**Lo que busco**: Fundadores obsesionados con la eficiencia de inferencia. Que me hablen de cuantización, de modelos locales, de caching, de optimización de prompts para reducir tokens.
+
+---
+
+## ✅ Lo que Sí Busco en una Startup de IA
+
+Cuando encuentro una startup que cumple, el patrón es siempre el mismo:
+
+1. **Datos propietarios**: Tienen acceso a datos que nadie más tiene (y que son legales, y que no son web-scraping).
+2. **Integración operativa**: Están tan metidos en el flujo de trabajo del cliente que reemplazarlos requeriría cirugía organizacional.
+3. **Obsesión por costes**: Conocen su coste por transacción mejor que su CAC.
+4. **Ejecución sobre investigación**: La prioridad es producto y velocidad, no publicar papers.
+5. **CTO operativo**: El líder técnico sabe de infraestructura, costes y despliegue tanto como de modelos.
+
+---
+
+## Conclusión
+
+El mercado de IA está lleno de humo. Pero también hay gemas. Mi ventaja como inversor operativo es que no me dejo impresionar por demos bonitas. Quiero ver el pipeline, los costes, el equipo y la defensibilidad.
+
+Si cumples mi checklist, quiero verte. Si no, vuelve al laboratorio y vuelve cuando tengas algo que realmente funcione en producción.
+
+---
+
+*¿Crees que tu startup pasa el filtro? [Hablemos](https://x.com/jrivero).*

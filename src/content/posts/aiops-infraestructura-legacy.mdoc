@@ -1,0 +1,144 @@
+---
+title: "AIOps: monitorizando pipelines de IA en infraestructura legacy"
+description: "Mi enfoque para integrar y monitorizar pipelines de IA en sistemas legacy. El CTO con background en Telco e infraestructura crítica comparte su metodología."
+pubDate: 2026-06-16
+author: "Jordi Rivero"
+tags:
+  - CTO
+  - IA
+  - AIOps
+  - Infraestructura
+  - Legacy
+  - Monitorización
+  - Operaciones
+---
+
+# ⚙️ AIOps: Monitorizando Pipelines de IA en Infraestructura Legacy
+
+Aquí es donde mi perfil se vuelve incómodo para los puristas.
+
+Llevo **30 años en infraestructura crítica** —sistemas Telco, plataformas de alto rendimiento, arquitecturas que no podían caerse porque de ellas dependían millones de usuarios. Y ahora aplico esa mentalidad a los pipelines de IA.
+
+El problema: la mayoría de startups de IA construyen sobre infraestructura verde. Bases de datos vectoriales en la nube, GPUs bajo demanda, todo shiny and new. Pero la realidad de la mayoría de CTOs es diferente: **tenemos sistemas legacy que llevan 10, 15, 20 años funcionando**. Y sobre esos sistemas tenemos que montar IA.
+
+AIOps no es un concepto nuevo —nació para aplicar ML a operaciones de IT—, pero hoy lo necesitamos al revés: **operaciones de IT para ML**. Cómo monitorizar, mantener y escalar sistemas de IA cuando tu core sigue siendo infraestructura tradicional.
+
+---
+
+## 🧱 El Problema de Fondo: Dos Mundos, un Solo Sistema
+
+Tu empresa tiene:
+- **Sistemas legacy fiables**: CRUD, bases de datos relacionales, APIs REST, colas de mensajes. Son predecibles, lentos, pero sabes cómo funcionan.
+- **Sistemas de IA impredecibles**: LLMs que alucinan, embeddings que varían, pipelines RAG con latencia inconsistente, agentes que se comportan diferente cada día.
+
+El reto es que **ambos sistemas deben convivir**. Un chatbot de IA que consulta tu base de datos legacy. Un agente que escribe en tu CRM de 15 años. Un pipeline de IA que alimenta tu API monolítica.
+
+Y cuando el sistema de IA falla, el legacy no entiende por qué.
+
+---
+
+## 🔭 Las 5 Métricas que Monitorizo en Producción
+
+### 1. Salud de la Inferencia (Inference Health)
+
+No mido solo si el LLM responde. Mido **cómo** responde:
+
+- **Tasa de alucinación estimada**: Uso un segundo LLM (más barato, local) para evaluar la fidelidad de cada respuesta contra el contexto recuperado.
+- **Consistencia temporal**: La misma pregunta debería dar respuestas semánticamente equivalentes. Si no, algo cambió (modelo actualizado, prompt modificado, drift en el pipeline).
+- **Coste por inferencia**: En dólares, no en tokens. Porque tokens no pagan facturas.
+
+**Alerta**: Si la tasa de alucinación supera el 2% o el coste por inferencia sube un 20% en una semana, revisión automática.
+
+### 2. Latencia del Pipeline Completo (End-to-End Latency)
+
+No mido latencia del LLM. Mido latencia del sistema completo: desde que el usuario hace la query hasta que recibe la respuesta.
+
+```
+E2E = Pre-procesamiento + Embedding + Búsqueda vectorial + Re-ranking + Generación + Post-procesamiento
+```
+
+Cada etapa tiene su propio SLA. Si el embedding tarda más de 200ms, tengo un problema de infraestructura. Si la generación tarda más de 2s, tengo un problema de modelo o de contexto.
+
+**Alerta**: Si el P95 de latencia E2E supera los 5s, el sistema no es apto para experiencia de usuario en tiempo real.
+
+### 3. Tasa de Error Funcional (Functional Error Rate)
+
+Los errores de IA no son 500 HTTP. Son errores semánticos:
+
+- Respuesta vacía (el LLM se negó a responder)
+- Respuesta incorrecta (el LLM respondió pero mal)
+- Respuesta insegura (el LLM generó contenido inapropiado)
+- Timeout parcial (el streaming se cortó a mitad)
+
+**Alerta**: Si la tasa de error funcional supera el 5%, el sistema necesita intervención manual.
+
+### 4. Deriva del Pipeline (Pipeline Drift)
+
+Los componentes de IA se degradan con el tiempo sin que el código cambie:
+
+- **Embedding drift**: El modelo de embeddings se actualizó y los vectores existentes ya no están en el mismo espacio semántico.
+- **Chunk drift**: La estructura de los documentos cambió y los chunks existentes ya no son óptimos.
+- **Model drift**: El modelo base se actualizó y el comportamiento de tu fine-tuning o prompts cambió.
+
+**Alerta**: Re-evaluación automática semanal de calidad contra un dataset de test estático. Si la precisión baja del 90%, el pipeline tiene drift.
+
+### 5. Coste Marginal y su Tendencia (Cost Trajectory)
+
+La métrica que más me importa como inversor:
+
+```
+Coste Marginal = Coste total del pipeline de IA / Número de transacciones procesadas
+```
+
+Idealmente, este ratio **decrece** con el volumen (economías de escala en inferencia, caching, modelos más eficientes). Si el ratio **crece**, tienes un problema de efficiencia que se agravará con el crecimiento.
+
+**Alerta**: Si el coste marginal sube durante 3 meses consecutivos, intervención urgente.
+
+---
+
+## 🛠️ Integración con Sistemas Legacy (Mi Approach)
+
+### Estrategia: Anti-Corruption Layer para IA
+
+Cuando integras IA con un sistema legacy, tu peor enemigo es el acoplamiento. Un cambio en el prompt no debería romper tu API de 15 años.
+
+Mi patrón:
+
+```
+[Legacy DB/API] ← [Anti-Corruption Layer] → [Pipeline IA]
+                   (Valida, transforma, cachea)
+```
+
+La capa anti-corrupción:
+1. **Valida inputs/outputs**: Schema estricto a ambos lados. Si el LLM devuelve algo que no cumple el schema, la capa lo rechaza.
+2. **Cachea resultados**: Para queries repetitivas, la capa cachea respuestas y evita llamadas innecesarias al LLM.
+3. **Degrada gracefulmente**: Si el LLM no responde en X tiempo, la capa devuelve una respuesta por defecto o un error controlado.
+4. **Logea todo**: Cada interacción entre el legacy y la IA queda registrada para debugging y auditoría.
+
+### Stack que Uso
+
+- **Monitorización**: Prometheus + Grafana para métricas de infraestructura. LangFuse o Weights & Biases Prompts para métricas de IA.
+- **Alerting**: Alertmanager con umbrales dinámicos (ajustan según la hora del día y el volumen de tráfico).
+- **Trazabilidad**: OpenTelemetry para tracing distribuido a través del pipeline de IA y el sistema legacy.
+- **Dashboard unificado**: Un solo panel con las 5 métricas anteriores. Si un CTO no puede ver el estado de su sistema de IA en 5 segundos, el dashboard está mal diseñado.
+
+---
+
+## ⚡ Lecciones de 30 Años en Infraestructura Crítica
+
+1. **Fallos catastróficos vienen de componentes que no monitorizabas**: En IA, el componente ignorado suele ser el pipeline de datos.
+2. **El 90% de los incidentes son silenciosos**: No hay 500 error, hay degradación gradual que nadie detecta hasta que los usuarios se quejan. En IA, esto se multiplica.
+3. **Siempre tener un plan de degradación**: Si el LLM deja de funcionar, ¿qué pasa? ¿Respuestas por defecto? ¿Modo offline? ¿Caché? Esto hay que diseñarlo antes del despliegue, no durante el incidente.
+4. **La IA no es más frágil que el software, es frágil de forma diferente**: El software falla con errores deterministas. La IA falla con errores probabilísticos. Los sistemas de alerting tradicionales no capturan los segundos.
+
+---
+
+## Conclusión
+
+AIOps para sistemas legacy no es glamuroso. No vas a publicar papers ni a dar charlas en conferencias. Pero es el trabajo real de un CTO que opera tecnología en producción: asegurar que los sistemas nuevos (IA) conviven con los viejos (legacy) sin que ninguno de los dos explote.
+
+Mi enfoque: métricas claras, capas de aislamiento bien definidas, y una obsesión enfermiza por la monitorización. La IA no es diferente de cualquier otro sistema crítico que haya operado en 30 años. Solo requiere entender sus fragilidades específicas.
+
+---
+
+*¿Estás integrando IA con sistemas legacy? [Comparte tus historias de guerra](https://x.com/jrivero).*

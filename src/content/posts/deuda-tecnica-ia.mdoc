@@ -1,0 +1,139 @@
+---
+title: "La deuda técnica de la IA: modelos, pipelines y prompts que envejecen"
+description: "Así como el código acumula deuda técnica, los sistemas de IA también. Modelos que se quedan obsoletos, pipelines que se rompen, prompts que dejan de funcionar. Cómo gestionarlo."
+pubDate: 2026-06-16
+author: "Jordi Rivero"
+tags:
+  - CTO
+  - IA
+  - Deuda-Técnica
+  - Arquitectura
+  - MLOps
+  - Mantenimiento
+---
+
+# 🏚️ La Deuda Técnica de la IA
+
+Hace unos meses escribí sobre **gestión de deuda técnica en startups**. Fue un artículo que conectó porque todo CTO sabe lo que es despertarse a las 3am por un monolito que no escala.
+
+Pero hay un tipo de deuda técnica nueva que la mayoría de líderes técnicos no están midiendo: **la deuda técnica de la IA**.
+
+Al igual que la deuda del software, la deuda de IA te permite avanzar más rápido hoy a cambio de pagar intereses en el futuro. Pero los intereses de la IA son más traicioneros porque:
+1. No los ves venir (el modelo funciona hasta que deja de funcionar)
+2. Son exponenciales (un modelo desactualizado arrastra todo el pipeline)
+3. Nadie los está midiendo (porque es un problema nuevo)
+
+Llevo **30 años pagando deuda técnica** y te aseguro que la deuda de IA es más cara de ignorar.
+
+---
+
+## 🧩 Los 4 Tipos de Deuda Técnica de IA
+
+### 1. Deuda de Modelo (Model Debt)
+
+El modelo que elegiste hace 6 meses ya no es el mejor. OpenAI, Anthropic, Google y el open source lanzan versiones cada semanas. Tu sistema funciona con GPT-4, pero GPT-5 es 3x más barato y 2x más preciso.
+
+**Síntomas**:
+- Pagas 3x más de lo necesario por inferencia
+- Tu competidor ofrece mejor calidad con un modelo más nuevo
+- El modelo antiguo empieza a alucinar en casos donde el nuevo no
+
+**Interés**: Diferencia de coste operativo mes a mes, más la pérdida de calidad competitiva.
+
+**Pago**: Tener una capa de abstracción de modelo que permita cambiar de proveedor sin reescribir el sistema. Evaluar trimestralmente el coste/beneficio de migrar.
+
+### 2. Deuda de Prompt (Prompt Debt)
+
+Tienes 500 prompts en producción. Algunos tienen 6 meses. Los has ido parcheando para corregir edge cases. Ahora el prompt original es irreconocible y nadie sabe por qué se añadió cada instrucción.
+
+**Síntomas**:
+- El mismo prompt funciona diferente con la nueva versión del modelo
+- Añadir una instrucción rompe un caso de uso que nadie había documentado
+- El prompt tiene 4,000 tokens y el 60% es legacy
+
+**Interés**: Degradación silenciosa de calidad. Cada cambio de modelo requiere re-testear todos los prompts.
+
+**Pago**: Versionado de prompts (git para prompts), test automatizados por prompt, y refactorización periódica (igual que refactorizas código).
+
+### 3. Deuda de Pipeline (Pipeline Debt)
+
+El pipeline de RAG que montaste en un hackathon ahora procesa 1M de documentos al día. Las piezas se sostienen con cinta adhesiva: scripts de Python que nadie mantiene, vectores que nunca se reindexan, chunks con configuraciones que ya no recuerdas.
+
+**Síntomas**:
+- La calidad de recuperación empeora sin que nadie sepa por qué
+- Reindexar todos los documentos lleva 3 días y nadie quiere arriesgarse
+- El pipeline se cae una vez al mes y "nadie sabe arreglarlo"
+
+**Interés**: Degradación de calidad de las respuestas + riesgos operativos + bloqueo al escalar.
+
+**Pago**: Refactorización del pipeline con monitoreo, tests de integración y documentación. Igual que refactorizas un backend legacy.
+
+### 4. Deuda de Datos (Data Debt)
+
+Los datos con los que entrenaste tu fine-tuning o construiste tu RAG están desactualizados. Nuevos productos, nuevas políticas, nuevos clientes. El modelo responde con información de 2025 a preguntas de 2026.
+
+**Síntomas**:
+- Respuestas incorrectas sobre información actual
+- El sistema recomienda productos o acciones que ya no son válidas
+- Los usuarios pierden confianza porque "la IA no está actualizada"
+
+**Interés**: Pérdida de confianza del usuario + información incorrecta en producción.
+
+**Pago**: Pipeline de actualización de datos automatizado con frescura mínima garantizada.
+
+---
+
+## 📊 Cómo Medir la Deuda de IA (Métricas)
+
+```
+Deuda Total de IA = Coste(Overfitting de modelo) 
+                  + Coste(ineficiencia de inferencia) 
+                  + Coste(prompts no mantenibles) 
+                  + Coste(pipelines sin documentar) 
+                  + Coste(datos desactualizados)
+```
+
+### Métricas de Alerta Temprana
+
+1. **Ratio de prompt-efficacy**: prompts modificados en los últimos 90 días / prompts totales. Si es < 20%, tienes prompts zombies.
+2. **Latencia de inferencia comparada**: latencia actual vs. la mejor posible con modelos actuales. Si pagas 2x, tienes deuda de modelo.
+3. **Edad media de los datos**: días desde la última actualización de tu base de conocimiento. Si supera los 90 días, tienes deuda de datos.
+4. **Tasa de reintento de pipeline**: % de ejecuciones del pipeline que requieren reintento. Si es > 5%, tienes deuda de pipeline.
+
+---
+
+## 🛠️ Estrategia para Gestionar la Deuda de IA
+
+### La Regla del 20% (Actualizada para IA)
+
+En mi post original sobre deuda técnica, recomendaba dedicar el 20% del tiempo de ingeniería al pago de deuda. Para IA, sugiero:
+
+- **10% del tiempo**: Refactorización de prompts y pipelines
+- **10% del tiempo**: Evaluación de modelos y datos
+- **5% del tiempo**: Mantenimiento de infraestructura de IA
+
+Total: **25%**. Porque la IA envejece más rápido que el código.
+
+### Check-list Trimestral
+
+Cada trimestre, ejecuta este protocolo:
+
+1. **Evalúa modelos disponibles**: ¿Sigue siendo óptimo el que usas?
+2. **Audita prompts**: ¿Hay prompts zombies? ¿Siguen siendo efectivos?
+3. **Reindexa datos**: ¿Está actualizada tu base de conocimiento?
+4. **Revisa costes**: ¿Sigue siendo eficiente tu pipeline?
+5. **Mide calidad**: ¿Han cambiado las métricas de rendimiento?
+
+---
+
+## Conclusión
+
+La deuda técnica de IA es real, y es más insidiosa que la deuda de código porque se manifiesta como degradación silenciosa de calidad, no como errores evidentes.
+
+Un CTO que no mide la deuda de IA está acumulando un problema que explotará en el peor momento: cuando el equipo intente escalar, cuando un competidor lance una feature similar con mejor calidad, o cuando un inversión haga due diligence técnica.
+
+Gestiona tu deuda de IA con la misma disciplina que gestionas tu deuda de código. El mantenimiento no es opcional. Y la IA envejece más rápido que cualquier stack tecnológico que hayas gestionado antes.
+
+---
+
+*¿Estás midiendo la deuda de IA en tu organización? [Cuéntame cómo lo haces](https://x.com/jrivero).*
