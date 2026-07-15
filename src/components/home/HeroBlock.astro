@@ -23,52 +23,56 @@ const imageEntry = heroImages[image];
 const imageSrc = imageEntry?.default;
 ---
 
-<header class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800">
-  <div class="md:col-span-4 p-8 border-b md:border-b-0 md:border-r border-zinc-800 flex items-center justify-center bg-zinc-950">
-    <div class="relative group">
-      {imageSrc ? (
-        <Image
-          width={200}
-          height={200}
-          format="webp"
-          quality={85}
-          loading="lazy"
-          class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
-          src={imageSrc}
-          alt={imageAlt}
-        />
-      ) : (
-        <img
-          width="200"
-          height="200"
-          loading="lazy"
-          class="w-48 h-48 grayscale contrast-125 object-cover brightness-90 hover:grayscale-0 transition-all duration-75"
-          src={image}
-          alt={imageAlt}
-        />
-      )}
-      <div class="absolute -bottom-2 -right-2 bg-emerald-500 w-4 h-4 border-2 border-black"></div>
+<section class="relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 lg:gap-24">
+      <div class="flex-1 max-w-2xl">
+        <p class="text-xs text-[var(--text-tertiary)] tracking-wider uppercase mb-6">{identityLabel}</p>
+        <h1 class="text-gradient bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-600 dark:from-white dark:via-zinc-200 dark:to-zinc-400 text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[0.9]">
+          {nameParts.map((part, i) => (
+            <>{part}{i < nameParts.length - 1 && <br />}</>
+          ))}
+        </h1>
+        <div class="flex flex-wrap gap-10 mt-10">
+          <div>
+            <p class="text-xs text-[var(--text-tertiary)] tracking-wider uppercase mb-2">{roleLabel}</p>
+            <p class="text-lg text-[var(--text-secondary)] font-medium">{role}</p>
+          </div>
+          <div class="pl-10 border-l border-[var(--border-subtle)]">
+            <p class="text-xs text-[var(--text-tertiary)] tracking-wider uppercase mb-2">{focusLabel}</p>
+            <p class="text-lg text-[var(--text-secondary)] font-medium">{focus}</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex-shrink-0">
+        <div class="relative group">
+          <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-[var(--border-subtle)] z-10 pointer-events-none"></div>
+          {imageSrc ? (
+            <Image
+              width={280}
+              height={373}
+              format="webp"
+              quality={90}
+              loading="lazy"
+              class="w-56 sm:w-64 lg:w-72 rounded-2xl object-cover brightness-90 dark:brightness-90 transition-all duration-300 group-hover:brightness-100 group-hover:scale-[1.02]"
+              src={imageSrc}
+              alt={imageAlt}
+            />
+          ) : (
+            <img
+              width="280"
+              height="373"
+              loading="lazy"
+              class="w-56 sm:w-64 lg:w-72 rounded-2xl object-cover brightness-90 dark:brightness-90 transition-all duration-300 group-hover:brightness-100 group-hover:scale-[1.02]"
+              src={image}
+              alt={imageAlt}
+            />
+          )}
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 pointer-events-none"></div>
+          <div class="absolute -inset-1 rounded-2xl bg-gradient-to-br from-brand/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl"></div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="md:col-span-8 p-8 flex flex-col justify-center">
-    <span class="data-label">{identityLabel}</span>
-    <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tighter">
-      {nameParts.map((part, i) => (
-        <>
-          {part}{i < nameParts.length - 1 && <br />}
-        </>
-      ))}
-    </h1>
-    <div class="flex flex-wrap gap-4 mt-2">
-      <div class="flex flex-col">
-        <span class="data-label">{roleLabel}</span>
-        <span class="font-bold text-zinc-300 uppercase tracking-tight">{role}</span>
-      </div>
-      <div class="flex flex-col border-l border-zinc-800 pl-4">
-        <span class="data-label">{focusLabel}</span>
-        <span class="font-bold text-zinc-300 uppercase tracking-tight">{focus}</span>
-      </div>
-    </div>
-  </div>
-</header>
+  <div class="section-divider"></div>
+</section>

@@ -8,10 +8,13 @@ interface Props {
 const { label, title, body } = Astro.props;
 ---
 
-<section class="border-b border-zinc-800 p-8 bg-zinc-950">
-  <div class="max-w-2xl">
-    <span class="data-label">{label}</span>
-    <h2 class="text-3xl font-black mb-4">{title}</h2>
-    <p class="text-zinc-400 text-sm normal-case leading-relaxed" set:html={body}></p>
+<section class="py-16 lg:py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="glow-card max-w-3xl mx-auto">
+      <p class="text-xs text-[var(--text-tertiary)] tracking-wider uppercase mb-3">{label}</p>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">{title}</h2>
+      <div class="text-[var(--text-secondary)] leading-relaxed text-base" set:html={body}></div>
+    </div>
   </div>
+  <div class="section-divider mt-16"></div>
 </section>

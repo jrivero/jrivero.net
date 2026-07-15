@@ -28,8 +28,8 @@ const blocks = home?.blocks ?? [];
     <HeadSEO title={pageTitle} description={metaDescription} author="Jordi Rivero" />
   </head>
 
-  <body class="bg-black text-zinc-100 font-sans antialiased min-h-screen">
-    <div class="max-w-4xl mx-auto border-x border-zinc-800 min-h-screen flex flex-col uppercase">
+  <body>
+    <div class="relative min-h-screen">
       {blocks.map((block) => {
         switch (block.discriminant) {
           case "hero":
@@ -47,22 +47,19 @@ const blocks = home?.blocks ?? [];
         }
       })}
 
-      <footer class="p-8 border-t border-zinc-800 bg-zinc-950 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="flex items-center gap-4 text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em]">
-          <div class="w-2 h-2 bg-emerald-500 animate-pulse"></div>
-          <span>© JRIVERO.NET</span>
-          <span>/</span>
-          <span>OP: TECHNICAL_STRATEGY</span>
+      <footer class="py-8 flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto px-6">
+        <div class="text-xs text-[var(--text-tertiary)] tracking-wide">
+          <span>© Jordi Rivero</span>
         </div>
-        <div class="flex gap-8">
+        <div class="flex gap-6">
           <a
             href="https://x.com/jrivero"
-            class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
-            >Twitter Protocol</a
+            class="text-xs text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors duration-200"
+            >Twitter</a
           >
           <a
             href="https://leadtech.com?utm_source=jrivero&utm_medium=link&utm_id=cto"
-            class="text-zinc-400 hover:text-brand font-mono text-[10px] uppercase tracking-widest underline underline-offset-4 decoration-zinc-800"
+            class="text-xs text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors duration-200"
             >Leadtech</a
           >
           <script
@@ -72,18 +69,5 @@ const blocks = home?.blocks ?? [];
         </div>
       </footer>
     </div>
-
-    <div class="fixed inset-0 pointer-events-none border-20 border-black/10 z-50"></div>
-    <div class="fixed top-4 left-4 font-mono text-[8px] text-zinc-800 uppercase tracking-[0.4em] z-50 mix-blend-difference pointer-events-none">
-      30Y_SYSTEM_HISTORY // LEVEL: EXPERT // STATUS: INNOVATING
-    </div>
-    <div class="fixed bottom-4 right-4 font-mono text-[8px] text-zinc-600 uppercase tracking-[0.4em] z-50 hidden md:block pointer-events-none">
-      AI_AUGMENTED_WORKFLOW // LATENCY: 14MS // STACK: ASTRO+TAILWIND4+KEYSTATIC
-    </div>
-    <style>
-      body {
-        font-family: "Inter Variable", sans-serif;
-      }
-    </style>
   </body>
 </html>

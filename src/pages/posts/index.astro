@@ -9,10 +9,10 @@ const allPosts = await getCollection("posts");
   title="Technical Archive"
   description="Deep dives técnicos y tesis de inversión."
 >
-  <div class="mb-12">
-    <span class="data-label">Subject / Directory</span>
-    <h1 class="text-6xl font-black italic">ARCHIVE_ACCESS</h1>
-    <p class="text-zinc-500 uppercase text-sm font-mono mt-2 tracking-tighter">
+  <div class="mb-16">
+    <p class="text-xs text-[var(--text-tertiary)] tracking-wider uppercase mb-3">Archive</p>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Blog</h1>
+    <p class="text-[var(--text-tertiary)] mt-3 max-w-xl">
       Exploration of technology, strategy and capital flow.
     </p>
   </div>
@@ -20,13 +20,13 @@ const allPosts = await getCollection("posts");
   {
     allPosts.length === 0 && (
       <div class="text-center py-12">
-        <h2 class="text-3xl font-bold">No posts found</h2>
-        <p class="text-zinc-500 mt-4">Check back later for new content.</p>
+        <h2 class="text-2xl font-bold">No posts found</h2>
+        <p class="text-[var(--text-tertiary)] mt-4">Check back later for new content.</p>
       </div>
     )
   }
 
-  <div class="grid grid-cols-1 border-t border-zinc-800">
+  <div class="grid grid-cols-1 gap-4">
     {
       allPosts
         .sort(
@@ -37,17 +37,16 @@ const allPosts = await getCollection("posts");
         .map((post) => (
           <a
             href={`/posts/${post.id}/`}
-            class="group flex flex-col md:flex-row md:items-center justify-between p-6 border-b border-zinc-800 hover:bg-zinc-950 transition-colors duration-75"
+            class="glow-card flex flex-col md:flex-row md:items-center justify-between no-underline hover:-translate-y-0.5"
           >
             <div class="flex flex-col">
-              <span class="data-label">Entry ID: {post.id}</span>
-              <h2 class="text-2xl font-black group-hover:underline decoration-brand decoration-4 underline-offset-4 tracking-tighter transition-none">
+              <p class="text-xs text-[var(--text-tertiary)] tracking-wider uppercase mb-1">{post.id}</p>
+              <h2 class="text-xl font-semibold tracking-tight text-[var(--text-primary)]">
                 {post.data.title}
               </h2>
             </div>
             <div class="mt-4 md:mt-0 text-right">
-              <span class="data-label">Classification</span>
-              <span class="font-mono text-zinc-300 text-sm bg-zinc-900 px-2 py-1">
+              <span class="text-xs text-[var(--text-tertiary)]">
                 {new Date(post.data.pubDate).toLocaleDateString("es-ES", {
                   year: "numeric",
                   month: "2-digit",

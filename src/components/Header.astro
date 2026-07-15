@@ -1,21 +1,53 @@
 <header
-	class="sticky top-0 z-20 border-b border-zinc-800 bg-black/80 backdrop-blur-sm"
+	class="sticky top-0 z-20 backdrop-blur-xl bg-white/80 dark:bg-black/60 border-b border-zinc-200 dark:border-white/[0.06]"
 >
-	<div class="flex max-w-4xl py-4 px-8 mx-auto items-center justify-between">
-		<a class="text-xl font-black italic uppercase tracking-tighter" href="/"
+	<div class="flex max-w-7xl mx-auto py-5 px-6 items-center justify-between">
+		<a class="text-base font-semibold tracking-tight text-zinc-900 dark:text-white" href="/"
 			>Jordi Rivero</a
 		>
-		<nav class="flex gap-6">
+		<nav class="flex items-center gap-6">
 			<a
-				class="font-mono text-[10px] uppercase tracking-widest text-zinc-400 hover:text-white underline underline-offset-4"
+				class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200"
 				href="/posts">Archive</a
 			>
 			<a
-				class="font-mono text-[10px] uppercase tracking-widest text-zinc-400 hover:text-white underline underline-offset-4"
+				class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200"
 				href="https://x.com/jrivero"
 				target="_blank"
 				rel="me">Connect</a
 			>
+			<button id="theme-toggle" class="ml-2 p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/[0.06] transition-colors duration-200" aria-label="Toggle theme">
+				<svg id="sun-icon" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+				</svg>
+				<svg id="moon-icon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+				</svg>
+			</button>
 		</nav>
 	</div>
 </header>
+
+<script>
+	const themeToggle = document.getElementById('theme-toggle');
+	const sunIcon = document.getElementById('sun-icon');
+	const moonIcon = document.getElementById('moon-icon');
+	const html = document.documentElement;
+
+	function setTheme(theme) {
+		html.classList.toggle('dark', theme === 'dark');
+		localStorage.setItem('theme', theme);
+		sunIcon?.classList.toggle('hidden', theme !== 'light');
+		moonIcon?.classList.toggle('hidden', theme !== 'dark');
+	}
+
+	const stored = localStorage.getItem('theme');
+	const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	const current = stored || (prefersDark ? 'dark' : 'light');
+	setTheme(current);
+
+	themeToggle?.addEventListener('click', () => {
+		const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+		setTheme(next);
+	});
+</script>

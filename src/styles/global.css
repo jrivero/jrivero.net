@@ -2,47 +2,91 @@
 @plugin "@tailwindcss/typography";
 @import "@fontsource-variable/jetbrains-mono";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-    --color-brand: #3b82f6;
+    --color-brand: #6366f1;
+    --color-brand-accent: #818cf8;
     --font-mono: "JetBrains Mono Variable", monospace;
-    --radius: 0;
+    --font-sans: "Inter Variable", sans-serif;
+    --radius: 0.75rem;
 }
 
 @layer base {
     :root {
-        --brutalist-border: 1px solid #27272a;
-        /* zinc-800 */
-        --brutalist-border-bold: 2px solid #ffffff;
+        --bg-body: #fafafa;
+        --bg-elevated: #ffffff;
+        --text-primary: #18181b;
+        --text-secondary: #52525b;
+        --text-tertiary: #71717a;
+        --border-subtle: rgba(0, 0, 0, 0.06);
+        --card-bg: #ffffff;
+        --card-border: rgba(0, 0, 0, 0.08);
+        --card-hover-bg: #fafafa;
+        --card-hover-border: rgba(0, 0, 0, 0.12);
+        --divider: rgba(0, 0, 0, 0.06);
+        color-scheme: light;
+    }
+
+    .dark {
+        --bg-body: #000000;
+        --bg-elevated: #0a0a0a;
+        --text-primary: #e4e4e7;
+        --text-secondary: #a1a1aa;
+        --text-tertiary: #71717a;
+        --border-subtle: rgba(255, 255, 255, 0.06);
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --card-border: rgba(255, 255, 255, 0.06);
+        --card-hover-bg: rgba(255, 255, 255, 0.05);
+        --card-hover-border: rgba(255, 255, 255, 0.1);
+        --divider: rgba(255, 255, 255, 0.06);
+        color-scheme: dark;
     }
 
     body {
-        @apply bg-black text-zinc-100 selection:bg-brand selection:text-white;
-        font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+        @apply bg-[var(--bg-body)] text-[var(--text-primary)] selection:bg-brand selection:text-white;
+        font-feature-settings: "cv02", "cv03", "cv04";
     }
 
-    h1,
-    h2,
-    h3,
-    h4 {
-        @apply font-bold tracking-tighter uppercase;
+    h1, h2, h3, h4 {
+        @apply font-bold tracking-tight text-[var(--text-primary)];
     }
 
-    a {
-        @apply transition-none;
-        /* Brutalism prefers instant feedback */
-    }
+    h1 { @apply text-5xl md:text-7xl lg:text-8xl; }
+    h2 { @apply text-3xl md:text-5xl; }
+    h3 { @apply text-2xl md:text-3xl; }
+    h4 { @apply text-xl md:text-2xl; }
+
+    a { @apply transition-colors duration-200; }
 
     main a {
-        @apply text-inherit underline decoration-brand/50 underline-offset-4 hover:decoration-brand hover:text-white;
+        @apply text-brand-accent hover:text-brand underline decoration-transparent hover:decoration-brand underline-offset-4;
     }
 }
 
 @layer components {
-    .brutalist-card {
-        @apply border border-zinc-800 p-6 bg-transparent hover:border-zinc-400 transition-colors duration-75;
+    .glow-card {
+        @apply relative overflow-hidden rounded-xl;
+        background-color: var(--card-bg);
+        border: 1px solid var(--card-border);
+        padding: 2rem;
+        transition: all 0.3s;
+    }
+    .glow-card:hover {
+        background-color: var(--card-hover-bg);
+        border-color: var(--card-hover-border);
     }
 
-    .data-label {
-        @apply font-mono text-[10px] uppercase tracking-widest text-zinc-500 mb-1 block;
+    .section-divider {
+        @apply h-px w-full;
+        background: linear-gradient(to right, transparent, var(--divider), transparent);
+    }
+}
+
+@layer utilities {
+    .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }

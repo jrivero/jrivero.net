@@ -9,15 +9,21 @@ interface Props {
 const { heading, manifesto, paragraphs, quote } = Astro.props;
 ---
 
-<section class="grid grid-cols-1 md:grid-cols-12 border-b border-zinc-800">
-  <div class="md:col-span-4 p-8 md:border-r border-zinc-800 bg-zinc-900/30">
-    <h2 class="text-xl font-black mb-6">{heading}</h2>
-    <p class="text-[10px] text-zinc-400 leading-relaxed font-mono">{manifesto}</p>
+<section class="py-16 lg:py-24">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="mb-12">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">{heading}</h2>
+      <p class="text-sm text-[var(--text-tertiary)] italic leading-relaxed">{manifesto}</p>
+    </div>
+    <div class="space-y-6 text-base text-[var(--text-secondary)] leading-relaxed">
+      {paragraphs.map((p) => <p>{p}</p>)}
+      {quote && (
+        <div class="relative pl-8 mt-10">
+          <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand to-transparent"></div>
+          <p class="text-lg text-[var(--text-primary)] italic font-medium">{quote}</p>
+        </div>
+      )}
+    </div>
   </div>
-  <div class="md:col-span-8 p-8 text-lg leading-snug space-y-6 normal-case">
-    {paragraphs.map((p) => <p>{p}</p>)}
-    {quote && (
-      <p class="text-sm border-l-2 border-brand pl-4 text-zinc-400 italic">{quote}</p>
-    )}
-  </div>
+  <div class="section-divider mt-16"></div>
 </section>

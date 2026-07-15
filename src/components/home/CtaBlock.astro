@@ -10,13 +10,18 @@ interface Props {
 const { label, title, description, buttonText, buttonHref } = Astro.props;
 ---
 
-<section class="p-8 border-b border-zinc-800 flex flex-col md:flex-row items-center justify-between group cursor-pointer hover:bg-zinc-950 transition-colors duration-75">
-  <div class="mb-4 md:mb-0">
-    <span class="data-label">{label}</span>
-    <h3 class="text-2xl font-black italic">{title}</h3>
-    <p class="text-zinc-500 text-sm mt-1 uppercase tracking-tighter">{description}</p>
+<section class="py-16 lg:py-24">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="text-xs text-[var(--text-tertiary)] tracking-wider uppercase mb-4">{label}</p>
+    <h3 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">{title}</h3>
+    <p class="text-[var(--text-secondary)] max-w-xl mx-auto mb-10">{description}</p>
+    <a
+      href={buttonHref}
+      class="inline-flex items-center gap-2 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black font-semibold px-8 py-3.5 text-sm hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+    >
+      {buttonText}
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
   </div>
-  <a href={buttonHref} class="border-2 border-white px-8 py-3 font-black hover:bg-white hover:text-black transition-all">
-    {buttonText} →
-  </a>
+  <div class="section-divider mt-16"></div>
 </section>

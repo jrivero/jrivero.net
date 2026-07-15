@@ -9,16 +9,19 @@ const { title, buttonText, buttonHref } = Astro.props;
 const external = buttonHref.startsWith("http");
 ---
 
-<section>
-  <div class="p-12 text-center bg-white text-black">
-    <h2 class="text-4xl md:text-7xl font-black tracking-tighter mb-8 italic">{title}</h2>
+<section class="relative overflow-hidden py-24 lg:py-32">
+  <div class="absolute inset-0 bg-gradient-to-br from-indigo-100/60 via-white to-indigo-50/40 dark:from-indigo-950/40 dark:via-black dark:to-indigo-950/20"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand/5 rounded-full blur-3xl"></div>
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-zinc-900 dark:text-white mb-10 leading-[0.95]">{title}</h2>
     <a
       href={buttonHref}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      class="inline-block border-4 border-black px-12 py-5 text-2xl font-black hover:bg-black hover:text-white transition-all uppercase tracking-widest"
+      class="inline-flex items-center gap-2 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black font-semibold px-10 py-4 text-base hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-brand/20"
     >
       {buttonText}
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
     </a>
   </div>
 </section>
