@@ -8,9 +8,7 @@ const { frontmatter } = Astro.props;
   description={frontmatter.description}
   author={frontmatter.author}
 >
-  <article
-    class="prose prose-invert max-w-none prose-h1:font-black prose-h1:uppercase prose-h1:text-5xl prose-p:text-left"
-  >
+  <article class="calistenia-article max-w-none">
     <slot />
   </article>
 </BaseLayout>
